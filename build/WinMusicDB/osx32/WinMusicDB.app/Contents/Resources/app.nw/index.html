@@ -1,0 +1,182 @@
+<!doctype html>
+<!--[if !IE]>      <html class="no-js non-ie" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
+<!--[if IE 9 ]>    <html class="no-js ie9" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="no-js" dir="ltr" lang="en-US" ng-app="jsmusicdb" ng-controller="AppController" ng-class="{partyMode: inPartyMode, nofocus: !focused}">
+	<!--<![endif]-->
+	<head>
+		<title>WinMusicDB2</title>
+		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width"/>
+
+		<!-- build:css stylesheets/all.css -->
+		<link rel="stylesheet" type="text/css" href="stylesheets/ionicons.css" />
+		<link rel="stylesheet" type="text/css" href="stylesheets/styles.css" />
+		<!-- endbuild -->
+
+		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-41619288-1', 'auto');
+		  ga('send', 'pageview');
+
+		</script>
+	</head>
+
+	<body ng-class="(playing && playing.track && (playing.track.isPlaying || playing.track.isPaused)) ? 'playing': ''">
+
+		<div id="loadingBackground" ng-show="loadingLocalFolder"><i class="ion-ios7-reloading"></i> <span translate="general.loadingBackground"></span>
+		  <span ng-show="scanProgress">
+		   : {{scanProgress}}%, ETA: {{scanETA}}
+		</span></div>
+		<header id="bar" ng-dblclick="restoreDefault();$event.stopPropagation();">
+			<div class="btn-group">
+			  <button type="button" class="btn btn-default btn-xs btn-wide" ng-click="downloadlink();$event.stopPropagation();" title="Upgrade {{newVersion | versionFilter}}" ng-show="hasNewVersion"><i class="ion-ios7-arrow-up"></i>&nbsp;&nbsp;Upgrade</button>
+				<button type="button" class="btn btn-default btn-xs" ng-click="minimize();$event.stopPropagation();"><i class="ion-ios7-minus-empty"></i></button>
+				<button type="button" class="btn btn-default btn-xs" ng-click="resize();$event.stopPropagation();" ng-show="inPartyMode"><i class="ion-ios7-videocam-outline"></i></button>
+				<button type="button" class="btn btn-default btn-xs" ng-click="maximize();$event.stopPropagation();" ng-hide="maximized"><i class="ion-ios7-plus-empty"></i></button>
+				<button type="button" class="btn btn-default btn-xs" ng-click="restore();$event.stopPropagation();" ng-show="maximized"><i class="ion-ios7-photos-outline"></i></button>
+				<button type="button" class="btn btn-danger btn-xs" ng-click="close();$event.stopPropagation();"><i class="ion-ios7-close-empty"></i></button>
+			</div>
+		</header>
+		<header ng-hide="inPartyMode">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-10 header">
+						<div class="dropdown">
+							<a data-toggle="dropdown" id="logo">JSMusicDB</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="#/overview"><i class="ion-ios7-home-outline"></i> <span translate="general.menu.overview">Overview</span></a>
+								</li>
+								<li>
+									<a href="#/playlist"><i class="ion-ios7-paper-outline"></i> <span translate="general.menu.playlists">playlists</span></a>
+								</li>
+								<li>
+                  <a href="#/settings"><i class="ion-ios7-gear-outline"></i> <span translate="general.menu.settings">settings</span></a>
+                </li>
+								<li>
+									<a href="#/about"><i class="ion-ios7-information-outline"></i> <span translate="general.menu.about">about</span></a>
+								</li>
+							</ul>
+						</div>
+						<h1>{{path}}</h1>
+					</div>
+					<div class="col-xs-2 visible-xs mobile-nav">
+						<div class="dropdown">
+							<button type="button" class="navbar-toggle" data-toggle="dropdown">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li ng-repeat="letter in letters" ng-class="(letter.active) ? 'active': ''">
+									<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
+								</li>
+								<li>
+								  <a href="#/search/"><i class="ion-ios7-search"></i></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<nav class="navbar navbar-default hidden-xs" role="navigation">
+			<div class="container">
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li ng-repeat="letter in letters" ng-class="(letter.active) ? 'active': ''">
+							<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
+						</li>
+						<li>
+              <a href="#/search/"><i class="ion-ios7-search"></i></a>
+            </li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div>
+		</nav>
+		<div class="container" id="main">
+			<div ng-view class="view"></div>
+		</div>
+		<div ng-include="'templates/player.html'"></div>
+
+		<div class="row" id="loader" ng-show="parsing">
+      <h2 translate="general.loading">Please wait, loading data</h2>
+      <div class="md-progress-linear">
+        <div class="md-container md-ready">
+          <div class="md-dashed"></div>
+          <div class="md-bar md-bar1"></div>
+          <div class="md-bar md-bar2"></div>
+        </div>
+      </div>
+      <p id="loadingType"></p>
+    </div>
+    <div id="loaderbg" ng-show="parsing">
+
+
+		<script src="javascripts/jquery-2.0.3.min.js"></script>
+		<script src="javascripts/angular/angular.min.js"></script>
+    <script src="javascripts/angular/angular-route.min.js"></script>
+    <script src="javascripts/angular/angular-sanitize.min.js"></script>
+    <script src="javascripts/angular/angular-animate.min.js"></script>
+    <script src="javascripts/angular/angular-touch.min.js"></script>
+		<script src="javascripts/md5.js"></script>
+		<script src="javascripts/jquery.getimagedata.min.js"></script>
+		<script src="javascripts/colorThief.min.js"></script>
+		<script src="javascripts/nicescroll.min.js"></script>
+
+		<script src="javascripts/angular.ui/ui-bootstrap-tpls-0.12.0.min.js"></script>
+
+		<script src="javascripts/lastfm.js"></script>
+
+		<script src="javascripts/fullscreen.js"></script>
+		<script src="javascripts/notify.js"></script>
+
+		<script src="javascripts/bootstrap/collapse.js"></script>
+		<script src="javascripts/bootstrap/dropdown.js"></script>
+		<script src="javascripts/JSMusicDB2/JSMusicDB2.js"></script>
+
+		<script src="javascripts/JSMusicDB2/controllers/AppController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/LoginController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/ArtistOverviewController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/ArtistViewController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/AlbumViewController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/PlayerController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/PlaylistController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/OverviewController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/AddPlaylistController.js"></script>
+		<script src="javascripts/JSMusicDB2/controllers/SearchController.js"></script>
+
+		<script src="javascripts/JSMusicDB2/modules/angular-translate.min.js"></script>
+		<script src="javascripts/JSMusicDB2/modules/tmh-dynamicLocale.js"></script>
+
+		<script src="javascripts/JSMusicDB2/directives/lazy-bg.js"></script>
+		<script src="javascripts/JSMusicDB2/directives/lazy-src.js"></script>
+		<script src="javascripts/JSMusicDB2/directives/customOnChange.js"></script>
+
+		<script src="javascripts/JSMusicDB2/filters/TimeFilter.js"></script>
+		<script src="javascripts/JSMusicDB2/filters/VersionFilter.js"></script>
+
+		<script src="javascripts/JSMusicDB2/services/RestService.js"></script>
+		<script src="javascripts/JSMusicDB2/services/ModelService.js"></script>
+		<script src="javascripts/JSMusicDB2/services/ImageService.js"></script>
+		<script src="javascripts/JSMusicDB2/services/PlatformService.js"></script>
+
+		<script src="https://www.youtube.com/iframe_api"></script>
+
+		<!-- remote error handling -->
+	  	<script type="text/javascript">
+  			window.qbaka||function(e,t){var n=[];var r=e.qbaka=function(){n.push(arguments)};e.__qbaka_eh=e.onerror;e.onerror=function(){r("onerror",arguments);if(e.__qbaka_eh)try{e.__qbaka_eh.apply(e,arguments)}catch(t){}};e.onerror.qbaka=1;r.sv=2;r._=n;r.log=function(){r("log",arguments)};r.report=function(){r("report",arguments,new Error)};var i=t.createElement("script"),s=t.getElementsByTagName("script")[0],o=function(){s.parentNode.insertBefore(i,s)};i.type="text/javascript";i.async=!0;i.src=("https:"==t.location.protocol?"https:":"http:")+"//qbaka.r.worldssl.net/reporting.js";typeof i.async=="undefined"&&t.addEventListener?t.addEventListener("DOMContentLoaded",o):o();r.key="2264266901f3fd3f959752e03ed1702e"}(window,document);qbaka.options={autoStacktrace:1,trackEvents:1};
+  		</script>
+
+	</body>
+</html>

@@ -1,0 +1,186 @@
+{
+  "general": {
+    "loading": "Please wait, loading data",
+    "loadingBackground": "Scanning folder",
+    "menu": {
+      "overview": "Overview",
+      "playlists": "Playlists",
+      "settings": "Settings",
+      "about": "About this program"
+    },
+    "noalbums": "No albums",
+    "onealbum": "1 album",
+    "morealbums": "albums",
+    "notracks": "No tracks",
+    "onetrack": "One tracks",
+    "moretracks": "tracks"
+  },
+  "login": {
+    "error": "Please check all fields",
+    "label": {
+      "username": "Username",
+      "password": "Password",
+      "2factor": "Use 2 factor authentication",
+      "code": "2 factor authentication code",
+      "port": "Synology server port",
+      "lastfm": "Last.fm username",
+      "remember": "Remember my details"
+    },
+    "placeholder": {
+      "username": "username",
+      "password": "password",
+      "code": "e.g. 123456",
+      "lastfm": "Optionally enter your last.fm username",
+      "port": "e.g. 5000"
+    },
+    "help": "Please enter the port on which your synology diskstation is running. Default port is <em>5000</em>",
+    "helpSSL": "Please enter the <strong>secure</strong> port on which your synology diskstation is running. Default port is <em>5001</em>",
+    "helpCode": "Please enter your 2 factor authentication code",
+    "button": "Login"
+  },
+  "overview": {
+    "headers": {
+      "recent": "Recently listened",
+      "added": "Recently added",
+      "upcoming": "Upcoming releases"
+    },
+    "loading": {
+      "recent": "Loading recently listened",
+      "added": "Loading recently added",
+      "upcoming": "Loading upcoming releases"
+    },
+    "listening": "listening now"
+  },
+  "playlists": {
+    "loadingPlural": "loading playlists",
+    "loadingSingle": "loading playlist",
+    "action": {
+      "rename": "rename",
+      "remove": "remove",
+      "add": "Add new playlist",
+      "processing": "Processing",
+      "save": "Save as new playlist"
+    },
+    "lists": {
+      "lastfmName": "Last.fm loved list for",
+      "random": "50 random songs",
+      "current": "Current playlist",
+      "radio": "Radio"
+    },
+    "popup": {
+      "add": {
+        "header": "Add new playlist",
+        "label": {
+          "name": "Playlist name"
+        },
+        "button": "Add new playlist"
+      },
+      "rename": {
+        "header": "Rename playlist",
+        "button": "Rename playlist"
+      },
+      "error": "Please give a name to the playlist",
+      "help": "Please enter the name of the playlist, this new list will be stored on your server."
+    },
+    "notalltracksfound": "<strong>Warning</strong>, not all tracks in this playlist are found",
+    "radio": {
+      "startArtist": "Choose an artist to begin with",
+      "nomoresimilarartistsfound": "No more similar artists found in your collection. You could try to start the radio again, or enjoy this playlist"
+    }
+  },
+  "about": {
+    "lastUpdated": "Last updated:",
+    "sync": "Sync data",
+    "artists": "Total amount of artists:",
+    "albums": "Total amount of albums:",
+    "tracks": "Total amount of tracks:",
+    "time": "Total playing time:",
+    "days": "days",
+    "skipped": "Total amount of skipped songs",
+    "ums": "(U:M:S)",
+    "connectLastFm": "Connect to last.fm",
+    "connectedLastFm": "Connected to last.fm",
+    "debug": "debug:",
+    "fetched": "Fetched music file in : ",
+    "fetchedLocal": "Scanned local music in : ",
+    "parsed": "Parsed music file in : ",
+    "intro": "WinMusicDB is a webstandards based music library/player that can be installed on a windows system and can connect to a synology nas running JSMusicDB",
+    "beta": "WinMusicDB is in public beta. Please visit http://www.jsmusicdb.com if you have found a bug or want to report a problem.",
+    "changelog": "Recent changes:",
+    "source": {
+      "setSource": "Set source",
+      "select": "Select music source",
+      "local": "Local music",
+      "cloud": "Cloud music",
+      "both": "Cloud and local music",
+      "change": "Change folder"
+    },
+    "version": "Version",
+    "downloadNew": "New version is available",
+    "language": {
+      "label": "Language",
+      "dutch": "Nederlands",
+      "english": "English"
+    }
+  },
+  "album": {
+    "playlist": {
+      "add": "Add to playlist",
+      "new": "New playlist"
+    },
+    "artist": "artist",
+    "album": "album",
+    "year": "year",
+    "tracks": "tracks"
+  },
+  "player": {
+    "close": "&times; Now playing",
+    "upNext": "Up next:",
+    "by": "by"
+  },
+  "search": {
+    "search": "Search for",
+    "albums": "Albums",
+    "artists": "Artists",
+    "tracks": "Tracks",
+    "year": "Year",
+    "searching": "Searching ...",
+    "results": "Results for ",
+    "warning": "Warning!",
+    "yield1": "The query yielded more than",
+    "yield2": "results; only the first",
+    "yield3": "are shown!"
+  },
+  "settings": {
+    "viewSettings": "View",
+    "view": {
+      "grid": "Place artists and albums on a grid",
+      "list": "Show artists and albums in a list"
+    },
+    "userSettings": "User",
+    "user": {
+      "loggedInAs": "Logged in as: ",
+      "logout": "Logout"
+    },
+    "source": {
+      "header": "Source(s)",
+      "browser": {
+        "label": "Choose local folder"
+      },
+      "local": "Local",
+      "cloud": "Cloud",
+      "both": "Both local and cloud",
+      "change": "Change folder",
+      "youtube": "Prefer watching youtube videos"
+    }
+  },
+  "logout": {
+    "header": "You are now logged out",
+    "p": "You can <a href='#/overview'>login</a> again"
+  },
+  "newversion": {
+    "newversion": "New version",
+    "available": "is available",
+    "download": "Download"
+  }
+}

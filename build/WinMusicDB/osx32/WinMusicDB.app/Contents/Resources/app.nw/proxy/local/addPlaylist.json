@@ -1,0 +1,14 @@
+{
+   "node" : {
+      "allowDrag" : false,
+      "allowDrop" : false,
+      "draggable" : false,
+      "expanded" : false,
+      "id" : "musiclib_music_shared/playlist/1020",
+      "leaf" : true,
+      "pid" : "musiclib_root",
+      "qtip" : "dfa",
+      "text" : "dfa"
+   },
+   "success" : true
+}
