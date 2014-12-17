@@ -1,0 +1,18 @@
+{
+  "name": "WinMusicDB",
+  "main": "WinMusicDB/index.html",
+  "window": {
+    "icon": "WinMusicDB/images/icon.png",
+    "frame": false,
+    "toolbar": true,
+    "width": 1200,
+    "height": 800,
+    "min_width": 380,
+    "min_height": 640
+  },
+  "single-instance": false,
+  "devDependencies": {
+    "node-webkit-builder": "~1.0.0",
+    "gulp-webp": "~2.1.1"
+  }
+}

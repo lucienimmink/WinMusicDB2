@@ -1,0 +1,180 @@
+{
+  "general": {
+    "loading": "Bezig met ophalen data",
+    "loadingBackground": "Folder aan het scannen",
+    "menu": {
+      "overview": "Overzicht",
+      "playlists": "Speellijsten",
+      "settings": "Instellingen",
+      "about": "Over dit programma"
+    },
+    "noalbums": "Geen albums",
+    "onealbum": "1 album",
+    "morealbums": "albums",
+    "notracks": "Geen nummers",
+    "onetrack": "Een nummer",
+    "moretracks": "nummers"
+  },
+  "login": {
+    "error": "Controleer alle velden",
+    "label": {
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "2factor": "Gebruik 2 factor authenticatie",
+      "code": "2 factor authenticatie code",
+      "port": "Synology server poortnummer",
+      "lastfm": "Last.fm gebruiksnaam",
+      "remember": "Onthoud mijn gegevens"
+    },
+    "placeholder": {
+      "username": "gebruikersnaam",
+      "password": "wachtwoord",
+      "code": "bv. 123456",
+      "lastfm": "Vul eventueel uw last.fm gebruikersnaam in",
+      "port": "bv. 5000"
+    },
+    "help": "Vul hier het poortnummer in waarop de synology server bereikbaar is. Normaal is dit <em>5000</em>",
+    "helpSSL": "Vul hier het <strong>veilige</strong> poortnummer in waarop de synology server bereikbaar is. Normaal is dit <em>5001</em>",
+    "helpCode": "Vul hier je 2 factor authenticatie code in",
+    "button": "Inloggen"
+  },
+  "overview": {
+    "headers": {
+      "recent": "Onlangs geluisterd",
+      "added": "Onlangs toegevoegd",
+      "upcoming": "Binnenkort uit te komen"
+    },
+    "loading": {
+      "recent": "Onlangs geluisterd laden",
+      "added": "Onlangs toegevoegd laden",
+      "upcoming": "Binnenkort uit te komen laden"
+    },
+    "listening": "Aan het luisteren"
+  },
+  "playlists": {
+    "loadingPlural": "Speellijsten laden",
+    "loadingSingle": "Speellijst laden",
+    "action": {
+      "rename": "hernoem",
+      "remove": "verwijder",
+      "add": "Nieuwe speellijst toevoegen",
+      "processing": "verwerken",
+      "save": "Bewaar als nieuwe speellijst"
+    },
+    "lists": {
+      "lastfmName": "Geliefde nummers op Last.fm van",
+      "random": "50 willekeurige nummers",
+      "current": "Huidige speellijst",
+      "radio": "Radio"
+    },
+    "popup": {
+      "add": {
+        "header": "Voeg nieuwe speellijst toe",
+        "label": {
+          "name": "Naam van de speellijst"
+        },
+        "button": "Voeg nieuwe speellijst toe"
+      },
+      "rename": {
+        "header": "Hernoem speellijst",
+        "button": "Hernoem speellijst"
+      },
+      "error": "Geef de speellijst een naam",
+      "help": "Geef de speellijst een naam, deze naam zal op de server opgeslagen worden"
+    },
+    "notalltracksfound": "<strong>Waarschuwing</strong>, Niet alle nummers in deze speellijst zijn gevonden",
+    "radio": {
+      "startArtist": "Kies een artiest om mee te beginnen",
+      "nomoresimilarartistsfound": "Geen overeenkomende artiesten meer gevonden in je collectie, je kan de radio opnieuw starten; of van deze speellijst gebruik maken."
+    }
+  },
+  "about": {
+    "lastUpdated": "Laatst geupdate:",
+    "sync": "Synchroniseer",
+    "artists": "Aantal artiesten:",
+    "albums": "Aantal albums:",
+    "tracks": "Aantal nummers:",
+    "time": "Totale speelduur:",
+    "days": "dagen",
+    "skipped": "Aantal overgeslagen nummers",
+    "ums": "(U:M:S)",
+    "connectLastFm": "Koppel met last.fm",
+    "connectedLastFm": "Gekoppelt met last.fm",
+    "debug": "debug:",
+    "fetched": "Muziekbestand gedownload in : ",
+    "fetchedLocal": "Lokale muziek gescanned in : ",
+    "parsed": "Muziekbestand verwerkt in : ",
+    "intro": "WinMusicDB is een webstandaard gebaseerde muziek bibliotheek en -speler die ge&iuml;nstalleerd kan worden op een windows systeem, deze kan een connectie maken met een Synology NAS die JSMusicDB draait.",
+    "beta": "WinMusicDB is beta. Ga naar http://www.jsmusicdb.com om een bug te melden of om een probleem te melden.",
+    "version": "Versie",
+    "downloadNew": "Nieuwe versie is beschikbaar",
+    "changelog": "Recente wijzigingen<br />(engels):",
+    "language": {
+      "label": "Taal",
+      "dutch": "Nederlands",
+      "english": "English"
+    }
+  },
+  "album": {
+    "playlist": {
+      "add": "Aan speellijst toevoegen",
+      "new": "Nieuwe speellijst"
+    },
+    "artist": "artiest",
+    "album": "album",
+    "year": "jaar",
+    "tracks": "nummers"
+  },
+  "player": {
+    "close": "&times; Spelend",
+    "upNext": "Volgende nummer:",
+    "by": "door"
+  },
+  "search": {
+    "search": "Zoek naar",
+    "albums": "Albums",
+    "artists": "Artiesten",
+    "tracks": "Nummers",
+    "year": "Jaartal",
+    "searching": "Bezig met zoeken ...",
+    "results": "Resultaten voor ",
+    "warning": "Waarschuwing!",
+    "yield1": "De zoekopdracht leverde meer dan ",
+    "yield2": "resultaten op, alleen de eerste ",
+    "yield3": "resultaten worden getoond"
+  },
+  "settings": {
+    "viewSettings": "Gebruikers interface",
+    "view": {
+      "grid": "Plaats artiesten en albums in een grid",
+      "list": "Plaats artiesten en albums in een lijst"
+    },
+    "userSettings": "Gebruiker",
+    "user": {
+      "loggedInAs": "Ingelogd als: ",
+      "logout": "Uitloggen"
+    },
+    "source": {
+      "header": "Bron(nen)",
+      "browser": {
+        "label": "Kies lokale folder"
+      },
+      "setSource": "Muziek bron",
+      "select": "Selecteer muziek bron",
+      "local": "Lokale muziek",
+      "cloud": "Cloud muziek",
+      "both": "Cloud en lokale muziek",
+      "change": "Verander folder",
+      "youtube": "Geef de voorkeur aan YouTube videos"
+    }
+  },
+  "logout": {
+    "header": "Je bent nu uitgelogd",
+    "p": "Je kan opnieuw <a href='#/overview'>inloggen</a>"
+  },
+  "newversion": {
+    "newversion": "Nieuwe versie",
+    "available": "is beschikbaar",
+    "download": "Downloaden"
+  }
+}

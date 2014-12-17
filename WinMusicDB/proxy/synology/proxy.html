@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script>
+		$(function() {
+			document.domain = document.domain;
+
+			var getUrlParams = function () {
+				var vars = [], hash, hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+				for (var i = 0; i < hashes.length; i++) {
+					hash = hashes[i].split('=');
+					if (hash.length === 2) {
+						vars.push(hash[0]);
+						vars[hash[0]] = unescape(hash[1]);
+					}
+				}
+				return vars;
+			};
+
+			var account = getUrlParams()["account"],
+					passwd = getUrlParams()["passwd"];
+
+			if (account && passwd) {
+				$.getJSON('/webapi/auth.cgi?api=SYNO.API.Auth&version=2&method=login&account='+account+'&passwd='+passwd+'&session=JSMusicDB&format=sid', function(json) {
+					parent.$("html").trigger("sid.loaded", json);
+				});
+			}
+		});
+	</script>
+</html>
