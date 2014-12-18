@@ -338,7 +338,7 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http, ImageServic
 			} else {
 				ImageService.getArt(source, function (json) {
 					if (json && json.images.length > 0) {
-						cachedResult = json.images[0].url || "images/nocover.png";
+						cachedResult = json.images[0].url || "images/nocover.webp";
 						setImage(cachedResult);
 					} else {
 						ImageService.getLastFMArt(source, function (json) {
@@ -346,11 +346,11 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http, ImageServic
 							if (json) {
 								angular.forEach(json.image, function (e) {
 									if (e.size === "mega") {
-										cachedResult = e["#text"] || "images/nocover.png";
+										cachedResult = e["#text"] || "images/nocover.webp";
 									}
 								});
 							} else {
-								cachedResult = "images/nocover.png";
+								cachedResult = "images/nocover.webp";
 							}
 							setImage(cachedResult);
 						});

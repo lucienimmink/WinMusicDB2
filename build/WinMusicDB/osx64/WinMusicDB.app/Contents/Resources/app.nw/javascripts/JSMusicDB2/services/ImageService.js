@@ -69,7 +69,6 @@ function($log, $http, $rootScope, $sce) {
 	};
 
 	factory.filter = function (s) {
-		s = s.replace("'", "");
 		s = s.replace("%", "");
 		s = s.replace("\"", "");
 		s = s.replace("/", " & ");

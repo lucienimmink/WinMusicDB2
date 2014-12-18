@@ -142,7 +142,7 @@ function($http, $log, $location) {
 						$.each(artlist, function() {
 							if (this.size === 'extralarge') {
 								var url = this["#text"];
-								var imgUrl = url || "images/nocover.png";
+								var imgUrl = url || "images/nocover.webp";
 								callback(imgUrl);
 							}
 						});
@@ -178,7 +178,7 @@ function($http, $log, $location) {
 								$.each(artlist, function() {
 									if (this.size === 'extralarge') {
 										var url = this["#text"];
-										var imgUrl = url || "images/nocover.png";
+										var imgUrl = url || "images/nocover.webp";
 										var colorThief = new ColorThief();
 										var img = $("<img src='" + imgUrl + "'>");
 										img.on("load", function() {
