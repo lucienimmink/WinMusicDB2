@@ -40,6 +40,17 @@
         <input type="radio" ng-model="viewMode" value="list" ng-change="toggleView('list')">
         <span translate="settings.view.list"></span></label>
     </div>
+    <legend translate="settings.imageSettings"></legend>
+    <div class="radio">
+      <label>
+        <input type="radio" ng-model="imageMode" value="spotify" ng-change="toggleImage('spotify')">
+        <span translate="settings.image.spotify"></span></label>
+    </div>
+    <div class="radio">
+      <label>
+        <input type="radio" ng-model="imageMode" value="lastfm" ng-change="toggleImage('lastfm')">
+        <span translate="settings.image.lastfm"></span></label>
+    </div>
   </div>
   <div class="well">
     <legend translate="settings.userSettings"></legend>

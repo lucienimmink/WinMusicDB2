@@ -157,6 +157,11 @@
       "grid": "Place artists and albums on a grid",
       "list": "Show artists and albums in a list"
     },
+    "imageSettings": "Images",
+    "image": {
+      "spotify": "Prefer spotify images over last.fm images",
+      "lastfm": "Only use lastfm images"
+    },
     "userSettings": "User",
     "user": {
       "loggedInAs": "Logged in as: ",

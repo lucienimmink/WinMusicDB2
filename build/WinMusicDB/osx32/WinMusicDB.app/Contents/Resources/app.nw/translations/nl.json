@@ -149,6 +149,11 @@
       "grid": "Plaats artiesten en albums in een grid",
       "list": "Plaats artiesten en albums in een lijst"
     },
+    "imageSettings": "Afbeeldingen",
+    "image": {
+      "spotify": "Prefereer Spotify afbeeldingen boven last.fm afbeeldingen",
+      "lastfm": "Gebruik alleen last.fm afbeeldingen"
+    },
     "userSettings": "Gebruiker",
     "user": {
       "loggedInAs": "Ingelogd als: ",

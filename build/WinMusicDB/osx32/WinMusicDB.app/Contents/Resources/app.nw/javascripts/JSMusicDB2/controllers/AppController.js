@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 36;
+	$scope.version = 37;
 
 	// version checker
 	$http.get("http://www.arielext.org/version.txt?ts="+new Date().getTime()).success(function(remote) {
@@ -92,6 +92,19 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 			$scope.viewMode = value;
 		}
 		localStorage.setItem("viewMode", $scope.viewMode);
+	};
+	
+	
+	$rootScope.imageMode = localStorage.getItem("imageMode") || "spotify";
+	$scope.toggleImage = function(value) {
+		// TODO: purge cache
+		// $rootScope.cachedImages = [];
+		if (!value) {
+			$rootScope.imageMode = ($scope.imageMode === "spotify") ? "lastfm" : "spotify";
+		} else {
+			$rootScope.viewMode = value;
+		}
+		localStorage.setItem("imageMode", $rootScope.viewMode);
 	};
 
 	Notify.requestPermission();
