@@ -60,6 +60,9 @@ function($log, $translate, $timeout) {
 							isVisible : true,
 							artistURL : function() {
 								return "letter/" + firstLetter + "/artist/" + artistName.toLowerCase();
+							},
+							raw: {
+								name: line.Naam
 							}
 						};
 						context.artists[artistName] = artist;
@@ -92,6 +95,10 @@ function($log, $translate, $timeout) {
 							isVisible : true,
 							albumURL : function() {
 								return "letter/" + firstLetter + "/artist/" + artistName.toLowerCase() + "/album/" + $.trim(line.Album);
+							},
+							raw: {
+								artist: line.Artiest,
+								album: line.Album
 							}
 						};
 						context.albums[artistName + "-" + $.trim(line.Album.toLowerCase())] = album;
@@ -124,7 +131,12 @@ function($log, $translate, $timeout) {
 								var name = line.path.split('/');
 								return name[name.length - 1];
 							},
-							seconds : line.seconds
+							seconds : line.seconds,
+							raw: {
+								artist: line.Artiest,
+								album: line.Album,
+								title: line.Titel
+							}
 						};
 						if (isLocal) {
 							track.localPath = line.Pad;
