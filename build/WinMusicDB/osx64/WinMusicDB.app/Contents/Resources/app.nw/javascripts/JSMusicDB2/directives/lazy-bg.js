@@ -342,25 +342,13 @@ jsmusicdb.directive("bnLazyBg", function($window, $document, $http, ImageService
 			if (cachedResult) {
 				element[0].style.backgroundImage = 'url(' + cachedResult + ')';
 			} else {
-				ImageService.getArt(source, function (json) {
-					if (json && json.images.length > 0) {
-						cachedResult = json.images[0].url || "images/nocover.webp";
-						setImage(cachedResult);
+				ImageService.getArt(source, function (url) {
+					if (url) {
+						cachedResult = url;
 					} else {
-						ImageService.getLastFMArt(source, function (json) {
-							// use last.fm as backup -> non https
-							if (json) {
-								angular.forEach(json.image, function (e) {
-									if (e.size === "mega") {
-										cachedResult = e["#text"] || "images/nocover.webp";
-									}
-								});
-							} else {
-								cachedResult = "images/nocover.webp";
-							}
-							setImage(cachedResult);
-						});
+						cachedResult = "images/nocover.webp";
 					}
+					setImage(cachedResult);
 				});
 			}
 		}

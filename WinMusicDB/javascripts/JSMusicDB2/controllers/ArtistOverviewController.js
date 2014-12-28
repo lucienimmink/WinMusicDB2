@@ -25,6 +25,7 @@ function($scope, $routeParams, $log, $rootScope, $timeout) {'use strict';
 				var artists = Object.keys(unique);
 				var uniqueArray = [];
 				angular.forEach(artists, function (val) {
+					console.log(unique[val]);
 					uniqueArray.push(unique[val]);
 				});
 				$scope.viewArtists = uniqueArray;

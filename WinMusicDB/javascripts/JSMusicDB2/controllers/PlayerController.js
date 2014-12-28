@@ -153,7 +153,8 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	$scope.toggleVideo = function() {
 		if (!$scope.inVideoMode) {
 			// get this video
-			$scope.pause(); // always pause the current song when we switch
+			$scope.pause();
+			// always pause the current song when we switch
 			RestService.Music.getYouTube($scope.playing.track, function(json) {
 				if (json && json.items) {
 					var ytid = json.items[0].id.videoId;
@@ -178,11 +179,11 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 				height : '100%',
 				width : '100%',
 				videoId : ytid,
-				playerVars: {
-					iv_load_policy: 3,
-					controls: 2,
-					rel: 0,
-					showinfo: 0
+				playerVars : {
+					iv_load_policy : 3,
+					controls : 2,
+					rel : 0,
+					showinfo : 0
 				},
 				events : {
 					'onReady' : function(e) {

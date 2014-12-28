@@ -1,12 +1,41 @@
 angular.module('JSMusicDB.ImageService', []).factory('ImageService', ['$log', '$http', '$rootScope', '$sce',
 function($log, $http, $rootScope, $sce) {
 
-	var baseArtistUrl = "https://api.spotify.com/v1/search?q={0}&type=artist&limit=1",
-			baseAlbumUrl = "https://api.spotify.com/v1/search?q=album:{1}+artist:{0}&type=album&limit=1";
+	var baseArtistUrl = "https://api.spotify.com/v1/search?q={0}&type=artist&limit=1", baseAlbumUrl = "https://api.spotify.com/v1/search?q=album:{1}+artist:{0}&type=album&limit=1";
 
 	var factory = {};
 
 	factory.getArt = function(art, callback) {
+		if (art && art !== '|') {
+			// spotify -> lastfm
+			if ($rootScope.imageMode === 'spotify') {
+				factory.getSpotifyArt(art, function(url) {
+					if (url) {
+						callback(url);
+					} else {
+						factory.getLastFMArt(art, function(url) {
+							if (url) {
+								callback(url);
+							} else {
+								callback(null);
+							}
+						});
+					}
+				});
+			} else if ($rootScope.imageMode === 'lastfm') {
+				factory.getLastFMArt(art, function(url) {
+					if (url) {
+						callback(url);
+					} else {
+						callback(null);
+					}
+				});
+			}
+		} else {
+			callback(null);
+		}
+	};
+	factory.getSpotifyArt = function(art, callback) {
 		var artist, album;
 		artist = factory.filter(art);
 		if (art.indexOf("|") !== -1) {
@@ -20,20 +49,22 @@ function($log, $http, $rootScope, $sce) {
 			query = baseArtistUrl.replace("{0}", encodeURIComponent(artist));
 		}
 		if (artist) {
-			$http.get(query).success(function (json) {
-				if (json && json.albums) {
-					callback(json.albums.items[0]);
-				} else if (json && json.artists) {
-					callback(json.artists.items[0]);
+			$http.get(query).success(function(json) {
+				if (json && json.albums && json.albums.items[0].images[0]) {
+					callback(json.albums.items[0].images[0].url || "images/nocover.webp");
+				} else if (json && json.artists && json.artists.items[0].images[0]) {
+					callback(json.artists.items[0].images[0].url || "images/nocover.webp");
 				} else {
 					callback(null);
 				}
+			}).error(function() {
+				callback(null);
 			});
 		} else {
 			callback(null);
 		}
 	};
-	factory.getLastFMArt = function (art, callback) {
+	factory.getLastFMArt = function(art, callback) {
 		var artist, album;
 		artist = factory.filter(art);
 		if (art.indexOf("|") !== -1) {
@@ -56,19 +87,29 @@ function($log, $http, $rootScope, $sce) {
 				params : query
 			}).success(function(json) {
 				if (json && json.album) {
-					callback(json.album);
+					angular.forEach(json.album.image, function(e) {
+						if (e.size === "mega") {
+							callback(e["#text"] || "images/nocover.webp");
+						}
+					});
 				} else if (json && json.artist) {
-					callback(json.artist);
+					angular.forEach(json.artist.image, function(e) {
+						if (e.size === "mega") {
+							callback(e["#text"] || "images/nocover.webp");
+						}
+					});
 				} else {
 					callback(null);
 				}
+			}).error(function() {
+				callback(null);
 			});
 		} else {
 			callback(null);
 		}
 	};
 
-	factory.filter = function (s) {
+	factory.filter = function(s) {
 		s = s.replace("%", "");
 		s = s.replace("\"", "");
 		s = s.replace("/", " & ");
