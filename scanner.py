@@ -35,6 +35,10 @@ class Artist:
             self.Naam = file.tag.artist.replace("\"", "")
         else:
             self.Naam = ""
+        if (file.tag.album_artist):
+            self.AlbumArtiest = file.tag.album_artist.replace("\"", "")
+        else:
+            self.AlbumArtiest = ""
         self.Type = "artist"
     
 class Album:
@@ -43,6 +47,10 @@ class Album:
             self.Artiest = file.tag.artist.replace("\"", "")
         else:
             self.Artiest = ""
+        if (file.tag.album_artist):
+            self.AlbumArtiest = file.tag.album_artist.replace("\"", "")
+        else:
+            self.AlbumArtiest = ""
         if (file.tag.album):
             self.Album = file.tag.album.replace("\"", "")
             self.Naam = file.tag.album.replace("\"", "")
@@ -61,6 +69,10 @@ class Track:
             self.Artiest = file.tag.artist.replace("\"", "")
         else:
             self.Artiest = ""
+        if (file.tag.album_artist):
+            self.AlbumArtiest = file.tag.album_artist.replace("\"", "")
+        else:
+            self.AlbumArtiest = ""
         if file.tag.album:
             self.Album = file.tag.album.replace("\"", "")
         else:
@@ -118,7 +130,7 @@ def ums(i, ignoreZero=True):
         hours = hours + ":"
     return hours + str(minutes) + ":" + str(seconds)
 def totals():
-    return "{ \"totals\" : { \"artists\":" + str(totalArtist) + ", \"albums\":" + str(totalAlbums) + ", \"tracks\":" + str(nrScanned) + ", \"playingTime\":" + str(totalTime) + ", \"timestamp\":" + str(int(time.time())) +  "}, \"Type\":\"totals\"}" 
+    return "{ \"totals\" : { \"artists\":" + str(totalArtist) + ", \"albums\":" + str(totalAlbums) + ", \"tracks\":" + str(nrScanned) + ", \"playingTime\":" + str(totalTime) + ", \"timestamp\":" + str(int(time.time())) + "}, \"Type\":\"totals\"}" 
 def _force_unicode(bstr, encoding, fallback_encodings=None):
     # We got unicode, we give unicode
     if isinstance(bstr, unicode):
@@ -169,14 +181,14 @@ def parseFile(filename, jsonFile, showInfo=True):
             totalTime = totalTime + track.seconds
             nrScanned = nrScanned + 1
             perc = int((float(float(nrScanned) / float(countfiles))) * 100)
-            if (countfiles > 100 and nrScanned % int(countfiles/100) == 0 and showInfo):
+            if (countfiles > 100 and nrScanned % int(countfiles / 100) == 0 and showInfo):
                 inc = time.time()
-                #print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
-                diff = inc-start
+                # print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
+                diff = inc - start
                 if (perc > 0):
                     tot = (diff / perc) * 100
                     eta = tot - diff
-                    sys.stdout.write("\r" + str(perc) + "% done, ETA: " +  ums(eta, False))
+                    sys.stdout.write("\r" + str(perc) + "% done, ETA: " + ums(eta, False))
                     sys.stdout.flush()
                     p.seek(0)
                     p.write("\r" + str(perc) + "|" + ums(eta, False));
@@ -191,9 +203,9 @@ for filename in find_files(rootpath, '*.mp3'):
     parseFile(filename, jsonFile, True)
 jsonFile.append(totals())
 f.write("[" + ",\n".join(jsonFile) + "]")
-#str = json.dumps(jsonFile, separators=(',', ': '))
+# str = json.dumps(jsonFile, separators=(',', ': '))
 f.close()
 p.close()
 os.remove(destpath + '/progress.txt');
 inc = time.time()
-print("Done scanning, time taken: {0}".format(ums(inc-start, False)))
+print("Done scanning, time taken: {0}".format(ums(inc - start, False)))

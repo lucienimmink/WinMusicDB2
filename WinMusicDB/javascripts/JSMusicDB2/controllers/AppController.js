@@ -98,13 +98,13 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 	$rootScope.imageMode = localStorage.getItem("imageMode") || "spotify";
 	$scope.toggleImage = function(value) {
 		// TODO: purge cache
-		// $rootScope.cachedImages = [];
+		$rootScope.cachedImages = [];
 		if (!value) {
-			$rootScope.imageMode = ($scope.imageMode === "spotify") ? "lastfm" : "spotify";
+			$rootScope.imageMode = ($rootScope.imageMode === "spotify") ? "lastfm" : "spotify";
 		} else {
-			$rootScope.viewMode = value;
+			$rootScope.imageMode = value;
 		}
-		localStorage.setItem("imageMode", $rootScope.viewMode);
+		localStorage.setItem("imageMode", $rootScope.imageMode);
 	};
 
 	Notify.requestPermission();

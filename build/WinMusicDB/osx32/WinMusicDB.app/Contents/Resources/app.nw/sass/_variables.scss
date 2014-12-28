@@ -22,14 +22,16 @@
  $gray-lighter:           #d1d1d1; // #eee
  $gray-ultralight:        #f2f2f2;
 
- $brand-primary:          #607d8b; // 500
- $brand-secondary:        #cfd8dc; // 100
- $brand-tertiary:         #455a64; // 700
+ $brand-primary:          #607D8B; // 500
+ $brand-secondary:        #CFD8DC; // 100
+ $brand-tertiary:         #455A64; // 700
  $brand-background:       #eceff1; // 50
  $brand-background2:      #f8f8f8;
 
- $font-primary:             lighten(#000000, 13%);
- $font-secondary:           lighten(#000000, 46%);
+ $accent-color:           #00BCD4;
+
+ $font-primary:             #212121;
+ $font-secondary:           #727272;
  $font-tertiary:            darken(#ffffff, 13%);
 
 //== Scaffolding
