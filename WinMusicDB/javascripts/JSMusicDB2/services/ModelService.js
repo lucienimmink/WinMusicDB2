@@ -10,7 +10,6 @@ function($log, $translate, $timeout) {
 				factory.parseLine(value, $scope, isLocal);
 			});
 			// merge local and cloud music
-			console.log("merging data local and cloud " + isLocal);
 			angular.extend($scope.both, $scope.local);
 			angular.extend($scope.both, $scope.cloud);
 			// now both === cloud
@@ -32,7 +31,7 @@ function($log, $translate, $timeout) {
 		case 'artist' : {
 			if (line.Naam) {
 				var firstLetter = factory.getFirstLetter(line.Naam), artistName = factory.stripThe(line.Naam);
-				var isVarious = (factory.stripThe(line.AlbumArtiest) !== artistName) ? true : false;
+				// var isVarious = (factory.stripThe(line.AlbumArtiest) !== artistName) ? true : false;
 				// add letter
 
 				if (!context.letters[firstLetter]) {
@@ -45,6 +44,7 @@ function($log, $translate, $timeout) {
 					context.letters[letter.letter] = letter;
 				}
 				// add various
+				/*
 				if (isVarious && !context.letters['*']) {
 					var letter = {
 						letter : '*',
@@ -54,11 +54,12 @@ function($log, $translate, $timeout) {
 					};
 					context.letters[letter.letter] = letter;
 				}
+				*/
 				// add artist
 				if (!context.artists[artistName]) {
 					var artist = {
 						name : line.Naam,
-						albumArtist : line.AlbumArtist,
+						albumArtist : line.AlbumArtiest,
 						sortName : artistName,
 						albums : [],
 						url : 'http://ws.audioscrobbler.com/2.0/',
@@ -70,7 +71,7 @@ function($log, $translate, $timeout) {
 							autoCorrect : true
 						},
 						isVisible : true,
-						isVarious: isVarious,
+						isVarious : false,
 						artistURL : function() {
 							return "letter/" + firstLetter + "/artist/" + artistName.toLowerCase();
 						},
@@ -78,18 +79,22 @@ function($log, $translate, $timeout) {
 							name : line.Naam
 						}
 					};
+					/*
 					if (isVarious) {
-						var variousArtist = {
-							name : line.AlbumArtiest,
-							albums : [],
-							isVisible : true,
-							artistURL : function() {
-								return "letter/*/artist/" + line.AlbumArtiest.toLowerCase();
-							}
-						};
-						context.letters["*"].artists.push(variousArtist);
-						context.artists[line.AlbumArtiest] = variousArtist;
+						if (!context.artists["*"]) {
+							var variousArtist = {
+								name : line.AlbumArtiest,
+								albums : [],
+								isVisible : true,
+								artistURL : function() {
+									return "letter/*/artist/*";
+								}
+							};
+							context.letters["*"].artists.push(variousArtist);
+							context.artists["*"] = variousArtist;
+						}
 					}
+					*/
 					context.artists[artistName] = artist;
 					context.letters[firstLetter].artists.push(artist);
 					artist.letterNode = context.letters[firstLetter];
@@ -100,7 +105,7 @@ function($log, $translate, $timeout) {
 		case 'album': {
 			if (line.Album && line.Artiest) {
 				var firstLetter = factory.getFirstLetter(line.Artiest), artistName = factory.stripThe(line.Artiest);
-				var isVarious = (factory.stripThe(line.AlbumArtiest) !== artistName) ? true : false;
+				// var isVarious = (factory.stripThe(line.AlbumArtiest) !== artistName) ? true : false;
 
 				// add album
 				if (!context.albums[artistName + "-" + line.Album.toLowerCase()]) {
@@ -133,9 +138,10 @@ function($log, $translate, $timeout) {
 					context.year[album.year].push(album);
 					album.artistNode = context.artists[artistName];
 				}
-				if (isVarious && !context.albums["*-" + line.Album.toLowerCase()]) {
+				/*
+				if (isVarious && !context.albums["*-" + $.trim(line.Album.toLowerCase())]) {
 					var variousAlbum = {
-						album: $.trim(line.Album),
+						album : $.trim(line.Album),
 						year : (line.Jaar !== 'null') ? line.Jaar : null,
 						artist : line.AlbumArtiest,
 						tracks : [],
@@ -150,7 +156,7 @@ function($log, $translate, $timeout) {
 						},
 						isVisible : true,
 						albumURL : function() {
-							return "letter/*/artist/" + line.AlbumArtiest.toLowerCase() + "/album/" + $.trim(line.Album);
+							return "letter/*/artist/*/album/" + $.trim(line.Album);
 						},
 						raw : {
 							artist : line.Artiest,
@@ -158,9 +164,10 @@ function($log, $translate, $timeout) {
 						}
 					};
 					context.albums["*-" + $.trim(line.Album.toLowerCase())] = album;
-					context.artists[line.AlbumArtiest].albums.push(album);
+					context.artists["*"].albums.push(album);
 					// album.artistNode = context.artists[artistName];
 				}
+				*/
 			}
 			break;
 		}
@@ -200,6 +207,39 @@ function($log, $translate, $timeout) {
 					context.tracks[artistName + "-" + $.trim(line.Album.toLowerCase()) + "-" + line.Titel.toLowerCase()] = track;
 					context.tracks[line.id] = track;
 				}
+				/*
+				// various artists?
+				if (context.albums["*-" + $.trim(line.Album.toLowerCase())]) {
+					// part of an album
+					var track = {
+						id : line.id,
+						file : line.Naam,
+						artist : line.AlbumArtiest,
+						artistID : artistName,
+						album : $.trim(line.Album),
+						time : line.Duur,
+						title : line.Titel,
+						number : Number(line.Track || ''),
+						path : line.Pad,
+						disc : Number(line.Disk),
+						isPlaying : false,
+						filename : function() {
+							var name = line.path.split('/');
+							return name[name.length - 1];
+						},
+						seconds : line.seconds,
+						raw : {
+							artist : line.Artiest,
+							album : line.Album,
+							title : line.Titel
+						}
+					};
+					if (isLocal) {
+						track.localPath = line.Pad;
+					}
+					context.albums["*-" + $.trim(line.Album.toLowerCase())].tracks.push(track);
+				}
+				*/
 			}
 			break;
 		}
@@ -224,4 +264,4 @@ function($log, $translate, $timeout) {
 	};
 
 	return factory;
-}]); 
+}]);
