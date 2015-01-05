@@ -22,6 +22,17 @@
     "gulp-minify-css": "*",
     "gulp-usemin": "*",
     "gulp-clean": "*",
-    "gulp-strip-debug": "*"
+    "gulp-strip-debug": "*",
+	"gulp-ngmin": "*",
+	"gulp-rev": "*",
+	"gulp-minify-html": "*",
+	"gulp-minify-css": "*",
+	"gulp-ng-html2js": "*",
+	"gulp-imagemin": "*",
+	"gulp-clean": "*",
+	"gulp-cssmin": "*",
+	"gulp-combine-media-queries": "*",
+	"gulp-ng-annotate": "*",
+	"gulp-jsonminify": "*"
   }
 }
