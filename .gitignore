@@ -42,6 +42,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-cache
-build
-dist
+cache/
+build/
+dist/
+node_modules/
