@@ -637,7 +637,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		});
 	});
 	// Disable for firefox for now untill it is fixed in the release channel see https://bugzilla.mozilla.org/show_bug.cgi?id=934100
-	if (/chrome/.test(navigator.userAgent.toLowerCase())) {
+	if (/chromexxx/.test(navigator.userAgent.toLowerCase())) {
 
 		var frameLooper = function() {
 
