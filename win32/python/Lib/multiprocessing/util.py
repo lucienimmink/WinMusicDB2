@@ -32,7 +32,6 @@
 # SUCH DAMAGE.
 #
 
-import os
 import itertools
 import weakref
 import atexit
@@ -185,7 +184,6 @@ class Finalize(object):
         self._args = args
         self._kwargs = kwargs or {}
         self._key = (exitpriority, _finalizer_counter.next())
-        self._pid = os.getpid()
 
         _finalizer_registry[self._key] = self
 
@@ -198,13 +196,9 @@ class Finalize(object):
         except KeyError:
             sub_debug('finalizer no longer registered')
         else:
-            if self._pid != os.getpid():
-                sub_debug('finalizer ignored because different process')
-                res = None
-            else:
-                sub_debug('finalizer calling %s with args %s and kwargs %s',
-                          self._callback, self._args, self._kwargs)
-                res = self._callback(*self._args, **self._kwargs)
+            sub_debug('finalizer calling %s with args %s and kwargs %s',
+                     self._callback, self._args, self._kwargs)
+            res = self._callback(*self._args, **self._kwargs)
             self._weakref = self._callback = self._args = \
                             self._kwargs = self._key = None
             return res

@@ -2,12 +2,7 @@ import imp
 import unittest
 from test import test_support
 
-try:
-    import thread
-except ImportError:
-    thread = None
 
-@unittest.skipUnless(thread, 'threading not available')
 class LockTests(unittest.TestCase):
 
     """Very basic test of import lock functions."""
@@ -73,8 +68,13 @@ class ReloadTests(unittest.TestCase):
 def test_main():
     tests = [
         ReloadTests,
-        LockTests,
     ]
+    try:
+        import thread
+    except ImportError:
+        pass
+    else:
+        tests.append(LockTests)
     test_support.run_unittest(*tests)
 
 if __name__ == "__main__":

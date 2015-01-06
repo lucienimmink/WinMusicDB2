@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 """Unit tests for the with statement specified in PEP 343."""
 
 

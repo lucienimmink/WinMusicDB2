@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 """Simple test script for imgfile.c
    Roger E. Masse
 """

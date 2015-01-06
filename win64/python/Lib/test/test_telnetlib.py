@@ -177,6 +177,7 @@ class ReadTests(TestCase):
         self.dataq.join()
         data = telnet.read_all()
         self.assertEqual(data, ''.join(want[:-1]))
+        return
 
     def _test_blocking(self, func):
         self.dataq.put([self.block_long, EOF_sigil])

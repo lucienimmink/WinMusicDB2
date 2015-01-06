@@ -119,22 +119,21 @@ class ScrolledList:
         pass
 
 
-def _scrolled_list(parent):
+def test():
     root = Tk()
-    root.title("Test ScrolledList")
-    width, height, x, y = list(map(int, re.split('[x+]', parent.geometry())))
-    root.geometry("+%d+%d"%(x, y + 150))
+    root.protocol("WM_DELETE_WINDOW", root.destroy)
     class MyScrolledList(ScrolledList):
-        def fill_menu(self): self.menu.add_command(label="right click")
+        def fill_menu(self): self.menu.add_command(label="pass")
         def on_select(self, index): print "select", self.get(index)
         def on_double(self, index): print "double", self.get(index)
-
-    scrolled_list = MyScrolledList(root)
+    s = MyScrolledList(root)
     for i in range(30):
-        scrolled_list.append("Item %02d" % i)
+        s.append("item %02d" % i)
+    return root
 
+def main():
+    root = test()
     root.mainloop()
 
 if __name__ == '__main__':
-    from idlelib.idle_test.htest import run
-    run(_scrolled_list)
+    main()

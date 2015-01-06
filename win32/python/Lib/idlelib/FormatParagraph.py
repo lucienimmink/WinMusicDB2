@@ -32,7 +32,7 @@ class FormatParagraph:
     def close(self):
         self.editwin = None
 
-    def format_paragraph_event(self, event, limit=None):
+    def format_paragraph_event(self, event):
         """Formats paragraph to a max width specified in idleConf.
 
         If text is selected, format_paragraph_event will start breaking lines
@@ -41,12 +41,9 @@ class FormatParagraph:
         If no text is selected, format_paragraph_event uses the current
         cursor location to determine the paragraph (lines of text surrounded
         by blank lines) and formats it.
-
-        The length limit parameter is for testing with a known value.
         """
-        if limit == None:
-            limit = idleConf.GetOption(
-                    'main', 'FormatParagraph', 'paragraph', type='int')
+        maxformatwidth = idleConf.GetOption(
+                'main', 'FormatParagraph', 'paragraph', type='int')
         text = self.editwin.text
         first, last = self.editwin.get_selection_indices()
         if first and last:
@@ -56,9 +53,9 @@ class FormatParagraph:
             first, last, comment_header, data = \
                     find_paragraph(text, text.index("insert"))
         if comment_header:
-            newdata = reformat_comment(data, limit, comment_header)
+            newdata = reformat_comment(data, maxformatwidth, comment_header)
         else:
-            newdata = reformat_paragraph(data, limit)
+            newdata = reformat_paragraph(data, maxformatwidth)
         text.tag_remove("sel", "1.0", "end")
 
         if newdata != data:
@@ -188,6 +185,7 @@ def get_comment_header(line):
     return m.group(1)
 
 if __name__ == "__main__":
+    from test import support; support.use_resources = ['gui']
     import unittest
     unittest.main('idlelib.idle_test.test_formatparagraph',
             verbosity=2, exit=False)

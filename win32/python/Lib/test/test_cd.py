@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """Whimpy test script for the cd module
    Roger E. Masse
 """

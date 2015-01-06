@@ -1,5 +1,4 @@
 import unittest, sys
-from ctypes.test import need_symbol
 
 class SimpleTypesTestCase(unittest.TestCase):
 
@@ -37,9 +36,10 @@ class SimpleTypesTestCase(unittest.TestCase):
         self.assertEqual(CVOIDP.from_param("abc"), "abcabc")
         self.assertEqual(CCHARP.from_param("abc"), "abcabcabcabc")
 
-    @need_symbol('c_wchar_p')
-    def test_subclasses_c_wchar_p(self):
-        from ctypes import c_wchar_p
+        try:
+            from ctypes import c_wchar_p
+        except ImportError:
+            return
 
         class CWCHARP(c_wchar_p):
             def from_param(cls, value):
@@ -55,7 +55,7 @@ class SimpleTypesTestCase(unittest.TestCase):
         # c_char_p.from_param on a Python String packs the string
         # into a cparam object
         s = "123"
-        self.assertIs(c_char_p.from_param(s)._obj, s)
+        self.assertTrue(c_char_p.from_param(s)._obj is s)
 
         # new in 0.9.1: convert (encode) unicode to ascii
         self.assertEqual(c_char_p.from_param(u"123")._obj, "123")
@@ -66,11 +66,15 @@ class SimpleTypesTestCase(unittest.TestCase):
         # calling c_char_p.from_param with a c_char_p instance
         # returns the argument itself:
         a = c_char_p("123")
-        self.assertIs(c_char_p.from_param(a), a)
+        self.assertTrue(c_char_p.from_param(a) is a)
 
-    @need_symbol('c_wchar_p')
     def test_cw_strings(self):
-        from ctypes import byref, c_wchar_p
+        from ctypes import byref
+        try:
+            from ctypes import c_wchar_p
+        except ImportError:
+##            print "(No c_wchar_p)"
+            return
         s = u"123"
         if sys.platform == "win32":
             self.assertTrue(c_wchar_p.from_param(s)._obj is s)
@@ -139,6 +143,9 @@ class SimpleTypesTestCase(unittest.TestCase):
         self.assertRaises(TypeError, LPINT.from_param, c_short*3)
         self.assertRaises(TypeError, LPINT.from_param, c_long*3)
         self.assertRaises(TypeError, LPINT.from_param, c_uint*3)
+
+##    def test_performance(self):
+##        check_perf()
 
     def test_noctypes_argtype(self):
         import _ctypes_test

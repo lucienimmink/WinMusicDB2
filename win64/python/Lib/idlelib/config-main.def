@@ -59,7 +59,7 @@ font-bold= 0
 encoding= none
 
 [FormatParagraph]
-paragraph=72
+paragraph=70
 
 [Indent]
 use-spaces= 1

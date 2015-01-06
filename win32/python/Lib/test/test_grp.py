@@ -26,10 +26,8 @@ class GroupDatabaseTestCase(unittest.TestCase):
         for e in entries:
             self.check_value(e)
 
-    def test_values_extended(self):
-        entries = grp.getgrall()
         if len(entries) > 1000:  # Huge group file (NIS?) -- skip the rest
-            self.skipTest('huge group file, extended test skipped')
+            return
 
         for e in entries:
             e2 = grp.getgrgid(e.gr_gid)

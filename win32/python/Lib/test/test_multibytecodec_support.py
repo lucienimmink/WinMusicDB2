@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#
 # test_multibytecodec_support.py
 #   Common Unittest Routines for CJK codecs
 #
@@ -65,7 +67,7 @@ class TestBase:
 
     def test_xmlcharrefreplace(self):
         if self.has_iso10646:
-            self.skipTest('encoding contains full ISO 10646 map')
+            return
 
         s = u"\u0b13\u0b23\u0b60 nd eggs"
         self.assertEqual(
@@ -75,7 +77,7 @@ class TestBase:
 
     def test_customreplace_encode(self):
         if self.has_iso10646:
-            self.skipTest('encoding contains full ISO 10646 map')
+            return
 
         from htmlentitydefs import codepoint2name
 

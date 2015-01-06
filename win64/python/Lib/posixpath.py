@@ -285,43 +285,28 @@ def expanduser(path):
 # Non-existent variables are left unchanged.
 
 _varprog = None
-_uvarprog = None
 
 def expandvars(path):
     """Expand shell variables of form $var and ${var}.  Unknown variables
     are left unchanged."""
-    global _varprog, _uvarprog
+    global _varprog
     if '$' not in path:
         return path
-    if isinstance(path, _unicode):
-        if not _varprog:
-            import re
-            _varprog = re.compile(r'\$(\w+|\{[^}]*\})')
-        varprog = _varprog
-        encoding = sys.getfilesystemencoding()
-    else:
-        if not _uvarprog:
-            import re
-            _uvarprog = re.compile(_unicode(r'\$(\w+|\{[^}]*\})'), re.UNICODE)
-        varprog = _uvarprog
-        encoding = None
+    if not _varprog:
+        import re
+        _varprog = re.compile(r'\$(\w+|\{[^}]*\})')
     i = 0
     while True:
-        m = varprog.search(path, i)
+        m = _varprog.search(path, i)
         if not m:
             break
         i, j = m.span(0)
         name = m.group(1)
         if name.startswith('{') and name.endswith('}'):
             name = name[1:-1]
-        if encoding:
-            name = name.encode(encoding)
         if name in os.environ:
             tail = path[j:]
-            value = os.environ[name]
-            if encoding:
-                value = value.decode(encoding)
-            path = path[:i] + value
+            path = path[:i] + os.environ[name]
             i = len(path)
             path += tail
         else:

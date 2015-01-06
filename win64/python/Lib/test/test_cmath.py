@@ -282,7 +282,7 @@ class CMathTests(unittest.TestCase):
 
     def test_specific_values(self):
         if not float.__getformat__("double").startswith("IEEE"):
-            self.skipTest('needs IEEE double')
+            return
 
         def rect_complex(z):
             """Wrapped version of rect that accepts a complex number instead of

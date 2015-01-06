@@ -23,7 +23,6 @@
 
 import unittest
 import sqlite3 as sqlite
-from collections import Sequence
 
 class MyConnection(sqlite.Connection):
     def __init__(self, *args, **kwargs):
@@ -48,7 +47,9 @@ class ConnectionFactoryTests(unittest.TestCase):
         self.con.close()
 
     def CheckIsInstance(self):
-        self.assertIsInstance(self.con, MyConnection)
+        self.assertTrue(isinstance(self.con,
+                                   MyConnection),
+                        "connection is not instance of MyConnection")
 
 class CursorFactoryTests(unittest.TestCase):
     def setUp(self):
@@ -59,7 +60,9 @@ class CursorFactoryTests(unittest.TestCase):
 
     def CheckIsInstance(self):
         cur = self.con.cursor(factory=MyCursor)
-        self.assertIsInstance(cur, MyCursor)
+        self.assertTrue(isinstance(cur,
+                                   MyCursor),
+                        "cursor is not instance of MyCursor")
 
 class RowFactoryTestsBackwardsCompat(unittest.TestCase):
     def setUp(self):
@@ -69,7 +72,9 @@ class RowFactoryTestsBackwardsCompat(unittest.TestCase):
         cur = self.con.cursor(factory=MyCursor)
         cur.execute("select 4+5 as foo")
         row = cur.fetchone()
-        self.assertIsInstance(row, dict)
+        self.assertTrue(isinstance(row,
+                                   dict),
+                        "row is not instance of dict")
         cur.close()
 
     def tearDown(self):
@@ -82,42 +87,28 @@ class RowFactoryTests(unittest.TestCase):
     def CheckCustomFactory(self):
         self.con.row_factory = lambda cur, row: list(row)
         row = self.con.execute("select 1, 2").fetchone()
-        self.assertIsInstance(row, list)
+        self.assertTrue(isinstance(row,
+                                   list),
+                        "row is not instance of list")
 
     def CheckSqliteRowIndex(self):
         self.con.row_factory = sqlite.Row
         row = self.con.execute("select 1 as a, 2 as b").fetchone()
-        self.assertIsInstance(row, sqlite.Row)
+        self.assertTrue(isinstance(row,
+                                   sqlite.Row),
+                        "row is not instance of sqlite.Row")
 
         col1, col2 = row["a"], row["b"]
-        self.assertEqual(col1, 1, "by name: wrong result for column 'a'")
-        self.assertEqual(col2, 2, "by name: wrong result for column 'a'")
+        self.assertTrue(col1 == 1, "by name: wrong result for column 'a'")
+        self.assertTrue(col2 == 2, "by name: wrong result for column 'a'")
 
         col1, col2 = row["A"], row["B"]
-        self.assertEqual(col1, 1, "by name: wrong result for column 'A'")
-        self.assertEqual(col2, 2, "by name: wrong result for column 'B'")
+        self.assertTrue(col1 == 1, "by name: wrong result for column 'A'")
+        self.assertTrue(col2 == 2, "by name: wrong result for column 'B'")
 
-        self.assertEqual(row[0], 1, "by index: wrong result for column 0")
-        self.assertEqual(row[0L], 1, "by index: wrong result for column 0")
-        self.assertEqual(row[1], 2, "by index: wrong result for column 1")
-        self.assertEqual(row[1L], 2, "by index: wrong result for column 1")
-        self.assertEqual(row[-1], 2, "by index: wrong result for column -1")
-        self.assertEqual(row[-1L], 2, "by index: wrong result for column -1")
-        self.assertEqual(row[-2], 1, "by index: wrong result for column -2")
-        self.assertEqual(row[-2L], 1, "by index: wrong result for column -2")
-
-        with self.assertRaises(IndexError):
-            row['c']
-        with self.assertRaises(IndexError):
-            row[2]
-        with self.assertRaises(IndexError):
-            row[2L]
-        with self.assertRaises(IndexError):
-            row[-3]
-        with self.assertRaises(IndexError):
-            row[-3L]
-        with self.assertRaises(IndexError):
-            row[2**1000]
+        col1, col2 = row[0], row[1]
+        self.assertTrue(col1 == 1, "by index: wrong result for column 0")
+        self.assertTrue(col2 == 2, "by index: wrong result for column 1")
 
     def CheckSqliteRowIter(self):
         """Checks if the row object is iterable"""
@@ -131,7 +122,6 @@ class RowFactoryTests(unittest.TestCase):
         self.con.row_factory = sqlite.Row
         row = self.con.execute("select 1 as a, 2 as b").fetchone()
         t = tuple(row)
-        self.assertEqual(t, (row['a'], row['b']))
 
     def CheckSqliteRowAsDict(self):
         """Checks if the row object can be correctly converted to a dictionary"""
@@ -148,8 +138,8 @@ class RowFactoryTests(unittest.TestCase):
         row_2 = self.con.execute("select 1 as a, 2 as b").fetchone()
         row_3 = self.con.execute("select 1 as a, 3 as b").fetchone()
 
-        self.assertEqual(row_1, row_1)
-        self.assertEqual(row_1, row_2)
+        self.assertTrue(row_1 == row_1)
+        self.assertTrue(row_1 == row_2)
         self.assertTrue(row_2 != row_3)
 
         self.assertFalse(row_1 != row_1)
@@ -161,15 +151,6 @@ class RowFactoryTests(unittest.TestCase):
         self.assertNotEqual(row_1, row_3)
         self.assertNotEqual(hash(row_1), hash(row_3))
 
-    def CheckSqliteRowAsSequence(self):
-        """ Checks if the row object can act like a sequence """
-        self.con.row_factory = sqlite.Row
-        row = self.con.execute("select 1 as a, 2 as b").fetchone()
-
-        as_tuple = tuple(row)
-        self.assertEqual(list(reversed(row)), list(reversed(as_tuple)))
-        self.assertIsInstance(row, Sequence)
-
     def tearDown(self):
         self.con.close()
 
@@ -180,20 +161,20 @@ class TextFactoryTests(unittest.TestCase):
     def CheckUnicode(self):
         austria = unicode("Österreich", "latin1")
         row = self.con.execute("select ?", (austria,)).fetchone()
-        self.assertEqual(type(row[0]), unicode, "type of row[0] must be unicode")
+        self.assertTrue(type(row[0]) == unicode, "type of row[0] must be unicode")
 
     def CheckString(self):
         self.con.text_factory = str
         austria = unicode("Österreich", "latin1")
         row = self.con.execute("select ?", (austria,)).fetchone()
-        self.assertEqual(type(row[0]), str, "type of row[0] must be str")
-        self.assertEqual(row[0], austria.encode("utf-8"), "column must equal original data in UTF-8")
+        self.assertTrue(type(row[0]) == str, "type of row[0] must be str")
+        self.assertTrue(row[0] == austria.encode("utf-8"), "column must equal original data in UTF-8")
 
     def CheckCustom(self):
         self.con.text_factory = lambda x: unicode(x, "utf-8", "ignore")
         austria = unicode("Österreich", "latin1")
         row = self.con.execute("select ?", (austria.encode("latin1"),)).fetchone()
-        self.assertEqual(type(row[0]), unicode, "type of row[0] must be unicode")
+        self.assertTrue(type(row[0]) == unicode, "type of row[0] must be unicode")
         self.assertTrue(row[0].endswith(u"reich"), "column must contain original data")
 
     def CheckOptimizedUnicode(self):
@@ -202,8 +183,8 @@ class TextFactoryTests(unittest.TestCase):
         germany = unicode("Deutchland")
         a_row = self.con.execute("select ?", (austria,)).fetchone()
         d_row = self.con.execute("select ?", (germany,)).fetchone()
-        self.assertEqual(type(a_row[0]), unicode, "type of non-ASCII row must be unicode")
-        self.assertEqual(type(d_row[0]), str, "type of ASCII-only row must be str")
+        self.assertTrue(type(a_row[0]) == unicode, "type of non-ASCII row must be unicode")
+        self.assertTrue(type(d_row[0]) == str, "type of ASCII-only row must be str")
 
     def tearDown(self):
         self.con.close()

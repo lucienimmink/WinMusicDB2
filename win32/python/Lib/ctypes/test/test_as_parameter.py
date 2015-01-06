@@ -1,6 +1,5 @@
 import unittest
 from ctypes import *
-from ctypes.test import need_symbol
 import _ctypes_test
 
 dll = CDLL(_ctypes_test.__file__)
@@ -18,8 +17,11 @@ class BasicWrapTestCase(unittest.TestCase):
     def wrap(self, param):
         return param
 
-    @need_symbol('c_wchar')
     def test_wchar_parm(self):
+        try:
+            c_wchar
+        except NameError:
+            return
         f = dll._testfunc_i_bhilfd
         f.argtypes = [c_byte, c_wchar, c_int, c_long, c_float, c_double]
         result = f(self.wrap(1), self.wrap(u"x"), self.wrap(3), self.wrap(4), self.wrap(5.0), self.wrap(6.0))
@@ -132,7 +134,7 @@ class BasicWrapTestCase(unittest.TestCase):
         f.argtypes = [c_longlong, MyCallback]
 
         def callback(value):
-            self.assertIsInstance(value, (int, long))
+            self.assertTrue(isinstance(value, (int, long)))
             return value & 0x7FFFFFFF
 
         cb = MyCallback(callback)

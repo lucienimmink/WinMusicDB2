@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """Test script for the bsddb C module by Roger E. Masse
    Adapted to unittest format and expanded scope by Raymond Hettinger
 """
@@ -46,7 +47,10 @@ class TestBSDDB(unittest.TestCase):
         self.assertIn('discovered', self.f.values())
 
     def test_close_and_reopen(self):
-        self.assertIsNotNone(self.fname)
+        if self.fname is None:
+            # if we're using an in-memory only db, we can't reopen it
+            # so finish here.
+            return
         self.f.close()
         self.f = self.openmethod[0](self.fname, 'w')
         for k, v in self.d.iteritems():
@@ -305,7 +309,8 @@ class TestBSDDB(unittest.TestCase):
             self.assertEqual(self.f[k], v)
 
     def test_keyordering(self):
-        self.assertIs(self.openmethod[0], bsddb.btopen)
+        if self.openmethod[0] is not bsddb.btopen:
+            return
         keys = self.d.keys()
         keys.sort()
         self.assertEqual(self.f.first()[0], keys[0])
@@ -322,33 +327,18 @@ class TestBTree_InMemory(TestBSDDB):
     fname = None
     openmethod = [bsddb.btopen]
 
-    # if we're using an in-memory only db, we can't reopen it
-    test_close_and_reopen = None
-
 class TestBTree_InMemory_Truncate(TestBSDDB):
     fname = None
     openflag = 'n'
     openmethod = [bsddb.btopen]
 
-    # if we're using an in-memory only db, we can't reopen it
-    test_close_and_reopen = None
-
 class TestHashTable(TestBSDDB):
     fname = test_support.TESTFN
     openmethod = [bsddb.hashopen]
 
-    # keyordering is specific to btopen method
-    test_keyordering = None
-
 class TestHashTable_InMemory(TestBSDDB):
     fname = None
     openmethod = [bsddb.hashopen]
-
-    # if we're using an in-memory only db, we can't reopen it
-    test_close_and_reopen = None
-
-    # keyordering is specific to btopen method
-    test_keyordering = None
 
 ##         # (bsddb.rnopen,'Record Numbers'), 'put' for RECNO for bsddb 1.85
 ##         #                                   appears broken... at least on

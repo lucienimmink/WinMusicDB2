@@ -522,17 +522,6 @@ class TextIOTestMixin:
         self.assertIsNone(memio.errors)
         self.assertFalse(memio.line_buffering)
 
-    def test_newline_default(self):
-        memio = self.ioclass("a\nb\r\nc\rd")
-        self.assertEqual(list(memio), ["a\n", "b\r\n", "c\rd"])
-        self.assertEqual(memio.getvalue(), "a\nb\r\nc\rd")
-
-        memio = self.ioclass()
-        self.assertEqual(memio.write("a\nb\r\nc\rd"), 8)
-        memio.seek(0)
-        self.assertEqual(list(memio), ["a\n", "b\r\n", "c\rd"])
-        self.assertEqual(memio.getvalue(), "a\nb\r\nc\rd")
-
     def test_newline_none(self):
         # newline=None
         memio = self.ioclass("a\nb\r\nc\rd", newline=None)
@@ -542,16 +531,12 @@ class TextIOTestMixin:
         self.assertEqual(memio.read(2), "\nb")
         self.assertEqual(memio.read(2), "\nc")
         self.assertEqual(memio.read(1), "\n")
-        self.assertEqual(memio.getvalue(), "a\nb\nc\nd")
-
         memio = self.ioclass(newline=None)
         self.assertEqual(2, memio.write("a\n"))
         self.assertEqual(3, memio.write("b\r\n"))
         self.assertEqual(3, memio.write("c\rd"))
         memio.seek(0)
         self.assertEqual(memio.read(), "a\nb\nc\nd")
-        self.assertEqual(memio.getvalue(), "a\nb\nc\nd")
-
         memio = self.ioclass("a\r\nb", newline=None)
         self.assertEqual(memio.read(3), "a\nb")
 
@@ -563,8 +548,6 @@ class TextIOTestMixin:
         self.assertEqual(memio.read(4), "a\nb\r")
         self.assertEqual(memio.read(2), "\nc")
         self.assertEqual(memio.read(1), "\r")
-        self.assertEqual(memio.getvalue(), "a\nb\r\nc\rd")
-
         memio = self.ioclass(newline="")
         self.assertEqual(2, memio.write("a\n"))
         self.assertEqual(2, memio.write("b\r"))
@@ -572,19 +555,11 @@ class TextIOTestMixin:
         self.assertEqual(2, memio.write("\rd"))
         memio.seek(0)
         self.assertEqual(list(memio), ["a\n", "b\r\n", "c\r", "d"])
-        self.assertEqual(memio.getvalue(), "a\nb\r\nc\rd")
 
     def test_newline_lf(self):
         # newline="\n"
-        memio = self.ioclass("a\nb\r\nc\rd", newline="\n")
+        memio = self.ioclass("a\nb\r\nc\rd")
         self.assertEqual(list(memio), ["a\n", "b\r\n", "c\rd"])
-        self.assertEqual(memio.getvalue(), "a\nb\r\nc\rd")
-
-        memio = self.ioclass(newline="\n")
-        self.assertEqual(memio.write("a\nb\r\nc\rd"), 8)
-        memio.seek(0)
-        self.assertEqual(list(memio), ["a\n", "b\r\n", "c\rd"])
-        self.assertEqual(memio.getvalue(), "a\nb\r\nc\rd")
 
     def test_newline_cr(self):
         # newline="\r"
@@ -592,15 +567,6 @@ class TextIOTestMixin:
         self.assertEqual(memio.read(), "a\rb\r\rc\rd")
         memio.seek(0)
         self.assertEqual(list(memio), ["a\r", "b\r", "\r", "c\r", "d"])
-        self.assertEqual(memio.getvalue(), "a\rb\r\rc\rd")
-
-        memio = self.ioclass(newline="\r")
-        self.assertEqual(memio.write("a\nb\r\nc\rd"), 8)
-        memio.seek(0)
-        self.assertEqual(list(memio), ["a\r", "b\r", "\r", "c\r", "d"])
-        memio.seek(0)
-        self.assertEqual(memio.readlines(), ["a\r", "b\r", "\r", "c\r", "d"])
-        self.assertEqual(memio.getvalue(), "a\rb\r\rc\rd")
 
     def test_newline_crlf(self):
         # newline="\r\n"
@@ -608,21 +574,11 @@ class TextIOTestMixin:
         self.assertEqual(memio.read(), "a\r\nb\r\r\nc\rd")
         memio.seek(0)
         self.assertEqual(list(memio), ["a\r\n", "b\r\r\n", "c\rd"])
-        memio.seek(0)
-        self.assertEqual(memio.readlines(), ["a\r\n", "b\r\r\n", "c\rd"])
-        self.assertEqual(memio.getvalue(), "a\r\nb\r\r\nc\rd")
-
-        memio = self.ioclass(newline="\r\n")
-        self.assertEqual(memio.write("a\nb\r\nc\rd"), 8)
-        memio.seek(0)
-        self.assertEqual(list(memio), ["a\r\n", "b\r\r\n", "c\rd"])
-        self.assertEqual(memio.getvalue(), "a\r\nb\r\r\nc\rd")
 
     def test_issue5265(self):
         # StringIO can duplicate newlines in universal newlines mode
         memio = self.ioclass("a\r\nb\r\n", newline=None)
         self.assertEqual(memio.read(5), "a\nb\n")
-        self.assertEqual(memio.getvalue(), "a\nb\n")
 
 
 class PyStringIOTest(MemoryTestMixin, MemorySeekTestMixin,
@@ -631,16 +587,6 @@ class PyStringIOTest(MemoryTestMixin, MemorySeekTestMixin,
     ioclass = pyio.StringIO
     UnsupportedOperation = pyio.UnsupportedOperation
     EOF = ""
-
-    def test_lone_surrogates(self):
-        # Issue #20424
-        surrogate = unichr(0xd800)
-        memio = self.ioclass(surrogate)
-        self.assertEqual(memio.read(), surrogate)
-
-        memio = self.ioclass()
-        memio.write(surrogate)
-        self.assertEqual(memio.getvalue(), surrogate)
 
 
 class PyStringIOPickleTest(TextIOTestMixin, unittest.TestCase):

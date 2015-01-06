@@ -48,7 +48,13 @@ class CallTip:
     def showtip(self, text, parenleft, parenright):
         """Show the calltip, bind events which will close it and reposition it.
         """
-        # Only called in CallTips, where lines are truncated
+        # truncate overly long calltip
+        if len(text) >= 79:
+            textlines = text.splitlines()
+            for i, line in enumerate(textlines):
+                if len(line) > 79:
+                    textlines[i] = line[:75] + ' ...'
+            text = '\n'.join(textlines)
         self.text = text
         if self.tipwindow or not self.text:
             return
@@ -133,36 +139,37 @@ class CallTip:
         return bool(self.tipwindow)
 
 
-def _calltip_window(parent):
-    root = Tk()
-    root.title("Test calltips")
-    width, height, x, y = list(map(int, re.split('[x+]', parent.geometry())))
-    root.geometry("+%d+%d"%(x, y + 150))
 
-    class MyEditWin: # comparenceptually an editor_window
-        def __init__(self):
-            text = self.text = Text(root)
-            text.pack(side=LEFT, fill=BOTH, expand=1)
-            text.insert("insert", "string.split")
-            root.update()
-            self.calltip = CallTip(text)
+###############################
+#
+# Test Code
+#
+class container: # Conceptually an editor_window
+    def __init__(self):
+        root = Tk()
+        text = self.text = Text(root)
+        text.pack(side=LEFT, fill=BOTH, expand=1)
+        text.insert("insert", "string.split")
+        root.update()
+        self.calltip = CallTip(text)
 
-            text.event_add("<<calltip-show>>", "(")
-            text.event_add("<<calltip-hide>>", ")")
-            text.bind("<<calltip-show>>", self.calltip_show)
-            text.bind("<<calltip-hide>>", self.calltip_hide)
+        text.event_add("<<calltip-show>>", "(")
+        text.event_add("<<calltip-hide>>", ")")
+        text.bind("<<calltip-show>>", self.calltip_show)
+        text.bind("<<calltip-hide>>", self.calltip_hide)
 
-            text.focus_set()
-            root.mainloop()
+        text.focus_set()
+        root.mainloop()
 
-        def calltip_show(self, event):
-            self.calltip.showtip("Hello world", "insert", "end")
+    def calltip_show(self, event):
+        self.calltip.showtip("Hello world")
 
-        def calltip_hide(self, event):
-            self.calltip.hidetip()
+    def calltip_hide(self, event):
+        self.calltip.hidetip()
 
-    editwin = MyEditWin()
+def main():
+    # Test code
+    c=container()
 
 if __name__=='__main__':
-    from idlelib.idle_test.htest import run
-    run(_calltip_window)
+    main()

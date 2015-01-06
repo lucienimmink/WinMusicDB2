@@ -26,7 +26,6 @@ __author__ = 'Ka-Ping Yee <ping@lfw.org>'
 __credits__ = ('GvR, ESR, Tim Peters, Thomas Wouters, Fred Drake, '
                'Skip Montanaro, Raymond Hettinger')
 
-from itertools import chain
 import string, re
 from token import *
 
@@ -185,26 +184,17 @@ class Untokenizer:
 
     def add_whitespace(self, start):
         row, col = start
-        if row < self.prev_row or row == self.prev_row and col < self.prev_col:
-            raise ValueError("start ({},{}) precedes previous end ({},{})"
-                             .format(row, col, self.prev_row, self.prev_col))
-        row_offset = row - self.prev_row
-        if row_offset:
-            self.tokens.append("\\\n" * row_offset)
-            self.prev_col = 0
+        assert row <= self.prev_row
         col_offset = col - self.prev_col
         if col_offset:
             self.tokens.append(" " * col_offset)
 
     def untokenize(self, iterable):
-        it = iter(iterable)
-        for t in it:
+        for t in iterable:
             if len(t) == 2:
-                self.compat(t, it)
+                self.compat(t, iterable)
                 break
             tok_type, token, start, end, line = t
-            if tok_type == ENDMARKER:
-                break
             self.add_whitespace(start)
             self.tokens.append(token)
             self.prev_row, self.prev_col = end
@@ -214,12 +204,16 @@ class Untokenizer:
         return "".join(self.tokens)
 
     def compat(self, token, iterable):
+        startline = False
         indents = []
         toks_append = self.tokens.append
-        startline = token[0] in (NEWLINE, NL)
+        toknum, tokval = token
+        if toknum in (NAME, NUMBER):
+            tokval += ' '
+        if toknum in (NEWLINE, NL):
+            startline = True
         prevstring = False
-
-        for tok in chain([token], iterable):
+        for tok in iterable:
             toknum, tokval = tok[:2]
 
             if toknum in (NAME, NUMBER):
@@ -269,7 +263,7 @@ def untokenize(iterable):
 
 def generate_tokens(readline):
     """
-    The generate_tokens() generator requires one argument, readline, which
+    The generate_tokens() generator requires one argment, readline, which
     must be a callable object which provides the same interface as the
     readline() method of built-in file objects. Each call to the function
     should return one line of input as a string.  Alternately, readline

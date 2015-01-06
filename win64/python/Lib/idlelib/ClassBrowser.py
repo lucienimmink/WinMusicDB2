@@ -21,15 +21,11 @@ from idlelib.configHandler import idleConf
 
 class ClassBrowser:
 
-    def __init__(self, flist, name, path, _htest=False):
+    def __init__(self, flist, name, path):
         # XXX This API should change, if the file doesn't end in ".py"
         # XXX the code here is bogus!
-        """
-        _htest - bool, change box when location running htest.
-        """
         self.name = name
         self.file = os.path.join(path[0], self.name + ".py")
-        self._htest = _htest
         self.init(flist)
 
     def close(self, event=None):
@@ -44,9 +40,6 @@ class ClassBrowser:
         self.top = top = ListedToplevel(flist.root)
         top.protocol("WM_DELETE_WINDOW", self.close)
         top.bind("<Escape>", self.close)
-        if self._htest: # place dialog below parent if running htest
-            top.geometry("+%d+%d" %
-                (flist.root.winfo_rootx(), flist.root.winfo_rooty() + 200))
         self.settitle()
         top.focus_set()
         # create scrolled canvas
@@ -209,7 +202,7 @@ class MethodBrowserTreeItem(TreeItem):
         edit = PyShell.flist.open(self.file)
         edit.gotoline(self.cl.methods[self.name])
 
-def _class_browser(parent): #Wrapper for htest
+def main():
     try:
         file = __file__
     except NameError:
@@ -220,10 +213,9 @@ def _class_browser(parent): #Wrapper for htest
             file = sys.argv[0]
     dir, file = os.path.split(file)
     name = os.path.splitext(file)[0]
-    flist = PyShell.PyShellFileList(parent)
-    ClassBrowser(flist, name, [dir], _htest=True)
-    parent.mainloop()
+    ClassBrowser(PyShell.flist, name, [dir])
+    if sys.stdin is sys.__stdin__:
+        mainloop()
 
 if __name__ == "__main__":
-    from idlelib.idle_test.htest import run
-    run(_class_browser)
+    main()

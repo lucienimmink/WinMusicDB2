@@ -1,12 +1,9 @@
 import os
 import sys
 import linecache
-import re
-import Tkinter as tk
 
 from idlelib.TreeWidget import TreeNode, TreeItem, ScrolledCanvas
 from idlelib.ObjectBrowser import ObjectTreeItem, make_objecttreeitem
-from idlelib.PyShell import PyShellFileList
 
 def StackBrowser(root, flist=None, tb=None, top=None):
     if top is None:
@@ -124,29 +121,17 @@ class VariablesTreeItem(ObjectTreeItem):
             sublist.append(item)
         return sublist
 
-def _stack_viewer(parent):
-    root = tk.Tk()
-    root.title("Test StackViewer")
-    width, height, x, y = list(map(int, re.split('[x+]', parent.geometry())))
-    root.geometry("+%d+%d"%(x, y + 150))
-    flist = PyShellFileList(root)
-    try: # to obtain a traceback object
-        a
+
+def _test():
+    try:
+        import testcode
+        reload(testcode)
     except:
-        exc_type, exc_value, exc_tb = sys.exc_info()
+        sys.last_type, sys.last_value, sys.last_traceback = sys.exc_info()
+    from Tkinter import Tk
+    root = Tk()
+    StackBrowser(None, top=root)
+    root.mainloop()
 
-    # inject stack trace to sys
-    sys.last_type = exc_type
-    sys.last_value = exc_value
-    sys.last_traceback = exc_tb
-
-    StackBrowser(root, flist=flist, top=root, tb=exc_tb)
-
-    # restore sys to original state
-    del sys.last_type
-    del sys.last_value
-    del sys.last_traceback
-
-if __name__ == '__main__':
-    from idlelib.idle_test.htest import run
-    run(_stack_viewer)
+if __name__ == "__main__":
+    _test()
