@@ -167,12 +167,14 @@ function($scope, RestService, $rootScope, ModelService, $translate, $interval, $
 						$scope.loading.upcomming = false;
 						if (json.albums) {
 							angular.forEach(json.albums.album, function(album) {
-								var upcommingAlbum = {
-									artist : album.artist.name,
-									album : album.name,
-									image : album.image[album.image.length -1]["#text"],
-									releaseDate : album["@attr"].releasedate.substring(0, album["@attr"].releasedate.indexOf(' 00:'))
-								};
+								if (album.artist) {
+									var upcommingAlbum = {
+										artist : album.artist.name,
+										album : album.name,
+										image : album.image[album.image.length -1]["#text"],
+										releaseDate : album["@attr"].releasedate.substring(0, album["@attr"].releasedate.indexOf(' 00:'))
+									};
+								}
 								tmplist.push(upcommingAlbum);
 							});
 						}

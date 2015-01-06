@@ -1,5 +1,6 @@
 <strong>0.3.7</strong> <br />
 - Added the ability to switch between spotify and last.fm as image providers. <br />
+- Embed and read python from registry <br />
 <strong>0.3.6</strong> <br />
 - Fixed a few design glitches <br />
 - Show scanprogress in tray icon <br />
