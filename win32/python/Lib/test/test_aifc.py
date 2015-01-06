@@ -9,14 +9,10 @@ import struct
 import aifc
 
 
-class AifcTest(audiotests.AudioWriteTests,
-               audiotests.AudioTestsWithSourceFile):
+class AifcPCM8Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
     module = aifc
-    close_fd = True
-    test_unseekable_read = None
-
-
-class AifcPCM8Test(AifcTest, unittest.TestCase):
     sndfilename = 'pluck-pcm8.aiff'
     sndfilenframes = 3307
     nchannels = 2
@@ -31,9 +27,13 @@ class AifcPCM8Test(AifcTest, unittest.TestCase):
       11FA 3EFB BCFC 66FF CF04 4309 C10E 5112 EE17 8216 7F14 8012 \
       490E 520D EF0F CE0F E40C 630A 080A 2B0B 510E 8B11 B60E 440A \
       """)
+    close_fd = True
 
 
-class AifcPCM16Test(AifcTest, unittest.TestCase):
+class AifcPCM16Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = aifc
     sndfilename = 'pluck-pcm16.aiff'
     sndfilenframes = 3307
     nchannels = 2
@@ -50,9 +50,13 @@ class AifcPCM16Test(AifcTest, unittest.TestCase):
       EEE21753 82071665 7FFF1443 8004128F 49A20EAF 52BB0DBA EFB40F60 CE3C0FBF \
       E4B30CEC 63430A5C 08C80A20 2BBB0B08 514A0E43 8BCF1139 B6F60EEB 44120A5E \
       """)
+    close_fd = True
 
 
-class AifcPCM24Test(AifcTest, unittest.TestCase):
+class AifcPCM24Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = aifc
     sndfilename = 'pluck-pcm24.aiff'
     sndfilenframes = 3307
     nchannels = 2
@@ -75,9 +79,13 @@ class AifcPCM24Test(AifcTest, unittest.TestCase):
       E4B49C0CEA2D 6344A80A5A7C 08C8FE0A1FFE 2BB9860B0A0E \
       51486F0E44E1 8BCC64113B05 B6F4EC0EEB36 4413170A5B48 \
       """)
+    close_fd = True
 
 
-class AifcPCM32Test(AifcTest, unittest.TestCase):
+class AifcPCM32Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = aifc
     sndfilename = 'pluck-pcm32.aiff'
     sndfilenframes = 3307
     nchannels = 2
@@ -100,9 +108,13 @@ class AifcPCM32Test(AifcTest, unittest.TestCase):
       E4B49CC00CEA2D90 6344A8800A5A7CA0 08C8FE800A1FFEE0 2BB986C00B0A0E00 \
       51486F800E44E190 8BCC6480113B0580 B6F4EC000EEB3630 441317800A5B48A0 \
       """)
+    close_fd = True
 
 
-class AifcULAWTest(AifcTest, unittest.TestCase):
+class AifcULAWTest(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = aifc
     sndfilename = 'pluck-ulaw.aifc'
     sndfilenframes = 3307
     nchannels = 2
@@ -121,6 +133,7 @@ class AifcULAWTest(AifcTest, unittest.TestCase):
       """)
     if sys.byteorder != 'big':
         frames = audiotests.byteswap2(frames)
+    close_fd = True
 
 
 class AifcMiscTest(audiotests.AudioTests, unittest.TestCase):

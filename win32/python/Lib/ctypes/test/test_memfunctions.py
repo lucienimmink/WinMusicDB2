@@ -1,19 +1,17 @@
 import sys
 import unittest
 from ctypes import *
-from ctypes.test import need_symbol
 
 class MemFunctionsTest(unittest.TestCase):
-    @unittest.skip('test disabled')
-    def test_overflow(self):
-        # string_at and wstring_at must use the Python calling
-        # convention (which acquires the GIL and checks the Python
-        # error flag).  Provoke an error and catch it; see also issue
-        # #3554: <http://bugs.python.org/issue3554>
-        self.assertRaises((OverflowError, MemoryError, SystemError),
-                          lambda: wstring_at(u"foo", sys.maxint - 1))
-        self.assertRaises((OverflowError, MemoryError, SystemError),
-                          lambda: string_at("foo", sys.maxint - 1))
+##    def test_overflow(self):
+##        # string_at and wstring_at must use the Python calling
+##        # convention (which acquires the GIL and checks the Python
+##        # error flag).  Provoke an error and catch it; see also issue
+##        # #3554: <http://bugs.python.org/issue3554>
+##        self.assertRaises((OverflowError, MemoryError, SystemError),
+##                          lambda: wstring_at(u"foo", sys.maxint - 1))
+##        self.assertRaises((OverflowError, MemoryError, SystemError),
+##                          lambda: string_at("foo", sys.maxint - 1))
 
     def test_memmove(self):
         # large buffers apparently increase the chance that the memory
@@ -61,17 +59,21 @@ class MemFunctionsTest(unittest.TestCase):
         self.assertEqual(string_at("foo bar", 8), "foo bar\0")
         self.assertEqual(string_at("foo bar", 3), "foo")
 
-    @need_symbol('create_unicode_buffer')
-    def test_wstring_at(self):
-        p = create_unicode_buffer("Hello, World")
-        a = create_unicode_buffer(1000000)
-        result = memmove(a, p, len(p) * sizeof(c_wchar))
-        self.assertEqual(a.value, "Hello, World")
+    try:
+        create_unicode_buffer
+    except NameError:
+        pass
+    else:
+        def test_wstring_at(self):
+            p = create_unicode_buffer("Hello, World")
+            a = create_unicode_buffer(1000000)
+            result = memmove(a, p, len(p) * sizeof(c_wchar))
+            self.assertEqual(a.value, "Hello, World")
 
-        self.assertEqual(wstring_at(a), "Hello, World")
-        self.assertEqual(wstring_at(a, 5), "Hello")
-        self.assertEqual(wstring_at(a, 16), "Hello, World\0\0\0\0")
-        self.assertEqual(wstring_at(a, 0), "")
+            self.assertEqual(wstring_at(a), "Hello, World")
+            self.assertEqual(wstring_at(a, 5), "Hello")
+            self.assertEqual(wstring_at(a, 16), "Hello, World\0\0\0\0")
+            self.assertEqual(wstring_at(a, 0), "")
 
 if __name__ == "__main__":
     unittest.main()

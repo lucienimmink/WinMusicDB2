@@ -5,15 +5,10 @@ import sys
 import wave
 
 
-class WaveTest(audiotests.AudioWriteTests,
-               audiotests.AudioTestsWithSourceFile):
+class WavePCM8Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
     module = wave
-    test_unseekable_write = None
-    test_unseekable_overflowed_write = None
-    test_unseekable_incompleted_write = None
-
-
-class WavePCM8Test(WaveTest, unittest.TestCase):
     sndfilename = 'pluck-pcm8.wav'
     sndfilenframes = 3307
     nchannels = 2
@@ -30,7 +25,10 @@ class WavePCM8Test(WaveTest, unittest.TestCase):
       """)
 
 
-class WavePCM16Test(WaveTest, unittest.TestCase):
+class WavePCM16Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = wave
     sndfilename = 'pluck-pcm16.wav'
     sndfilenframes = 3307
     nchannels = 2
@@ -50,14 +48,14 @@ class WavePCM16Test(WaveTest, unittest.TestCase):
     if sys.byteorder != 'big':
         frames = audiotests.byteswap2(frames)
 
-    if sys.byteorder == 'big':
-        @unittest.expectedFailure
-        def test_unseekable_incompleted_write(self):
-            super().test_unseekable_incompleted_write()
 
-
-
-class WavePCM24Test(WaveTest, unittest.TestCase):
+@unittest.skipIf(sys.byteorder == 'big',
+                 '24-bit wave files are supported only on little-endian '
+                 'platforms')
+class WavePCM24Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = wave
     sndfilename = 'pluck-pcm24.wav'
     sndfilenframes = 3307
     nchannels = 2
@@ -84,7 +82,10 @@ class WavePCM24Test(WaveTest, unittest.TestCase):
         frames = audiotests.byteswap3(frames)
 
 
-class WavePCM32Test(WaveTest, unittest.TestCase):
+class WavePCM32Test(audiotests.AudioWriteTests,
+        audiotests.AudioTestsWithSourceFile,
+        unittest.TestCase):
+    module = wave
     sndfilename = 'pluck-pcm32.wav'
     sndfilenframes = 3307
     nchannels = 2
@@ -109,11 +110,6 @@ class WavePCM32Test(WaveTest, unittest.TestCase):
       """)
     if sys.byteorder != 'big':
         frames = audiotests.byteswap4(frames)
-
-    if sys.byteorder == 'big':
-        @unittest.expectedFailure
-        def test_unseekable_incompleted_write(self):
-            super().test_unseekable_incompleted_write()
 
 
 def test_main():

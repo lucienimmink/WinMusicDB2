@@ -12,16 +12,11 @@ class AboutDialog(Toplevel):
     """Modal about dialog for idle
 
     """
-    def __init__(self, parent, title, _htest=False):
-        """
-        _htest - bool, change box location when running htest
-        """
+    def __init__(self,parent,title):
         Toplevel.__init__(self, parent)
         self.configure(borderwidth=5)
-        # place dialog below parent if running htest
-        self.geometry("+%d+%d" % (
-                        parent.winfo_rootx()+30,
-                        parent.winfo_rooty()+(30 if not _htest else 100)))
+        self.geometry("+%d+%d" % (parent.winfo_rootx()+30,
+                                  parent.winfo_rooty()+30))
         self.bg = "#707070"
         self.fg = "#ffffff"
         self.CreateWidgets()
@@ -141,5 +136,10 @@ class AboutDialog(Toplevel):
         self.destroy()
 
 if __name__ == '__main__':
-    from idlelib.idle_test.htest import run
-    run(AboutDialog)
+    # test the dialog
+    root = Tk()
+    def run():
+        from idlelib import aboutDialog
+        aboutDialog.AboutDialog(root, 'About')
+    Button(root, text='Dialog', command=run).pack()
+    root.mainloop()

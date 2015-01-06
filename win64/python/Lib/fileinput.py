@@ -387,10 +387,9 @@ def hook_compressed(filename, mode):
 
 
 def hook_encoded(encoding):
-    import io
+    import codecs
     def openhook(filename, mode):
-        mode = mode.replace('U', '').replace('b', '') or 'r'
-        return io.open(filename, mode, encoding=encoding, newline='')
+        return codecs.open(filename, mode, encoding)
     return openhook
 
 

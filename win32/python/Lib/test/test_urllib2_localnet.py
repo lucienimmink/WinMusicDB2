@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import urlparse
 import urllib2
 import BaseHTTPServer

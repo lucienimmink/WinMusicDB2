@@ -8,9 +8,11 @@ MacOS = test_support.import_module('MacOS')
 TESTFN2 = test_support.TESTFN + '2'
 
 class TestMacOS(unittest.TestCase):
-    @unittest.skipUnless(os.path.exists('/Developer/Tools/SetFile'),
-                         '/Developer/Tools/SetFile does not exist')
+
     def testGetCreatorAndType(self):
+        if not os.path.exists('/Developer/Tools/SetFile'):
+            return
+
         try:
             fp = open(test_support.TESTFN, 'w')
             fp.write('\n')
@@ -27,9 +29,10 @@ class TestMacOS(unittest.TestCase):
         finally:
             os.unlink(test_support.TESTFN)
 
-    @unittest.skipUnless(os.path.exists('/Developer/Tools/GetFileInfo'),
-                         '/Developer/Tools/GetFileInfo does not exist')
     def testSetCreatorAndType(self):
+        if not os.path.exists('/Developer/Tools/GetFileInfo'):
+            return
+
         try:
             fp = open(test_support.TESTFN, 'w')
             fp.write('\n')

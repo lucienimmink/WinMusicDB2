@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+#
+
 ####
 # Copyright 2000 by Timothy O'Malley <timo@alum.mit.edu>
 #

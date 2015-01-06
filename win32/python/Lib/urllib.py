@@ -1125,13 +1125,10 @@ def splitport(host):
     global _portprog
     if _portprog is None:
         import re
-        _portprog = re.compile('^(.*):([0-9]*)$')
+        _portprog = re.compile('^(.*):([0-9]+)$')
 
     match = _portprog.match(host)
-    if match:
-        host, port = match.groups()
-        if port:
-            return host, port
+    if match: return match.group(1, 2)
     return host, None
 
 _nportprog = None
@@ -1148,12 +1145,12 @@ def splitnport(host, defport=-1):
     match = _nportprog.match(host)
     if match:
         host, port = match.group(1, 2)
-        if port:
-            try:
-                nport = int(port)
-            except ValueError:
-                nport = None
-            return host, nport
+        try:
+            if not port: raise ValueError, "no digits"
+            nport = int(port)
+        except ValueError:
+            nport = None
+        return host, nport
     return host, defport
 
 _queryprog = None

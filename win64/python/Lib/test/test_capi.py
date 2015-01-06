@@ -13,9 +13,7 @@ try:
 except ImportError:
     thread = None
     threading = None
-# Skip this test if the _testcapi module isn't available.
-_testcapi = test_support.import_module('_testcapi')
-
+import _testcapi
 
 @unittest.skipUnless(threading, 'Threading required for this test.')
 class TestPendingCalls(unittest.TestCase):

@@ -15,7 +15,7 @@ import io
 
 import linecache
 from code import InteractiveInterpreter
-from platform import python_version, system
+from platform import python_version
 
 try:
     from Tkinter import *
@@ -866,7 +866,7 @@ class PyShell(OutputWindow):
         ("help", "_Help"),
     ]
 
-    if sys.platform == "darwin":
+    if macosxSupport.runningAsOSXApp():
         menu_specs[-2] = ("windows", "_Window")
 
 
@@ -1338,16 +1338,8 @@ class PseudoOutputFile(PseudoFile):
     def write(self, s):
         if self.closed:
             raise ValueError("write to closed file")
-        if type(s) not in (unicode, str, bytearray):
-            # See issue #19481
-            if isinstance(s, unicode):
-                s = unicode.__getslice__(s, None, None)
-            elif isinstance(s, str):
-                s = str.__str__(s)
-            elif isinstance(s, bytearray):
-                s = bytearray.__str__(s)
-            else:
-                raise TypeError('must be string, not ' + type(s).__name__)
+        if not isinstance(s, (basestring, bytearray)):
+            raise TypeError('must be string, not ' + type(s).__name__)
         return self.shell.write(s, self.tags)
 
 
@@ -1393,9 +1385,6 @@ class PseudoInputFile(PseudoFile):
         line = self._line_buffer or self.shell.readline()
         if size < 0:
             size = len(line)
-        eol = line.find('\n', 0, size)
-        if eol >= 0:
-            size = eol + 1
         self._line_buffer = line[size:]
         return line[:size]
 
@@ -1536,18 +1525,6 @@ def main():
     # start editor and/or shell windows:
     root = Tk(className="Idle")
 
-    # set application icon
-    icondir = os.path.join(os.path.dirname(__file__), 'Icons')
-    if system() == 'Windows':
-        iconfile = os.path.join(icondir, 'idle.ico')
-        root.wm_iconbitmap(default=iconfile)
-    elif TkVersion >= 8.5:
-        ext = '.png' if TkVersion >= 8.6 else '.gif'
-        iconfiles = [os.path.join(icondir, 'idle_%d%s' % (size, ext))
-                     for size in (16, 32, 48)]
-        icons = [PhotoImage(file=iconfile) for iconfile in iconfiles]
-        root.tk.call('wm', 'iconphoto', str(root), "-default", *icons)
-
     fixwordbreaks(root)
     root.withdraw()
     flist = PyShellFileList(root)
@@ -1561,22 +1538,20 @@ def main():
                     args.remove(filename)
             if not args:
                 flist.new()
-
     if enable_shell:
         shell = flist.open_shell()
         if not shell:
             return # couldn't open shell
-        if macosxSupport.isAquaTk() and flist.dict:
+
+        if macosxSupport.runningAsOSXApp() and flist.dict:
             # On OSX: when the user has double-clicked on a file that causes
             # IDLE to be launched the shell window will open just in front of
             # the file she wants to see. Lower the interpreter window when
             # there are open files.
             shell.top.lower()
-    else:
-        shell = flist.pyshell
 
-    # Handle remaining options. If any of these are set, enable_shell
-    # was set also, so shell must be true to reach here.
+    shell = flist.pyshell
+    # handle remaining options:
     if debug:
         shell.open_debugger()
     if startup:
@@ -1584,7 +1559,7 @@ def main():
                    os.environ.get("PYTHONSTARTUP")
         if filename and os.path.isfile(filename):
             shell.interp.execfile(filename)
-    if cmd or script:
+    if shell and cmd or script:
         shell.interp.runcommand("""if 1:
             import sys as _sys
             _sys.argv = %r
@@ -1595,14 +1570,13 @@ def main():
         elif script:
             shell.interp.prepend_syspath(script)
             shell.interp.execfile(script)
-    elif shell:
-        # If there is a shell window and no cmd or script in progress,
-        # check for problematic OS X Tk versions and print a warning
-        # message in the IDLE shell window; this is less intrusive
-        # than always opening a separate window.
-        tkversionwarning = macosxSupport.tkVersionWarning(root)
-        if tkversionwarning:
-            shell.interp.runcommand("print('%s')" % tkversionwarning)
+
+    # Check for problematic OS X Tk versions and print a warning message
+    # in the IDLE shell window; this is less intrusive than always opening
+    # a separate window.
+    tkversionwarning = macosxSupport.tkVersionWarning(root)
+    if tkversionwarning:
+        shell.interp.runcommand(''.join(("print('", tkversionwarning, "')")))
 
     while flist.inversedict:  # keep IDLE running while files are open.
         root.mainloop()

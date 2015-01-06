@@ -5,22 +5,23 @@ def callback_func(arg):
     42 // arg
     raise ValueError(arg)
 
-@unittest.skipUnless(sys.platform == "win32", 'Windows-specific test')
-class call_function_TestCase(unittest.TestCase):
-    # _ctypes.call_function is deprecated and private, but used by
-    # Gary Bishp's readline module.  If we have it, we must test it as well.
+if sys.platform == "win32":
 
-    def test(self):
-        from _ctypes import call_function
-        windll.kernel32.LoadLibraryA.restype = c_void_p
-        windll.kernel32.GetProcAddress.argtypes = c_void_p, c_char_p
-        windll.kernel32.GetProcAddress.restype = c_void_p
+    class call_function_TestCase(unittest.TestCase):
+        # _ctypes.call_function is deprecated and private, but used by
+        # Gary Bishp's readline module.  If we have it, we must test it as well.
 
-        hdll = windll.kernel32.LoadLibraryA("kernel32")
-        funcaddr = windll.kernel32.GetProcAddress(hdll, "GetModuleHandleA")
+        def test(self):
+            from _ctypes import call_function
+            windll.kernel32.LoadLibraryA.restype = c_void_p
+            windll.kernel32.GetProcAddress.argtypes = c_void_p, c_char_p
+            windll.kernel32.GetProcAddress.restype = c_void_p
 
-        self.assertEqual(call_function(funcaddr, (None,)),
-                             windll.kernel32.GetModuleHandleA(None))
+            hdll = windll.kernel32.LoadLibraryA("kernel32")
+            funcaddr = windll.kernel32.GetProcAddress(hdll, "GetModuleHandleA")
+
+            self.assertEqual(call_function(funcaddr, (None,)),
+                                 windll.kernel32.GetModuleHandleA(None))
 
 class CallbackTracbackTestCase(unittest.TestCase):
     # When an exception is raised in a ctypes callback function, the C

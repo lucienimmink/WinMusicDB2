@@ -138,7 +138,7 @@ class TestMailbox(TestBase):
         msg = self._box.get(key0)
         self.assertEqual(msg['from'], 'foo')
         self.assertEqual(msg.get_payload(), '0\n')
-        self.assertIsNone(self._box.get('foo'))
+        self.assertIs(self._box.get('foo'), None)
         self.assertFalse(self._box.get('foo', False))
         self._box.close()
         self._box = self._factory(self._path, factory=rfc822.Message)
@@ -249,7 +249,8 @@ class TestMailbox(TestBase):
             count = 0
             for value in returned_values:
                 self.assertEqual(value['from'], 'foo')
-                self.assertLess(int(value.get_payload()), repetitions)
+                self.assertTrue(int(value.get_payload()) < repetitions,
+                                (value.get_payload(), repetitions))
                 count += 1
             self.assertEqual(len(values), count)
 
@@ -663,7 +664,7 @@ class TestMaildir(TestMailbox, unittest.TestCase):
                                                                 "tmp")),
                              "File in wrong location: '%s'" % head)
             match = pattern.match(tail)
-            self.assertIsNotNone(match, "Invalid file name: '%s'" % tail)
+            self.assertTrue(match is not None, "Invalid file name: '%s'" % tail)
             groups = match.groups()
             if previous_groups is not None:
                 self.assertGreaterEqual(int(groups[0]), int(previous_groups[0]),
@@ -673,22 +674,22 @@ class TestMaildir(TestMailbox, unittest.TestCase):
                     self.assertGreaterEqual(int(groups[1]), int(previous_groups[1]),
                                 "Non-monotonic milliseconds: '%s' before '%s'" %
                                 (previous_groups[1], groups[1]))
-                self.assertEqual(int(groups[2]), pid,
+                self.assertTrue(int(groups[2]) == pid,
                              "Process ID mismatch: '%s' should be '%s'" %
                              (groups[2], pid))
-                self.assertEqual(int(groups[3]), int(previous_groups[3]) + 1,
+                self.assertTrue(int(groups[3]) == int(previous_groups[3]) + 1,
                              "Non-sequential counter: '%s' before '%s'" %
                              (previous_groups[3], groups[3]))
-                self.assertEqual(groups[4], hostname,
+                self.assertTrue(groups[4] == hostname,
                              "Host name mismatch: '%s' should be '%s'" %
                              (groups[4], hostname))
             previous_groups = groups
             tmp_file.write(_sample_message)
             tmp_file.seek(0)
-            self.assertEqual(tmp_file.read(), _sample_message)
+            self.assertTrue(tmp_file.read() == _sample_message)
             tmp_file.close()
         file_count = len(os.listdir(os.path.join(self._path, "tmp")))
-        self.assertEqual(file_count, repetitions,
+        self.assertTrue(file_count == repetitions,
                      "Wrong file count: '%s' should be '%s'" %
                      (file_count, repetitions))
 
@@ -771,10 +772,10 @@ class TestMaildir(TestMailbox, unittest.TestCase):
         for msg in self._box:
             pass
 
-    @unittest.skipUnless(hasattr(os, 'umask'), 'test needs os.umask()')
-    @unittest.skipUnless(hasattr(os, 'stat'), 'test needs os.stat()')
     def test_file_permissions(self):
         # Verify that message files are created without execute permissions
+        if not hasattr(os, "stat") or not hasattr(os, "umask"):
+            return
         msg = mailbox.MaildirMessage(self._template % 0)
         orig_umask = os.umask(0)
         try:
@@ -785,11 +786,12 @@ class TestMaildir(TestMailbox, unittest.TestCase):
         mode = os.stat(path).st_mode
         self.assertEqual(mode & 0111, 0)
 
-    @unittest.skipUnless(hasattr(os, 'umask'), 'test needs os.umask()')
-    @unittest.skipUnless(hasattr(os, 'stat'), 'test needs os.stat()')
     def test_folder_file_perms(self):
         # From bug #3228, we want to verify that the file created inside a Maildir
         # subfolder isn't marked as executable.
+        if not hasattr(os, "stat") or not hasattr(os, "umask"):
+            return
+
         orig_umask = os.umask(0)
         try:
             subfolder = self._box.add_folder('subfolder')
@@ -989,25 +991,24 @@ class TestMbox(_TestMboxMMDF, unittest.TestCase):
 
     _factory = lambda self, path, factory=None: mailbox.mbox(path, factory)
 
-    @unittest.skipUnless(hasattr(os, 'umask'), 'test needs os.umask()')
-    @unittest.skipUnless(hasattr(os, 'stat'), 'test needs os.stat()')
     def test_file_perms(self):
         # From bug #3228, we want to verify that the mailbox file isn't executable,
         # even if the umask is set to something that would leave executable bits set.
         # We only run this test on platforms that support umask.
-        try:
-            old_umask = os.umask(0077)
-            self._box.close()
-            os.unlink(self._path)
-            self._box = mailbox.mbox(self._path, create=True)
-            self._box.add('')
-            self._box.close()
-        finally:
-            os.umask(old_umask)
+        if hasattr(os, 'umask') and hasattr(os, 'stat'):
+            try:
+                old_umask = os.umask(0077)
+                self._box.close()
+                os.unlink(self._path)
+                self._box = mailbox.mbox(self._path, create=True)
+                self._box.add('')
+                self._box.close()
+            finally:
+                os.umask(old_umask)
 
-        st = os.stat(self._path)
-        perms = st.st_mode
-        self.assertFalse((perms & 0111)) # Execute bits should all be off.
+            st = os.stat(self._path)
+            perms = st.st_mode
+            self.assertFalse((perms & 0111)) # Execute bits should all be off.
 
     def test_terminating_newline(self):
         message = email.message.Message()
@@ -1239,7 +1240,7 @@ class TestMessage(TestBase, unittest.TestCase):
         self.assertIsInstance(msg, self._factory)
         self.assertEqual(msg.keys(), [])
         self.assertFalse(msg.is_multipart())
-        self.assertIsNone(msg.get_payload())
+        self.assertEqual(msg.get_payload(), None)
 
     def test_initialize_incorrectly(self):
         # Initialize with invalid argument
@@ -1312,7 +1313,7 @@ class TestMaildirMessage(TestMessage, unittest.TestCase):
         # Use get_date() and set_date()
         msg = mailbox.MaildirMessage(_sample_message)
         diff = msg.get_date() - time.time()
-        self.assertLess(abs(diff), 60, diff)
+        self.assertTrue(abs(diff) < 60, diff)
         msg.set_date(0.0)
         self.assertEqual(msg.get_date(), 0.0)
 
@@ -1387,9 +1388,8 @@ class _TestMboxMMDFMessage:
         # Check contents of "From " line
         if sender is None:
             sender = "MAILER-DAEMON"
-        self.assertIsNotNone(re.match(
-                sender + r" \w{3} \w{3} [\d ]\d [\d ]\d:\d{2}:\d{2} \d{4}",
-                msg.get_from()))
+        self.assertTrue(re.match(sender + r" \w{3} \w{3} [\d ]\d [\d ]\d:\d{2}:"
+                                 r"\d{2} \d{4}", msg.get_from()))
 
 
 class TestMboxMessage(_TestMboxMMDFMessage, TestMessage):
@@ -1463,7 +1463,7 @@ class TestBabylMessage(TestMessage, unittest.TestCase):
         msg = mailbox.BabylMessage(_sample_message)
         visible = msg.get_visible()
         self.assertEqual(visible.keys(), [])
-        self.assertIsNone(visible.get_payload())
+        self.assertIs(visible.get_payload(), None)
         visible['User-Agent'] = 'FooBar 1.0'
         visible['X-Whatever'] = 'Blah'
         self.assertEqual(msg.get_visible().keys(), [])
@@ -1472,10 +1472,10 @@ class TestBabylMessage(TestMessage, unittest.TestCase):
         self.assertEqual(visible.keys(), ['User-Agent', 'X-Whatever'])
         self.assertEqual(visible['User-Agent'], 'FooBar 1.0')
         self.assertEqual(visible['X-Whatever'], 'Blah')
-        self.assertIsNone(visible.get_payload())
+        self.assertIs(visible.get_payload(), None)
         msg.update_visible()
         self.assertEqual(visible.keys(), ['User-Agent', 'X-Whatever'])
-        self.assertIsNone(visible.get_payload())
+        self.assertIs(visible.get_payload(), None)
         visible = msg.get_visible()
         self.assertEqual(visible.keys(), ['User-Agent', 'Date', 'From', 'To',
                                           'Subject'])
@@ -1971,43 +1971,43 @@ class MaildirTestCase(unittest.TestCase):
         # Make sure the boxes attribute actually gets set.
         self.mbox = mailbox.Maildir(test_support.TESTFN)
         #self.assertTrue(hasattr(self.mbox, "boxes"))
-        #self.assertEqual(len(self.mbox.boxes), 0)
-        self.assertIsNone(self.mbox.next())
-        self.assertIsNone(self.mbox.next())
+        #self.assertTrue(len(self.mbox.boxes) == 0)
+        self.assertIs(self.mbox.next(), None)
+        self.assertIs(self.mbox.next(), None)
 
     def test_nonempty_maildir_cur(self):
         self.createMessage("cur")
         self.mbox = mailbox.Maildir(test_support.TESTFN)
-        #self.assertEqual(len(self.mbox.boxes), 1)
+        #self.assertTrue(len(self.mbox.boxes) == 1)
         msg = self.mbox.next()
-        self.assertIsNotNone(msg)
+        self.assertIsNot(msg, None)
         msg.fp.close()
-        self.assertIsNone(self.mbox.next())
-        self.assertIsNone(self.mbox.next())
+        self.assertIs(self.mbox.next(), None)
+        self.assertIs(self.mbox.next(), None)
 
     def test_nonempty_maildir_new(self):
         self.createMessage("new")
         self.mbox = mailbox.Maildir(test_support.TESTFN)
-        #self.assertEqual(len(self.mbox.boxes), 1)
+        #self.assertTrue(len(self.mbox.boxes) == 1)
         msg = self.mbox.next()
-        self.assertIsNotNone(msg)
+        self.assertIsNot(msg, None)
         msg.fp.close()
-        self.assertIsNone(self.mbox.next())
-        self.assertIsNone(self.mbox.next())
+        self.assertIs(self.mbox.next(), None)
+        self.assertIs(self.mbox.next(), None)
 
     def test_nonempty_maildir_both(self):
         self.createMessage("cur")
         self.createMessage("new")
         self.mbox = mailbox.Maildir(test_support.TESTFN)
-        #self.assertEqual(len(self.mbox.boxes), 2)
+        #self.assertTrue(len(self.mbox.boxes) == 2)
         msg = self.mbox.next()
-        self.assertIsNotNone(msg)
+        self.assertIsNot(msg, None)
         msg.fp.close()
         msg = self.mbox.next()
-        self.assertIsNotNone(msg)
+        self.assertIsNot(msg, None)
         msg.fp.close()
-        self.assertIsNone(self.mbox.next())
-        self.assertIsNone(self.mbox.next())
+        self.assertIs(self.mbox.next(), None)
+        self.assertIs(self.mbox.next(), None)
 
     def test_unix_mbox(self):
         ### should be better!

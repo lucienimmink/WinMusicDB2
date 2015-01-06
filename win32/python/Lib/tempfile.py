@@ -460,12 +460,8 @@ def NamedTemporaryFile(mode='w+b', bufsize=-1, suffix="",
         flags |= _os.O_TEMPORARY
 
     (fd, name) = _mkstemp_inner(dir, prefix, suffix, flags)
-    try:
-        file = _os.fdopen(fd, mode, bufsize)
-        return _TemporaryFileWrapper(file, name, delete)
-    except:
-        _os.close(fd)
-        raise
+    file = _os.fdopen(fd, mode, bufsize)
+    return _TemporaryFileWrapper(file, name, delete)
 
 if _os.name != 'posix' or _os.sys.platform == 'cygwin':
     # On non-POSIX and Cygwin systems, assume that we cannot unlink a file

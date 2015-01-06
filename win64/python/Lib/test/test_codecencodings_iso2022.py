@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+#
 # Codec encoding tests for ISO 2022 encodings.
 
 from test import test_support
@@ -34,7 +36,6 @@ class Test_ISO2022_KR(test_multibytecodec_support.TestBase, unittest.TestCase):
 
     # iso2022_kr.txt cannot be used to test "chunk coding": the escape
     # sequence is only written on the first line
-    @unittest.skip('iso2022_kr.txt cannot be used to test "chunk coding"')
     def test_chunkcoding(self):
         pass
 

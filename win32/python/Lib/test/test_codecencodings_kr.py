@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # test_codecencodings_kr.py
 #   Codec encoding tests for ROK encodings.

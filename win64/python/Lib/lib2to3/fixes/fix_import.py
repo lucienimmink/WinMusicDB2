@@ -32,7 +32,7 @@ def traverse_imports(names):
         elif node.type == syms.dotted_as_names:
             pending.extend(node.children[::-2])
         else:
-            raise AssertionError("unknown node type")
+            raise AssertionError("unkown node type")
 
 
 class FixImport(fixer_base.BaseFix):

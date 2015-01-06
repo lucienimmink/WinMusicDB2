@@ -63,7 +63,7 @@ class AbstractMemoryTests:
 
     def test_setitem_readonly(self):
         if not self.ro_type:
-            self.skipTest("no read-only type to test")
+            return
         b = self.ro_type(self._source)
         oldrefcount = sys.getrefcount(b)
         m = self._view(b)
@@ -77,7 +77,7 @@ class AbstractMemoryTests:
 
     def test_setitem_writable(self):
         if not self.rw_type:
-            self.skipTest("no writable type to test")
+            return
         tp = self.rw_type
         b = self.rw_type(self._source)
         oldrefcount = sys.getrefcount(b)
@@ -183,13 +183,13 @@ class AbstractMemoryTests:
 
     def test_attributes_readonly(self):
         if not self.ro_type:
-            self.skipTest("no read-only type to test")
+            return
         m = self.check_attributes_with_type(self.ro_type)
         self.assertEqual(m.readonly, True)
 
     def test_attributes_writable(self):
         if not self.rw_type:
-            self.skipTest("no writable type to test")
+            return
         m = self.check_attributes_with_type(self.rw_type)
         self.assertEqual(m.readonly, False)
 
@@ -236,7 +236,7 @@ class AbstractMemoryTests:
         # buffer as writable causing a segfault if using mmap
         tp = self.ro_type
         if tp is None:
-            self.skipTest("no read-only type to test")
+            return
         b = tp(self._source)
         m = self._view(b)
         i = io.BytesIO(b'ZZZZ')

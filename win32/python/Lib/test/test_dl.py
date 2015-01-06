@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """Test dlmodule.c
    Roger E. Masse  revised strategy by Barry Warsaw
 """

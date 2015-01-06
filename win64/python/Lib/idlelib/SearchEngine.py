@@ -83,9 +83,11 @@ class SearchEngine:
         try:
             prog = re.compile(pat, flags)
         except re.error as what:
-            args = what.args
-            msg = args[0]
-            col = arg[1] if len(args) >= 2 else -1
+            try:
+                msg, col = what
+            except:
+                msg = str(what)
+                col = -1
             self.report_error(pat, msg, col)
             return None
         return prog
@@ -229,5 +231,6 @@ def get_line_col(index):
     return line, col
 
 if __name__ == "__main__":
+    from test import support; support.use_resources = ['gui']
     import unittest
     unittest.main('idlelib.idle_test.test_searchengine', verbosity=2, exit=False)

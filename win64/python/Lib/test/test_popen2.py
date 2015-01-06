@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """Test script for popen2.py"""
 
 import warnings

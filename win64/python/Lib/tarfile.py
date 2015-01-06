@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: iso-8859-1 -*-
 #-------------------------------------------------------------------
 # tarfile.py
@@ -1508,11 +1509,10 @@ class TarFile(object):
            can be determined, `mode' is overridden by `fileobj's mode.
            `fileobj' is not closed, when TarFile is closed.
         """
-        modes = {"r": "rb", "a": "r+b", "w": "wb"}
-        if mode not in modes:
+        if len(mode) > 1 or mode not in "raw":
             raise ValueError("mode must be 'r', 'a' or 'w'")
         self.mode = mode
-        self._mode = modes[mode]
+        self._mode = {"r": "rb", "a": "r+b", "w": "wb"}[mode]
 
         if not fileobj:
             if self.mode == "a" and not os.path.exists(name):
@@ -1682,7 +1682,7 @@ class TarFile(object):
             filemode = filemode or "r"
             comptype = comptype or "tar"
 
-            if filemode not in ("r", "w"):
+            if filemode not in "rw":
                 raise ValueError("mode must be 'r' or 'w'")
 
             t = cls(name, filemode,
@@ -1691,7 +1691,7 @@ class TarFile(object):
             t._extfileobj = False
             return t
 
-        elif mode in ("a", "w"):
+        elif mode in "aw":
             return cls.taropen(name, mode, fileobj, **kwargs)
 
         raise ValueError("undiscernible mode")
@@ -1700,7 +1700,7 @@ class TarFile(object):
     def taropen(cls, name, mode="r", fileobj=None, **kwargs):
         """Open uncompressed tar archive name for reading or writing.
         """
-        if mode not in ("r", "a", "w"):
+        if len(mode) > 1 or mode not in "raw":
             raise ValueError("mode must be 'r', 'a' or 'w'")
         return cls(name, mode, fileobj, **kwargs)
 
@@ -1709,7 +1709,7 @@ class TarFile(object):
         """Open gzip compressed tar archive name for reading or writing.
            Appending is not allowed.
         """
-        if mode not in ("r", "w"):
+        if len(mode) > 1 or mode not in "rw":
             raise ValueError("mode must be 'r' or 'w'")
 
         try:
@@ -1726,9 +1726,7 @@ class TarFile(object):
                 gzip.GzipFile(name, mode, compresslevel, fileobj),
                 **kwargs)
         except IOError:
-            if mode == 'r':
-                raise ReadError("not a gzip file")
-            raise
+            raise ReadError("not a gzip file")
         t._extfileobj = False
         return t
 
@@ -1737,7 +1735,7 @@ class TarFile(object):
         """Open bzip2 compressed tar archive name for reading or writing.
            Appending is not allowed.
         """
-        if mode not in ("r", "w"):
+        if len(mode) > 1 or mode not in "rw":
             raise ValueError("mode must be 'r' or 'w'.")
 
         try:
@@ -1753,9 +1751,7 @@ class TarFile(object):
         try:
             t = cls.taropen(name, mode, fileobj, **kwargs)
         except (IOError, EOFError):
-            if mode == 'r':
-                raise ReadError("not a bzip2 file")
-            raise
+            raise ReadError("not a bzip2 file")
         t._extfileobj = False
         return t
 

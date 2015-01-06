@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # test_codecmaps_tw.py
 #   Codec mapping tests for ROC encodings

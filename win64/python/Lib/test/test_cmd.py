@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Test script for the 'cmd' module
 Original by Michael Schneider

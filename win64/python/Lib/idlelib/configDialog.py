@@ -23,19 +23,14 @@ from idlelib import macosxSupport
 
 class ConfigDialog(Toplevel):
 
-    def __init__(self,parent,title,_htest=False):
-        """
-        _htest - bool, change box location when running htest
-        """
+    def __init__(self,parent,title):
         Toplevel.__init__(self, parent)
         self.wm_withdraw()
 
         self.configure(borderwidth=5)
         self.title('IDLE Preferences')
-        if _htest:
-            parent.instance_dict = {}
         self.geometry("+%d+%d" % (parent.winfo_rootx()+20,
-                parent.winfo_rooty()+(30 if not _htest else 150)))
+                parent.winfo_rooty()+30))
         #Theme Elements. Each theme element key is its display name.
         #The first value of the tuple is the sample area tag name.
         #The second value is the display name list sort index.
@@ -76,17 +71,16 @@ class ConfigDialog(Toplevel):
                 page_names=['Fonts/Tabs','Highlighting','Keys','General'])
         frameActionButtons = Frame(self,pady=2)
         #action buttons
-        if macosxSupport.isAquaTk():
+        if macosxSupport.runningAsOSXApp():
             # Changing the default padding on OSX results in unreadable
             # text in the buttons
             paddingArgs={}
         else:
             paddingArgs={'padx':6, 'pady':3}
 
-# Comment out button creation and packing until implement self.Help
-##        self.buttonHelp = Button(frameActionButtons,text='Help',
-##                command=self.Help,takefocus=FALSE,
-##                **paddingArgs)
+        self.buttonHelp = Button(frameActionButtons,text='Help',
+                command=self.Help,takefocus=FALSE,
+                **paddingArgs)
         self.buttonOk = Button(frameActionButtons,text='Ok',
                 command=self.Ok,takefocus=FALSE,
                 **paddingArgs)
@@ -100,7 +94,7 @@ class ConfigDialog(Toplevel):
         self.CreatePageHighlight()
         self.CreatePageKeys()
         self.CreatePageGeneral()
-##        self.buttonHelp.pack(side=RIGHT,padx=5)
+        self.buttonHelp.pack(side=RIGHT,padx=5)
         self.buttonOk.pack(side=LEFT,padx=5)
         self.buttonApply.pack(side=LEFT,padx=5)
         self.buttonCancel.pack(side=LEFT,padx=5)
@@ -1156,5 +1150,9 @@ class ConfigDialog(Toplevel):
         pass
 
 if __name__ == '__main__':
-    from idlelib.idle_test.htest import run
-    run(ConfigDialog)
+    #test the dialog
+    root=Tk()
+    Button(root,text='Dialog',
+            command=lambda:ConfigDialog(root,'Settings')).pack()
+    root.instance_dict={}
+    root.mainloop()

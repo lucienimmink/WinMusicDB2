@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 """Whimpy test script for the cl module
    Roger E. Masse
 """

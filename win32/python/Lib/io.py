@@ -68,16 +68,15 @@ SEEK_END = 2
 # version however.
 class IOBase(_io._IOBase):
     __metaclass__ = abc.ABCMeta
-    __doc__ = _io._IOBase.__doc__
 
 class RawIOBase(_io._RawIOBase, IOBase):
-    __doc__ = _io._RawIOBase.__doc__
+    pass
 
 class BufferedIOBase(_io._BufferedIOBase, IOBase):
-    __doc__ = _io._BufferedIOBase.__doc__
+    pass
 
 class TextIOBase(_io._TextIOBase, IOBase):
-    __doc__ = _io._TextIOBase.__doc__
+    pass
 
 RawIOBase.register(FileIO)
 
