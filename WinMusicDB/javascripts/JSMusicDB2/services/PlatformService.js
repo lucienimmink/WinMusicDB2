@@ -15,7 +15,7 @@ function($log, $rootScope, $http, $interval, ModelService) {
 		} else if (dataPath.indexOf('\AppData\Local') !== -1) {
 			$rootScope.platform = 'Win';
 		}
-
+		/*
 		python = "python.exe";
 		if ($rootScope.platform === 'Lin' || $rootScope.platform === 'Mac') {
 			python = 'python';
@@ -32,22 +32,27 @@ function($log, $rootScope, $http, $interval, ModelService) {
 				}
 			}
 		});
+		*/
 		if ($rootScope.platform === 'Win') {
-			$http.get("C:\\Program Files (x86)\\WinMusicDB2\\scanner.py").success(function() {
-				pypath = "64";
-			}).error(function() {
-				$http.get("C:\\Program Files\\WinMusicDB2\\scanner.py").success(function() {
-					pypath = "32";
-				}).error(function() {
-					pypath = null;
-				});
+			$rootScope.hasPython = false;
+			var exec = require('child_process').exec;
+			var child = exec('reg query HKLM\\Software\\Addasoft\\WinMusicDB2\\Settings /v InstallPath', function(error, stdout, stderr) {
+				if (stdout) {
+					$rootScope.basePath = $.trim(stdout.split("  ")[6]);
+					$rootScope.pythonPath = $rootScope.basePath + "\\python\\python.exe";
+					var child2 = exec('"' + $rootScope.pythonPath + '" --version', function (err,o,e) {
+						if (e.indexOf("Python 2.7") === 0) {
+							$rootScope.hasPython = true;
+						}
+					});
+				}
 			});
 		}
 	};
 
 	factory.scan = function($scope, folder, progressPoll) {
 		var exec = require('child_process').exec;
-		var path = (pypath == "64") ? "\"C:\\Program Files (x86)\\WinMusicDB2\\scanner.py\"" : "\"C:\\Program Files\\WinMusicDB2\\scanner.py\"";
+		var path = $rootScope.basePath + "\\scanner.py";
 		if ($rootScope.platform === 'Lin') {
 			var dataPath = gui.App.dataPath;
 			var user = dataPath.substring(6);
@@ -59,7 +64,7 @@ function($log, $rootScope, $http, $interval, ModelService) {
 		}
 		if (path) {
 			var start = new Date();
-			var child = exec(python + ' ' + path + ' ' + folder, function(error, stdout, stderr) {
+			var child = exec('"' + $rootScope.pythonPath + '" "' + path + '" "' + folder + '"', function(error, stdout, stderr) {
 				if (error != null) {
 					console.log(error, stderr);
 					// error handling & exit
