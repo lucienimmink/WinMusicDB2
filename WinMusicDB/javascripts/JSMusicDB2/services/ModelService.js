@@ -53,65 +53,13 @@ function($log, $translate, $timeout) {
 
 				// add album
 				if (!context.albums[artistName + "-" + line.Album.toLowerCase()]) {
-					var album = {
-						album : $.trim(line.Album),
-						year : (line.Jaar !== 'null') ? line.Jaar : null,
-						artist : artistName,
-						tracks : [],
-						url : 'http://ws.audioscrobbler.com/2.0/',
-						data : {
-							method : 'album.getinfo',
-							api_key : '956c1818ded606576d6941de5ff793a5',
-							artist : line.Artiest,
-							album : $.trim(line.Album),
-							format : 'json',
-							autoCorrect : true
-						},
-						isVisible : true,
-						albumURL : function() {
-							return "letter/" + firstLetter + "/artist/" + artistName.toLowerCase() + "/album/" + $.trim(line.Album);
-						},
-						raw : {
-							artist : line.Artiest,
-							album : line.Album
-						}
-					};
+					var album = new Album(line, artistName, firstLetter);
 					context.albums[artistName + "-" + $.trim(line.Album.toLowerCase())] = album;
 					context.artists[artistName].albums.push(album);
 					context.year[album.year] = context.year[album.year] || [];
 					context.year[album.year].push(album);
 					album.artistNode = context.artists[artistName];
 				}
-				/*
-				if (isVarious && !context.albums["*-" + $.trim(line.Album.toLowerCase())]) {
-					var variousAlbum = {
-						album : $.trim(line.Album),
-						year : (line.Jaar !== 'null') ? line.Jaar : null,
-						artist : line.AlbumArtiest,
-						tracks : [],
-						url : 'http://ws.audioscrobbler.com/2.0/',
-						data : {
-							method : 'album.getinfo',
-							api_key : '956c1818ded606576d6941de5ff793a5',
-							artist : line.Artiest,
-							album : $.trim(line.Album),
-							format : 'json',
-							autoCorrect : true
-						},
-						isVisible : true,
-						albumURL : function() {
-							return "letter/*/artist/*/album/" + $.trim(line.Album);
-						},
-						raw : {
-							artist : line.Artiest,
-							album : line.Album
-						}
-					};
-					context.albums["*-" + $.trim(line.Album.toLowerCase())] = album;
-					context.artists["*"].albums.push(album);
-					// album.artistNode = context.artists[artistName];
-				}
-				*/
 			}
 			break;
 		}
@@ -120,70 +68,12 @@ function($log, $translate, $timeout) {
 			if (!context.tracks[artistName + "-" + $.trim(line.Album.toLowerCase()) + "-" + line.Titel.toLowerCase()]) {
 				if (context.albums[artistName + "-" + $.trim(line.Album.toLowerCase())]) {
 					// part of an album
-					var track = {
-						id : line.id,
-						file : line.Naam,
-						artist : line.Artiest,
-						artistID : artistName,
-						album : $.trim(line.Album),
-						time : line.Duur,
-						title : line.Titel,
-						number : Number(line.Track || ''),
-						path : line.Pad,
-						disc : Number(line.Disk),
-						isPlaying : false,
-						filename : function() {
-							var name = line.path.split('/');
-							return name[name.length - 1];
-						},
-						seconds : line.seconds,
-						raw : {
-							artist : line.Artiest,
-							album : line.Album,
-							title : line.Titel
-						}
-					};
-					if (isLocal) {
-						track.localPath = line.Pad;
-					}
+					var track = new Track(line, artistName, isLocal);
 					context.albums[artistName + "-" + $.trim(line.Album.toLowerCase())].tracks.push(track);
 					track.albumNode = context.albums[artistName + "-" + $.trim(line.Album.toLowerCase())];
 					context.tracks[artistName + "-" + $.trim(line.Album.toLowerCase()) + "-" + line.Titel.toLowerCase()] = track;
 					context.tracks[line.id] = track;
 				}
-				/*
-				// various artists?
-				if (context.albums["*-" + $.trim(line.Album.toLowerCase())]) {
-					// part of an album
-					var track = {
-						id : line.id,
-						file : line.Naam,
-						artist : line.AlbumArtiest,
-						artistID : artistName,
-						album : $.trim(line.Album),
-						time : line.Duur,
-						title : line.Titel,
-						number : Number(line.Track || ''),
-						path : line.Pad,
-						disc : Number(line.Disk),
-						isPlaying : false,
-						filename : function() {
-							var name = line.path.split('/');
-							return name[name.length - 1];
-						},
-						seconds : line.seconds,
-						raw : {
-							artist : line.Artiest,
-							album : line.Album,
-							title : line.Titel
-						}
-					};
-					if (isLocal) {
-						track.localPath = line.Pad;
-					}
-					context.albums["*-" + $.trim(line.Album.toLowerCase())].tracks.push(track);
-				}
-				*/
 			}
 			break;
 		}
