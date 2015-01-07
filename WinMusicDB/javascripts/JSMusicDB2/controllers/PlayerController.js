@@ -535,7 +535,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 					audiotag = audiotags[0];
 					otherPlayerIdentifier = 1;
 				}
-				$log.info('prestart', $scope.prebufferdTrack);
+				//$log.info('prestart', $scope.prebufferdTrack);
 				if ($scope.prebufferdTrack) {
 					$scope.play($scope.prebufferdTrack);
 				} else {
@@ -604,7 +604,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 			$scope.prebufferdTrack = doPrebuffer;
 			// fill otherplayer with this content
 			$timeout(function() {
-				$log.info('prebuffer', doPrebuffer);
+				//$log.info('prebuffer', doPrebuffer);
 				RestService.Music.play($scope, doPrebuffer, function(playerURL) {
 					audiotags[otherPlayerIdentifier].src = playerURL;
 					audiotags[otherPlayerIdentifier].load();

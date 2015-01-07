@@ -40,7 +40,7 @@ html,body {
 }
 a {
   cursor: pointer;
-  color: $brand-primary;
+  color: $accent-color;
 }
 body {
   background: $brand-background;
@@ -753,8 +753,8 @@ footer {
       height: 20px;
       position: absolute;
       right: 0;
-      background: $brand-primary;
-      color: $font-tertiary;
+      //background: $accent-color;
+      color: $accent-color;
     }
     .edit {
       width: 50%;
@@ -846,7 +846,7 @@ tr.secondary {
     pointer-events: none;
 
     a {
-      color: $font-primary;
+      color: $accent-color;
     }
   }
 
