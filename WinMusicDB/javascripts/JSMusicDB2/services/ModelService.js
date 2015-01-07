@@ -31,70 +31,14 @@ function($log, $translate, $timeout) {
 		case 'artist' : {
 			if (line.Naam) {
 				var firstLetter = factory.getFirstLetter(line.Naam), artistName = factory.stripThe(line.Naam);
-				// var isVarious = (factory.stripThe(line.AlbumArtiest) !== artistName) ? true : false;
-				// add letter
 
 				if (!context.letters[firstLetter]) {
-					var letter = {
-						letter : firstLetter,
-						artists : [],
-						isActive : false,
-						isVisible : true
-					};
+					var letter = new Letter(firstLetter);
 					context.letters[letter.letter] = letter;
 				}
-				// add various
-				/*
-				if (isVarious && !context.letters['*']) {
-					var letter = {
-						letter : '*',
-						artists : [],
-						isActive : false,
-						isVisible : true
-					};
-					context.letters[letter.letter] = letter;
-				}
-				*/
 				// add artist
 				if (!context.artists[artistName]) {
-					var artist = {
-						name : line.Naam,
-						albumArtist : line.AlbumArtiest,
-						sortName : artistName,
-						albums : [],
-						url : 'http://ws.audioscrobbler.com/2.0/',
-						data : {
-							method : 'artist.getinfo',
-							api_key : '956c1818ded606576d6941de5ff793a5',
-							artist : line.Naam,
-							format : 'json',
-							autoCorrect : true
-						},
-						isVisible : true,
-						isVarious : false,
-						artistURL : function() {
-							return "letter/" + firstLetter + "/artist/" + artistName.toLowerCase();
-						},
-						raw : {
-							name : line.Naam
-						}
-					};
-					/*
-					if (isVarious) {
-						if (!context.artists["*"]) {
-							var variousArtist = {
-								name : line.AlbumArtiest,
-								albums : [],
-								isVisible : true,
-								artistURL : function() {
-									return "letter/*/artist/*";
-								}
-							};
-							context.letters["*"].artists.push(variousArtist);
-							context.artists["*"] = variousArtist;
-						}
-					}
-					*/
+					var artist = new Artist(line, artistName, firstLetter);
 					context.artists[artistName] = artist;
 					context.letters[firstLetter].artists.push(artist);
 					artist.letterNode = context.letters[firstLetter];

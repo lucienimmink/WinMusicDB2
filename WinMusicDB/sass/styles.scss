@@ -258,7 +258,7 @@ body.playing #main {
     tr {
       td {
         border-top: 0;
-        background: rgba(255,255,255,0.9);
+        background: rgba(248,248,248,0.9);
         padding: 10px 15px;
         cursor: default;
         overflow: hidden;
@@ -277,7 +277,7 @@ body.playing #main {
       tr {
         &:hover {
         td {
-          background-color: $brand-secondary;
+          background-color: rgba(207,216,220,0.9);
           cursor: pointer;
 
           .hovered {
@@ -838,7 +838,7 @@ tr.secondary {
     padding: 12px 8px;
     right: 0px;
     bottom: 0px;
-    background: $brand-secondary;
+    background: rgba(248,248,248,0.9);
     -webkit-transform: translateX(120%);
     transform: translateX(120%);
     opacity: 0;
