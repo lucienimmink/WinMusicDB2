@@ -100,7 +100,7 @@ function($http, $log, $location) {
 			},
 			play : function($scope, track, callback) {
 				if (track) {
-					console.log(track);
+//					console.log(track);
 					var playerURL = getPlaySrc($scope, track.path, track.id, track);
 					callback(playerURL);
 				}

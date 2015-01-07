@@ -48,6 +48,57 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 
 	$scope.hasLastFM = localStorage.getItem("key");
 
+	/*
+	 * Add native media shortcuts
+	 */
+
+	var gui = require('nw.gui');
+
+	var playPause = new gui.Shortcut({
+		key : 'MediaPlayPause',
+		active : function() {
+			$scope.playpause();
+		},
+		failed : function() {
+			// nothing here
+		}
+	});
+
+	var stop = new gui.Shortcut({
+		key : 'MediaStop',
+		active : function() {
+			$scope.stop();
+		},
+		failed : function() {
+			// nothing here
+		}
+	});
+
+	var prevTrack = new gui.Shortcut({
+		key : 'MediaPrevTrack',
+		active : function() {
+			$scope.prev();
+		},
+		failed : function() {
+			// nothing here
+		}
+	});
+
+	var nextTrack = new gui.Shortcut({
+		key : 'MediaNextTrack',
+		active : function() {
+			$scope.next();
+		},
+		failed : function() {
+			// nothing here
+		}
+	});
+
+	gui.App.registerGlobalHotKey(playPause);
+	gui.App.registerGlobalHotKey(stop);
+	gui.App.registerGlobalHotKey(prevTrack);
+	gui.App.registerGlobalHotKey(nextTrack);
+
 	// private functions
 	var scrobble = function() {
 		if (localStorage.getItem("key") && !busyScrobbling) {
