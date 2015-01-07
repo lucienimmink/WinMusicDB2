@@ -41,7 +41,6 @@ function($log, $rootScope, $http, $interval, ModelService) {
 					$rootScope.basePath = $.trim(stdout.split("  ")[6]);
 					$rootScope.pythonPath = $rootScope.basePath + "\\python\\python.exe";
 					var child2 = exec('"' + $rootScope.pythonPath + '" --version', function (err,o,e) {
-					console.log(err,o,e);
 						if (e.indexOf("Python 2.7") === 0) {
 							$rootScope.hasPython = true;
 						}
