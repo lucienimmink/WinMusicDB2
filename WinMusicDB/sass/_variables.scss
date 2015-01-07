@@ -28,7 +28,8 @@
  $brand-background:       #eceff1; // 50
  $brand-background2:      #f8f8f8;
 
- $accent-color:           #00BCD4;
+ //$accent-color:           #536DFE;
+ $accent-color:           $brand-primary;
 
  $font-primary:             #212121;
  $font-secondary:           #727272;
@@ -155,7 +156,7 @@
 // $btn-default-border:             #ccc
 
 $btn-primary-color:              $font-tertiary;
-$btn-primary-bg:                 $brand-primary;
+$btn-primary-bg:                 $accent-color;
 $btn-primary-border:             darken($btn-primary-bg, 5%);
 
 // $btn-success-color:              #fff
