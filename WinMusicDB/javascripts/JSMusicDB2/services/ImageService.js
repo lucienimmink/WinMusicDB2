@@ -50,9 +50,9 @@ function($log, $http, $rootScope, $sce) {
 		}
 		if (artist) {
 			$http.get(query).success(function(json) {
-				if (json && json.albums && json.albums.items && json.albums.items[0].images[0]) {
+				if (json && json.albums && json.albums.items && json.albums.items.length > 0 && json.albums.items[0].images[0]) {
 					callback(json.albums.items[0].images[0].url || "images/nocover.webp");
-				} else if (json && json.artists && json.artists.items && json.artists.items[0].images[0]) {
+				} else if (json && json.artists && json.artists.items && json.artists.items.length > 0 && json.artists.items[0].images[0]) {
 					callback(json.artists.items[0].images[0].url || "images/nocover.webp");
 				} else {
 					callback(null);
