@@ -4,13 +4,13 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 	$scope.version = 37;
 
 	// version checker
-	$http.get("http://www.arielext.org/version.txt?ts="+new Date().getTime()).success(function(remote) {
+	$http.get("http://www.arielext.org/version.txt?ts=" + new Date().getTime()).success(function(remote) {
 		$scope.hasNewVersion = $scope.version < remote;
 		$scope.newVersion = remote;
 	});
 
-	$scope.downloadlink = function () {
-		gui.Shell.openExternal('http://www.jsmusicdb.com/' + $rootScope.platform  + 'musicdb/');
+	$scope.downloadlink = function() {
+		gui.Shell.openExternal('http://www.jsmusicdb.com/' + $rootScope.platform + 'musicdb/');
 	};
 
 	$scope.niceScroll = $("html").niceScroll({
@@ -21,8 +21,8 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		cursorwidth : 5,
 		cursorborderradius : "0px",
 		horizrailenabled : false,
-		cursorcolor: '#455a64',
-		cursorborder: '1px solid #607d8b'
+		cursorcolor : '#455a64',
+		cursorborder : '1px solid #607d8b'
 	});
 
 	// show popup if we need to login first
@@ -93,8 +93,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		}
 		localStorage.setItem("viewMode", $scope.viewMode);
 	};
-	
-	
+
 	$rootScope.imageMode = localStorage.getItem("imageMode") || "spotify";
 	$scope.toggleImage = function(value) {
 		// TODO: purge cache
@@ -173,9 +172,9 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		$http.get('http://ws.audioscrobbler.com/2.0/?method=auth.gettoken&api_key=' + api_key + '&format=json').success(function(json) {
 			var token = json.token;
 			var win = gui.Window.open('http://www.last.fm/api/auth?api_key=' + api_key + "&token=" + token, {
-				frame: true,
-				width: 960,
-				height: 740
+				frame : true,
+				width : 960,
+				height : 740
 			});
 			win.requestAttention(3);
 			win.on('close', function() {
@@ -264,7 +263,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		$scope.preferYouTube = true;
 	}
 
-	$scope.togglePreferYouTube = function () {
+	$scope.togglePreferYouTube = function() {
 		$scope.preferYouTube = !$scope.preferYouTube;
 		localStorage.setItem("youtube", $scope.preferYouTube);
 	};
@@ -301,7 +300,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		$http.get(folder + "/music.json").success(function(json) {
 			ModelService.parse(json, $scope, $rootScope, true);
 			$scope.loadingLocalFolder = false;
-		}).error(function () {
+		}).error(function() {
 			$scope.syncLocal();
 		});
 	};
@@ -343,50 +342,51 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		doScan($scope.folder);
 	}
 
-	$scope.minimize = function () {
+	$scope.minimize = function() {
 		win.minimize();
 		win.setAlwaysOnTop(false);
 	};
-	$scope.maximize = function () {
+	$scope.maximize = function() {
 		win.maximize();
 		win.setAlwaysOnTop(false);
 	};
-	$scope.resize = function () {
+	$scope.resize = function() {
 		win.resizeTo(400, 640);
 		win.setAlwaysOnTop(true);
 	};
-	$scope.restore = function () {
+	$scope.restore = function() {
 		win.unmaximize();
 		win.setAlwaysOnTop(false);
 	};
-	$scope.close = function () {
+	$scope.close = function() {
 		win.close();
 	};
 
-	$scope.restoreDefault = function () {
+	$scope.restoreDefault = function() {
 		win.resizeTo(1200, 800);
 		win.setAlwaysOnTop(false);
 	};
 
-	win.on('maximize', function () {
-		$scope.$apply(function () {
+	win.on('maximize', function() {
+		$scope.$apply(function() {
 			$scope.maximized = true;
 		});
 	});
-	win.on('unmaximize', function () {
-		$scope.$apply(function () {
+	win.on('unmaximize', function() {
+		$scope.$apply(function() {
 			$scope.maximized = false;
 		});
 	});
 
-	$("html").on("mouseleave", function (e) {
-		$scope.$apply(function () {
+	$("html").on("mouseleave", function(e) {
+		$scope.$apply(function() {
 			$scope.focused = false;
 		});
 	});
-	$("html").on("mouseenter", function (e) {
-		$scope.$apply(function () {
+	$("html").on("mouseenter", function(e) {
+		$scope.$apply(function() {
 			$scope.focused = true;
 		});
 	});
+
 }]);
