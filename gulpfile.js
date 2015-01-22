@@ -39,24 +39,24 @@ gulp.task('patch', function (cb) {
    gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/win64/'));
    
    //lin32
-   //gulp.src('./lin32/libffmpegsumo.so').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   //gulp.src('./lin32/.desktop').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   //gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/linux32/eyed3/'));
-   //gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   //gulp.src('./WinMusicDB/icon.png').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
+   gulp.src('./lin32/libffmpegsumo.so').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
+   gulp.src('./lin32/.desktop').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
+   gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/linux32/eyed3/'));
+   gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
+   gulp.src('./WinMusicDB/icon.png').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
    //lin64
-   //gulp.src('./lin64/libffmpegsumo.so').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
-   //gulp.src('./lin64/.desktop').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
-   //gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/linux64/eyed3/'));
-   //gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
-   //gulp.src('./WinMusicDB/icon.png').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
+   gulp.src('./lin64/libffmpegsumo.so').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
+   gulp.src('./lin64/.desktop').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
+   gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/linux64/eyed3/'));
+   gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
+   gulp.src('./WinMusicDB/icon.png').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
 });
 
 gulp.task('nw', function(cb) {
 	setTimeout(function () {
 		var nw = new NwBuilder({
 		files: './dist/**/**', // use the glob format
-		platforms: ['win'],
+		platforms: ['win', 'linux'],
 		winIco: './icon.ico',
 		version: '0.11.1' // use this version we have a shadow around the frame
 		// macIcns: './icon.icns'

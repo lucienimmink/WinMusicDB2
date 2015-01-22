@@ -10,44 +10,47 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 	$scope.maxYield = 48;
 	$scope.loading = {};
 
-	$translate("search." + $scope.searchfor).then(function (translated) {
+	$translate("search." + $scope.searchfor).then(function(translated) {
 		$scope.translatedSearch = translated;
 	});
 
 	$scope.doSearch = function() {
-		$scope.loading.search = true;
-		$scope.results = null;
-		var querylist = $scope[$scope.searchfor];
-		var filteredList = [];
-		setTimeout(function() {
-			angular.forEach(querylist, function(value, key) {
-				key = key.toLowerCase();
-				if ($scope.searchfor === 'albums') {
-					key = key.substring(key.lastIndexOf("-"));
-				}
-				if ($scope.searchfor === 'tracks') {
-					key = value.title.toLowerCase();
-				}
-				if ($scope.searchfor === 'year') {
-					key = key;
-					if (key === $scope.searchString) {
-						// value is the array
-						filteredList = value;
+		if ($scope.searchString) {
+			$scope.loading.search = true;
+			$scope.results = null;
+			var querylist = $scope[$scope.searchfor];
+			var filteredList = [];
+			setTimeout(function() {
+
+				angular.forEach(querylist, function(value, key) {
+					key = key.toLowerCase();
+					if ($scope.searchfor === 'albums') {
+						key = key.substring(key.lastIndexOf("-"));
 					}
-				} else if (key.indexOf($scope.searchString.toLowerCase()) !== -1) {
-					filteredList.push(value);
+					if ($scope.searchfor === 'tracks') {
+						key = value.title.toLowerCase();
+					}
+					if ($scope.searchfor === 'year') {
+						key = key;
+						if (key === $scope.searchString) {
+							// value is the array
+							filteredList = value;
+						}
+					} else if (key.indexOf($scope.searchString.toLowerCase()) !== -1) {
+						filteredList.push(value);
+					}
+				});
+				if (filteredList.length > $scope.maxYield) {
+					$scope.tooMany = true;
+					filteredList = filteredList.splice(0, $scope.maxYield);
 				}
-			});
-			if (filteredList.length > $scope.maxYield) {
-				$scope.tooMany = true;
-				filteredList = filteredList.splice(0, $scope.maxYield);
-			}
-			$scope.$apply(function () {
-				$window.location = "#/search/" + $scope.searchfor + "/" + $scope.searchString;
-				$scope.results = filteredList;
-				$scope.loading.search = false;
-			});
-		}, 10);
+				$scope.$apply(function() {
+					$window.location = "#/search/" + $scope.searchfor + "/" + $scope.searchString;
+					$scope.results = filteredList;
+					$scope.loading.search = false;
+				});
+			}, 10);
+		}
 	};
 
 	$rootScope.$watch(function() {
@@ -64,18 +67,18 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		}
 	});
 
-	$scope.setFilter = function (filter) {
+	$scope.setFilter = function(filter) {
 		$scope.searchfor = filter;
-		$translate("search." + filter).then(function (translated) {
+		$translate("search." + filter).then(function(translated) {
 			$scope.results = null;
 			$scope.translatedSearch = translated;
 		});
 
 	};
 
-	$scope.$watch(function () {
+	$scope.$watch(function() {
 		return $scope.searchString;
-	}, function (n, o) {
+	}, function(n, o) {
 		$scope.results = null;
 	});
 
