@@ -6,8 +6,8 @@
 	"icon": "images/icon.png",
 	"frame": false,
 	"toolbar": false,
-	"width": 1200,
-	"height": 800,
+	"width": 1024,
+	"height": 640,
 	"min_width": 400,
 	"min_height": 640
   },
@@ -19,10 +19,7 @@
         "osx": {
             "name": "MacMusicDB"
         },
-        "linux32": {
-            "name": "LinMusicDB"
-        },
-        "linux64": {
+        "linux": {
             "name": "LinMusicDB"
         }
     }
