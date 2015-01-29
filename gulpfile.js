@@ -57,8 +57,8 @@ gulp.task('nw', function(cb) {
 		var nw = new NwBuilder({
 		files: './dist/**/**', // use the glob format
 		platforms: ['win', 'linux'],
-		winIco: './icon.ico',
-		version: '0.11.1' // use this version we have a shadow around the frame
+		winIco: './icon.ico'
+		,version: '0.11.6' // use this version we have a shadow around the frame
 		// macIcns: './icon.icns'
 	});
 

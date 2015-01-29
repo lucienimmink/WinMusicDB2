@@ -1,6 +1,7 @@
 <strong>0.3.8</strong> <br />
 - Fixed error on searching for nothing <br />
 - Changed default size so it fits on smaller screens <br />
+- Flexible layout <br />
 <strong>0.3.7</strong> <br />
 - Added the ability to switch between spotify and last.fm as image providers. <br />
 - Embed and read python from registry <br />

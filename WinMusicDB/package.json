@@ -1,10 +1,10 @@
 {
   "name": "WinMusicDB",
-  "version": "0.2.8",
+  "version": "0.4.0",
   "main": "index.html",
   "window": {
 	"icon": "images/icon.png",
-	"frame": false,
+	"frame": true,
 	"toolbar": false,
 	"width": 1024,
 	"height": 640,

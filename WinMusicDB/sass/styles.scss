@@ -65,7 +65,6 @@ header {
   position: fixed;
   z-index: 12;
   width: 100%;
-  top: 22px;
 
   &#bar {
     top: 0;
@@ -106,11 +105,7 @@ header {
   }
 
   .header {
-    height: 50px;
-    margin-top: -10px;
-    @include jsmusicdb-respond-min-width(sm) {
-      margin-top: -20px;
-    }
+    height: 52px;
     #logo {
       background: url(../images/icon.webp) no-repeat 0 0;
       background-size: 50px;
@@ -120,7 +115,7 @@ header {
       float: left;
       overflow: hidden;
       text-indent: -2000em;
-      margin-left: -5px;
+      margin-left: 10px;
     }
     .dropdown-menu {
       top: 50px;
@@ -149,7 +144,7 @@ header {
   .mobile-nav .dropdown {
 
     button.navbar-toggle {
-      margin-right: 0;
+      margin-right: 15px;
       border-color: $font-tertiary;
       box-shadow: 0 0 1px #000;
 
@@ -197,17 +192,16 @@ nav.navbar {
   }
   .navbar-nav {
     margin: -1px 0;
-  }
-  .nav > li > a {
-    padding: 10px;
-    @include jsmusicdb-respond-min-width(sm) {
-      padding: 9px;
-    }
-    @include jsmusicdb-respond-min-width(md) {
-      padding: 12px;
-    }
-    @include jsmusicdb-respond-min-width(lg) {
-      padding: 12px 15px;
+    display: flex;
+    flex-direction: row;
+    float: none;
+
+    > li {
+      flex: 3;
+      > a {
+        text-align: center;
+        display: block;
+      }
     }
   }
 }
@@ -242,6 +236,7 @@ body.playing #main {
   padding-bottom: 150px;
 }
 #main {
+  margin: 0 15px;
   padding-top: 80px;
   @include jsmusicdb-respond-min-width(sm) {
     padding-top: 110px;
@@ -309,15 +304,16 @@ ul.media {
   list-style: none;
   margin: 0;
   overflow: visible;
-
-  @include jsmusicdb-respond-min-width(sm) {
-    margin: 0 0 0 -1%;
-  }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: stretch;
   padding: 0;
 
   li {
-    display: inline-block;
-    width: 49%;
+
     overflow: hidden;
     position: relative;
 
@@ -325,25 +321,32 @@ ul.media {
     -moz-transition: 0.1s ease-out;
     -o-transition: 0.1s ease-out;
     transition: 0.1s ease-out;
+    width: 48%;
 
     box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
 
     @include jsmusicdb-respond-min-width(sm) {
-      width: 23.5%;
+      width: 23%;
 
     }
     height: 150px;
     @include jsmusicdb-respond-min-width(md) {
       height: 200px;
+      width: 18%;
     }
     @include jsmusicdb-respond-min-width(lg) {
+      height: 220px;
+    }
+    @include jsmusicdb-respond-min-width(xl) {
+      width: 12%;
       height: 240px;
     }
+    margin: 0 1% 1%;
 
-    margin: 0 0 10px 1%;
     position: relative;
     background: url(../images/nocover.webp);
     background-size: cover;
+    background-position: center top;
     a {
       display: block;
       position: absolute;
@@ -443,6 +446,7 @@ footer {
   text-transform: capitalize;
   z-index: 11;
   box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
+  height: 140px;
 
   &.partyMode {
     -webkit-transition: height 0.3s;
@@ -517,6 +521,9 @@ footer {
       }
        > div {
         background-color: $brand-secondary;
+        .partyMode.nofocus & {
+           background-color: darken($brand-secondary, 55%);
+        }
       }
     }
     .inPartyMode .closeNowPlaying {
@@ -544,18 +551,33 @@ footer {
 
       .tertiary {
         background: $brand-tertiary;
+        .partyMode.nofocus & {
+          background: darken($brand-tertiary, 35%);
+          color: $font-secondary;
+        }
       }
       .secondary {
         background: $brand-secondary;
+        .partyMode.nofocus & {
+          background: darken($brand-secondary, 35%);
+          color: $font-secondary;
+        }
       }
       .primary {
         background: $brand-primary;
+        .partyMode.nofocus & {
+          background: darken($brand-primary, 35%);
+          color: $font-secondary;
+        }
       }
       .background {
         background: $brand-background;
         padding-top: 5px;
         h4, p {
           color: $font-primary;
+        }
+        .partyMode.nofocus & {
+          background: darken($brand-background, 75%);
         }
       }
 
@@ -579,6 +601,9 @@ footer {
           }
           &:hover {
             color: darken($gray-ultralight, 20%)
+          }
+          .partyMode.nofocus & {
+            color: $font-secondary;
           }
         }
       }
@@ -616,7 +641,7 @@ footer {
   .push-up {
     position: absolute;
     left: 15px;
-    top: 7px;
+    top: 25px;
   }
   .pushed-left {
     @include jsmusicdb-respond-min-width(sm) {
@@ -959,10 +984,10 @@ ul.media.list {
   }
 
   > .row:first-child {
-    margin-top: -7px;
+    margin-top: -75px;
     margin-bottom: -831px; //margin-bottom: min-height-193
     padding: 65px 14px 110px;
-    min-height: 1024px;
+    min-height: 675px;
     position: relative;
     @include jsmusicdb-respond-min-width(sm) {
       padding: 200px 390px 0;
@@ -1027,14 +1052,14 @@ ul.media.list {
       width: calc(100% - 151px);
 
       @include jsmusicdb-respond-min-width(sm) {
-        width: 530px;
+        width: calc(100% - 191px);
         height: 187px;
       }
       @include jsmusicdb-respond-min-width(md) {
-        width: 750px;
+        width: calc(100% - 191px);
       }
       @include jsmusicdb-respond-min-width(lg) {
-        width: 950px;
+        width: calc(100% - 191px);
       }
 
       table {

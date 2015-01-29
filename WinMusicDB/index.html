@@ -24,18 +24,8 @@
 		  <span ng-show="scanProgress">
 		   : {{scanProgress}}%, ETA: {{scanETA}}
 		</span></div>
-		<header id="bar" ng-dblclick="restoreDefault();$event.stopPropagation();">
-			<div class="btn-group">
-			  <button type="button" class="btn btn-default btn-xs btn-wide" ng-click="downloadlink();$event.stopPropagation();" title="Upgrade {{newVersion | versionFilter}}" ng-show="hasNewVersion"><i class="ion-ios7-arrow-up"></i>&nbsp;&nbsp;Upgrade</button>
-				<button type="button" class="btn btn-default btn-xs" ng-click="minimize();$event.stopPropagation();"><i class="ion-ios7-minus-empty"></i></button>
-				<button type="button" class="btn btn-default btn-xs" ng-click="resize();$event.stopPropagation();" ng-show="inPartyMode"><i class="ion-ios7-videocam-outline"></i></button>
-				<button type="button" class="btn btn-default btn-xs" ng-click="maximize();$event.stopPropagation();" ng-hide="maximized"><i class="ion-ios7-plus-empty"></i></button>
-				<button type="button" class="btn btn-default btn-xs" ng-click="restore();$event.stopPropagation();" ng-show="maximized"><i class="ion-ios7-photos-outline"></i></button>
-				<button type="button" class="btn btn-danger btn-xs" ng-click="close();$event.stopPropagation();"><i class="ion-ios7-close-empty"></i></button>
-			</div>
-		</header>
 		<header ng-hide="inPartyMode">
-			<div class="container">
+			<div class="containerx">
 				<div class="row">
 					<div class="col-xs-10 header">
 						<div class="dropdown">
@@ -79,7 +69,7 @@
 			</div>
 		</header>
 		<nav class="navbar navbar-default hidden-xs" role="navigation">
-			<div class="container">
+			<div class="containerx">
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
@@ -93,7 +83,7 @@
 				</div><!-- /.navbar-collapse -->
 			</div>
 		</nav>
-		<div class="container" id="main">
+		<div class="containerx" id="main">
 			<div ng-view class="view"></div>
 		</div>
 		<div ng-include="'templates/player.html'"></div>

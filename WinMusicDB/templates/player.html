@@ -6,7 +6,7 @@
       <div class="progress"  ng-style="{width: pos()}" ng-click="updatePosition($event)"></div>
       <span class="time stop">{{len | timeFilter}}</span>
     </div>
-    <div class="container">
+    <div class="containerx" style="margin: 0 15px;">
       <div class="row">
         <div class="col-xs-12 col-md-5 pushed-left" style="min-height: 73px;">
           <i class="{{playing.track.source}}" style="margin: 12px 0 0 -20px; position: absolute; text-align: center; width: 20px; z-index: 1;"></i>
@@ -88,7 +88,7 @@
           <a ng-click="toggleVideo()" ng-hide="cantPlayYT" style="position: absolute; right: 10px; top: -5px;"><i class="ion-social-youtube"></i></a>
         </div>
       </div>
-      <div class="row visible-xs">
+      <div class="row visible-xs upnext">
         <div class="col-xs-12 background" style="height: 84px;">
           <div ng-show="playing.nextTrack">
             <h4 translate="player.upNext">Up next:</h4>
