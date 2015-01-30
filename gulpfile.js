@@ -58,7 +58,7 @@ gulp.task('nw', function(cb) {
 		files: './dist/**/**', // use the glob format
 		platforms: ['win', 'linux'],
 		winIco: './icon.ico'
-		,version: '0.11.6' // use this version we have a shadow around the frame
+		,version: '0.11.6' // Latest stable
 		// macIcns: './icon.icns'
 	});
 

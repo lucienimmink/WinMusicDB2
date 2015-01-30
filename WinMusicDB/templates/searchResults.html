@@ -24,13 +24,13 @@
         <input type="text" class="form-control" ng-model="searchString">
         <div class="input-group-btn">
           <button class="btn btn-default" type="button" ng-click="doSearch()">
-            <i class="ion-ios7-search"></i>
+            <i class="ion-ios-search"></i>
           </button>
         </div>
       </div>
     </form>
   </div>
-  <div class="loading" ng-show="loading.search"><i class="ion-ios7-reloading"></i> <span translate="search.searching">Searching ...</span></div>
+  <div class="loading" ng-show="loading.search"><i class="ion-ios-reloading"></i> <span translate="search.searching">Searching ...</span></div>
   <div class="col-xs-12" ng-show="results">
     <h2><span translate="search.results"></span> <span translate="search.{{searchfor}}"></span> '{{searchString}}'</h2>
   </div>
@@ -71,7 +71,7 @@
       <div class="table-responsive col-xs-12">
         <table class="table table-hover">
           <tr ng-repeat="track in results" ng-click="playTrack(track, results)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
-            <td class="counter" width="40"><span ng-show="track.isPlaying"> <i class="ion-ios7-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios7-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">&nbsp;&nbsp;</span></td>
+            <td class="counter" width="40"><span ng-show="track.isPlaying"> <i class="ion-ios-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">&nbsp;&nbsp;</span></td>
             <td class="primary">{{track.artist}}</td>
             <td class="primary">{{track.albumNode.album}}</td>
             <td class="primary">{{track.title}}</td>
@@ -91,7 +91,7 @@
               </ul>
             </div>
             <div ng-show="loading.addToPlaylist">
-              <i class="ion-ios7-reloading"></i><span translate="playlists.action.processing">processing</span>
+              <i class="ion-ios-reloading"></i><span translate="playlists.action.processing">processing</span>
             </div></td>
             <td class="toggle secondary" width="25" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();"><a class="toggle"><i class="ion-arrow-right-b"></i></a></td>
           </tr>

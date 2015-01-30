@@ -18,7 +18,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 
 	var tray = null;
 
-	$scope.isPlaying = "ios7-play";
+	$scope.isPlaying = "ios-play";
 	$scope.isRandom = "shuffle";
 	$scope.isMuted = "volume-high";
 	$rootScope.inPartyMode = false;
@@ -361,7 +361,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		$scope.playing.track = track;
 		$scope.playing.nextTrack = $scope.upNext();
 		$scope.playing.track.isPlaying = true;
-		$scope.isPlaying = 'ios7-pause';
+		$scope.isPlaying = 'ios-pause';
 		scrobbleNowPlaying();
 
 		setTimeout(function() {
@@ -429,8 +429,8 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	};
 
 	$scope.playpause = function() {
-		if ($scope.isPlaying === 'ios7-pause') {
-			$scope.isPlaying = 'ios7-play';
+		if ($scope.isPlaying === 'ios-pause') {
+			$scope.isPlaying = 'ios-play';
 			$scope.playing.track.isPlaying = false;
 			$scope.playing.track.isPaused = true;
 			if ($scope.inVideoMode) {
@@ -447,7 +447,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 			trayTooltip = "Paused: " + $scope.playing.track.artist.capitalize() + " - " + $scope.playing.track.title.capitalize();
 
 		} else {
-			$scope.isPlaying = 'ios7-pause';
+			$scope.isPlaying = 'ios-pause';
 			$scope.playing.track.isPlaying = true;
 			$scope.playing.track.isPaused = false;
 			if ($scope.inVideoMode && $scope.ytplayer && $scope.ytplayer.playVideo) {
@@ -472,7 +472,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	};
 
 	$scope.pause = function() {
-		$scope.isPlaying = 'ios7-play';
+		$scope.isPlaying = 'ios-play';
 		$scope.playing.track.isPlaying = false;
 		$scope.playing.track.isPaused = true;
 		if ($scope.inVideoMode) {

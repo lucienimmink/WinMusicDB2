@@ -22,7 +22,7 @@
 						</ul>
 					</div>
 					<div ng-show="loading.addAlbumToPlaylist">
-						<i class="ion-ios7-reloading"></i><span translate="playlists.action.processing">processing</span>
+						<i class="ion-ios-reloading"></i><span translate="playlists.action.processing">processing</span>
 					</div>
 					<a class="toggle" ng-click="viewAlbum.state = 'primary'; $event.stopPropagation();"><i class="ion-close"></i></a>
 				</div>
@@ -53,7 +53,7 @@
 		<div class="col-xs-12">
 			<table class="table table-hover table-condensed">
 				<tr ng-repeat="track in viewAlbum.tracks" ng-click="playTrack(track)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
-					<td class="counter" width="50"><span ng-show="track.isPlaying"> <i class="ion-ios7-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios7-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">{{::track.number}}</span></td>
+					<td class="counter" width="50"><span ng-show="track.isPlaying"> <i class="ion-ios-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">{{::track.number}}</span></td>
 					<td class="primary">{{::track.title}}</td>
 					<td class="counter primary" width="65" align="right">{{::track.time}}</td>
 					<td class="toggle primary hidden-xs" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="ion-edit"></i></a></td>
@@ -71,7 +71,7 @@
 						</ul>
 					</div>
 					<div ng-show="loading.addToPlaylist">
-						<i class="ion-ios7-reloading"></i><span translate="playlists.action.processing">processing</span>
+						<i class="ion-ios-reloading"></i><span translate="playlists.action.processing">processing</span>
 					</div></td>
 					<td class="toggle secondary hidden-xs" width="35" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();"><a class="toggle"><i class="ion-close"></i></a></td>
 				</tr>

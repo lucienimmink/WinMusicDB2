@@ -9,7 +9,7 @@
 	"width": 1024,
 	"height": 640,
 	"min_width": 400,
-	"min_height": 640
+	"min_height": 630
   },
   "single-instance": true,
   "platformOverrides": {
@@ -22,5 +22,6 @@
         "linux": {
             "name": "LinMusicDB"
         }
-    }
+    },
+	"chromium-args": "--enable-smooth-scrolling --ignore-gpu-blacklist"
 }

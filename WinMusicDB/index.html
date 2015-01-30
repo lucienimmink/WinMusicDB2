@@ -20,7 +20,7 @@
 
 	<body ng-class="(playing && playing.track && (playing.track.isPlaying || playing.track.isPaused)) ? 'playing': ''">
 
-		<div id="loadingBackground" ng-show="loadingLocalFolder"><i class="ion-ios7-reloading"></i> <span translate="general.loadingBackground"></span>
+		<div id="loadingBackground" ng-show="loadingLocalFolder"><i class="ion-ios-reloading"></i> <span translate="general.loadingBackground"></span>
 		  <span ng-show="scanProgress">
 		   : {{scanProgress}}%, ETA: {{scanETA}}
 		</span></div>
@@ -32,16 +32,16 @@
 							<a data-toggle="dropdown" id="logo">JSMusicDB</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#/overview"><i class="ion-ios7-home-outline"></i> <span translate="general.menu.overview">Overview</span></a>
+									<a href="#/overview"><i class="ion-ios-home-outline"></i> <span translate="general.menu.overview">Overview</span></a>
 								</li>
 								<li>
-									<a href="#/playlist"><i class="ion-ios7-paper-outline"></i> <span translate="general.menu.playlists">playlists</span></a>
+									<a href="#/playlist"><i class="ion-ios-paper-outline"></i> <span translate="general.menu.playlists">playlists</span></a>
 								</li>
 								<li>
-                  <a href="#/settings"><i class="ion-ios7-gear-outline"></i> <span translate="general.menu.settings">settings</span></a>
+                  <a href="#/settings"><i class="ion-ios-gear-outline"></i> <span translate="general.menu.settings">settings</span></a>
                 </li>
 								<li>
-									<a href="#/about"><i class="ion-ios7-information-outline"></i> <span translate="general.menu.about">about</span></a>
+									<a href="#/about"><i class="ion-ios-information-outline"></i> <span translate="general.menu.about">about</span></a>
 								</li>
 							</ul>
 						</div>
@@ -60,7 +60,7 @@
 									<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 								</li>
 								<li>
-								  <a href="#/search/"><i class="ion-ios7-search"></i></a>
+								  <a href="#/search/"><i class="ion-ios-search"></i></a>
 								</li>
 							</ul>
 						</div>
@@ -77,7 +77,7 @@
 							<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 						</li>
 						<li>
-              <a href="#/search/"><i class="ion-ios7-search"></i></a>
+              <a href="#/search/"><i class="ion-ios-search"></i></a>
             </li>
 					</ul>
 				</div><!-- /.navbar-collapse -->

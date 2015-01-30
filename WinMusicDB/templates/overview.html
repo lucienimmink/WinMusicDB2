@@ -2,7 +2,7 @@
   <span translate="newversion.newversion"></span> ({{newVersion | versionFilter}}) <span translate="newversion.available"></span>: <a ng-click="downloadlink()"><span translate="newversion.download"></span></a>
 </div>
 <div ng-controller="OverviewController">
-	<div class="loading" ng-show="loading.recent"><i class="ion-ios7-reloading"></i> <span translate="overview.loading.recent">Loading recently listened</span></div>
+	<div class="loading" ng-show="loading.recent"><i class="ion-ios-reloading"></i> <span translate="overview.loading.recent">Loading recently listened</span></div>
 	<div ng-show="recentTracks.length > 0">
 		<h1><span translate="overview.headers.recent">Recently listened</span></h1>
 		<table class="table table-condensed">
@@ -15,7 +15,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="loading" ng-show="loading.recentAdded"><i class="ion-ios7-reloading"></i> <span translate="overview.loading.added">Loading recently added</span></div>
+	<div class="loading" ng-show="loading.recentAdded"><i class="ion-ios-reloading"></i> <span translate="overview.loading.added">Loading recently added</span></div>
 	<div ng-show="recentlyAdded.length > 0">
 		<h1 translate="overview.headers.added">Recently added</h1>
 		<ul class="media">

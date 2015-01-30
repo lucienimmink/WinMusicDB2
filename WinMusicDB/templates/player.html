@@ -22,18 +22,18 @@
       </div>
       <div class="row icons">
         <div class="col-xs-5 col-sm-5 pushed-left">
-          <a ng-click="back()"><i class="ion-ios7-skipbackward"></i></a>
+          <a ng-click="back()"><i class="ion-ios-skipbackward"></i></a>
           <a ng-click="toggle('isPlaying')" class="icon-big"><i class="ion-{{isPlaying}}"></i></a>
           <a ng-click="stop()" class="icon-big"><i class="ion-stop"></i></a>
-          <a ng-click="next()"><i class="ion-ios7-skipforward"></i></a>
+          <a ng-click="next()"><i class="ion-ios-skipforward"></i></a>
         </div>
         <div class="col-xs-7 col-sm-5">
           <span class="volumeControl"> <i class="ion-volume-{{volumeIcon}}"></i>
             <input id="slider2" type ="range" min="0" max="100" step="25" ng-model="volume"/>
           </span>
-          <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="ion-ios7-heart-outline" ng-hide="playing.track.isLoved"></i><i class="ion-ios7-heart" ng-show="playing.track.isLoved"></i></a>
+          <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="ion-ios-heart-outline" ng-hide="playing.track.isLoved"></i><i class="ion-ios-heart" ng-show="playing.track.isLoved"></i></a>
           <a ng-click="toggle('partyMode')"><i class="ion-arrow-expand"></i></a>
-          <a ng-click="showPlaylist()"><i class="ion-ios7-paper-outline"></i></a>
+          <a ng-click="showPlaylist()"><i class="ion-ios-paper-outline"></i></a>
         </div>
       </div>
       <div class="hidden-xs albumart push-up">
@@ -82,9 +82,9 @@
 
       <div class="row icons primary">
         <div class="col-xs-12">
-          <a ng-click="back()"><i class="ion-ios7-skipbackward"></i></a>
+          <a ng-click="back()"><i class="ion-ios-skipbackward"></i></a>
           <a ng-click="toggle('isPlaying')" class="icon-big"><i class="ion-{{isPlaying}}"></i></a>
-          <a ng-click="next()"><i class="ion-ios7-skipforward"></i></a>
+          <a ng-click="next()"><i class="ion-ios-skipforward"></i></a>
           <a ng-click="toggleVideo()" ng-hide="cantPlayYT" style="position: absolute; right: 10px; top: -5px;"><i class="ion-social-youtube"></i></a>
         </div>
       </div>

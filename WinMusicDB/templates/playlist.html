@@ -1,7 +1,7 @@
 <div class="row" ng-controller="PlaylistController">
 	<div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
 		<div class="well" style="padding: 0;">
-			<div class="loading" ng-show="loading.playlists"><i class="ion-ios7-reloading"></i> <span translate="playlists.loadingPlural">Loading playlists</span></div>
+			<div class="loading" ng-show="loading.playlists"><i class="ion-ios-reloading"></i> <span translate="playlists.loadingPlural">Loading playlists</span></div>
 			<ul class="nav nav-stacked">
 			  <li ng-show="playingList || playing.track"><a ng-click="setPlaylist('current')"><span translate="playlists.lists.current"></span></a></li>
 			  <li ng-repeat="playlist in playlists.data.playlists">
@@ -26,9 +26,9 @@
 		<button class="btn btn-primary btn-block" ng-click="savePlaylist()" ng-show="canSavePlaylist"><span translate="playlists.action.save">Save as new playlist</span></button>
 	</div>
 	<div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
-		<div class="loading" ng-show="loading.playlist"><i class="ion-ios7-reloading"></i> <span translate="playlists.loadingSingle">Loading playlist</span></div>
+		<div class="loading" ng-show="loading.playlist"><i class="ion-ios-reloading"></i> <span translate="playlists.loadingSingle">Loading playlist</span></div>
 		<div ng-show="viewPlaylist.title">
-			<h1>{{viewPlaylist.title}}&nbsp;<i class="ion-ios7-reloading" ng-show="loading.radio"></i></h1>
+			<h1>{{viewPlaylist.title}}&nbsp;<i class="ion-ios-reloading" ng-show="loading.radio"></i></h1>
 			   <div ng-show="chooseArtist">
           <span translate="playlists.radio.startArtist"></span>: <select ng-model="radioArtist" ng-options="artist.name for artist in chooseArtistList" ng-change="setStartArtist(radioArtist)"></select>
         </div>
@@ -39,7 +39,7 @@
 				<table class="table table-hover table-condensed">
 					<tbody>
 						<tr ng-repeat="track in viewPlaylist.items track by $index" ng-click="playTrack(track, viewPlaylist)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
-							<td class="counter" width="35"><span ng-show="track.isPlaying"> <i class="ion-ios7-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios7-pause"></i> </span></td>
+							<td class="counter" width="35"><span ng-show="track.isPlaying"> <i class="ion-ios-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios-pause"></i> </span></td>
 							<td class="primary">{{track.artist}}</td>
 							<td class="hidden-xs primary">{{track.albumNode.album}}</td>
 							<td class="visible-xs primary" width="1" style="padding: 0;"></td>
@@ -53,7 +53,7 @@
                   <a class="add" ng-click="removeFromPlaylist(viewPlaylist, track, $index); $event.stopPropagation();"><i class="ion-minus"></i> <span translate="playlists.action.remove">remove</span></a>
                 </div>
                 <div ng-show="loading.removeFromPlaylist">
-                  <i class="ion-ios7-reloading"></i> <span translate="playlists.action.processing">procession</span>
+                  <i class="ion-ios-reloading"></i> <span translate="playlists.action.processing">procession</span>
                 </div>
               </td>
               <td class="toggle secondary hidden-xs" width="35" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();">
