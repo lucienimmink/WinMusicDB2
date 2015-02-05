@@ -18,11 +18,12 @@
 	<div class="loading" ng-show="loading.recentAdded"><i class="ion-ios-reloading"></i> <span translate="overview.loading.added">Loading recently added</span></div>
 	<div ng-show="recentlyAdded.length > 0">
 		<h1 translate="overview.headers.added">Recently added</h1>
-		<ul class="media">
+		<ul class="media justOneRow">
 			<li ng-repeat="album in recentlyAdded" bn-lazy-bg="{{album.artist + '|' + album.album}}">
 				<a ng-href="#{{album.url}}">
 					<p class="details">
-						{{album.artist}} - {{album.album}}
+						{{album.artist}}
+						<span class="small">{{album.album}}</span>
 					</p>
 				</a>
 			</li>

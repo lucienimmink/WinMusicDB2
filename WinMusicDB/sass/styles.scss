@@ -202,6 +202,8 @@ nav.navbar {
       > a {
         text-align: center;
         display: block;
+        padding-left: 0;
+        padding-right: 0;
       }
     }
   }
@@ -246,6 +248,7 @@ body.playing #main {
     margin: 0 0 5px;
   }
   ul.media, table {
+    margin-top: 8px;
     margin-bottom: 8px;
   }
   table.table {
@@ -328,15 +331,15 @@ ul.media {
 
     @include jsmusicdb-respond-min-width(sm) {
       width: 23%;
-      height: 23vw;
+      height: 22vw;
     }
     @include jsmusicdb-respond-min-width(md) {
       width: 18%;
-      height: 18vw;
+      height: 17vw;
     }
     @include jsmusicdb-respond-min-width(lg) {
       width: 12%;
-      height: 12vw;
+      height: 11vw;
     }
     margin: 0 1% 1%;
 
@@ -356,11 +359,11 @@ ul.media {
     p {
       color: $font-tertiary;
       position: absolute;
-      padding: 10px;
+      padding: 30px 10px 10px;
       bottom: -1px;
       left: -1px;
       right: -10px;
-      background: rgba(96,125,139, 0.9);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(32,32,32,1)));
       margin: 0;
       line-height: 1.05;
       text-transform: capitalize;
@@ -1179,4 +1182,27 @@ i.loadingImageIndicator {
   font-size: 48px;
   left: 40%;
   top: 40%;
+}
+
+
+.justOneRow li {
+  display: none;
+}
+.justOneRow li:nth-child(-n+4) {
+  display: block;
+}
+@include jsmusicdb-respond-min-width(sm) {
+ .justOneRow li:nth-child(-n+4) {
+  display: block;
+}
+}
+@include jsmusicdb-respond-min-width(md) {
+ .justOneRow li:nth-child(-n+5) {
+  display: block;
+}
+}
+@include jsmusicdb-respond-min-width(lg) {
+ .justOneRow li:nth-child(-n+7) {
+  display: block;
+}
 }
