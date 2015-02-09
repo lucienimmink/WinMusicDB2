@@ -276,7 +276,7 @@ body.playing #main {
       tr {
         &:hover {
         td {
-          background-color: rgba(207,216,220,0.9);
+          background-color: rgba(180,203,224,0.9);
           cursor: pointer;
 
           .hovered {
@@ -1220,6 +1220,7 @@ footer {
     right: 5px;
     top: -2px;
     display: none;
+    z-index: 10;
   }
 }
 

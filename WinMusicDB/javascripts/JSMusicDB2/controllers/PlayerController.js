@@ -187,7 +187,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 			if ($(".desktop").length === 1) {
 				setTimeout(function() {
 					$(".imageWrapper").width($(".inPartyMode").height());
-				}, 100);
+				}, 200);
 			} else {
 				$(".imageWrapper").width('');
 			}

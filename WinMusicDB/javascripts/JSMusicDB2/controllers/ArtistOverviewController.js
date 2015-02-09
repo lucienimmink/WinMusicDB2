@@ -13,25 +13,25 @@ function($scope, $routeParams, $log, $rootScope, $timeout) {'use strict';
 				for (var letterObject in $scope.letters) {
 					$scope.letters[letterObject].active = false;
 				}
+				if (letter) {
+					$scope.letters[letter].active = true;
+					$scope.viewArtists = angular.copy($scope.letters[letter].artists);
 
-				$scope.letters[letter].active = true;
+					var unique = {};
+					angular.forEach($scope.viewArtists, function (artist) {
+						unique[artist.name.toLowerCase()] = artist;
+					});
+					var artists = Object.keys(unique);
+					var uniqueArray = [];
+					angular.forEach(artists, function (val) {
+						uniqueArray.push(unique[val]);
+					});
+					$scope.viewArtists = uniqueArray;
 
-				$scope.viewArtists = angular.copy($scope.letters[letter].artists);
+					$rootScope.path = $rootScope.platform + 'MusicDB2: ' + letter;
 
-				var unique = {};
-				angular.forEach($scope.viewArtists, function (artist) {
-					unique[artist.name.toLowerCase()] = artist;
-				});
-				var artists = Object.keys(unique);
-				var uniqueArray = [];
-				angular.forEach(artists, function (val) {
-					uniqueArray.push(unique[val]);
-				});
-				$scope.viewArtists = uniqueArray;
-
-				$rootScope.path = $rootScope.platform + 'MusicDB2: ' + letter;
-
-				$scope.niceScroll.resize();
+					$scope.niceScroll.resize();
+				}
 			}
 		});
 	}
@@ -41,7 +41,7 @@ function($scope, $routeParams, $log, $rootScope, $timeout) {'use strict';
 		var letter = $routeParams.letter;
 		document.location = "#/";
 	};
-	
+
 	$scope.$on("$destroy", function () {
 		$("body header").css("background-color", "");
 		$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "");
