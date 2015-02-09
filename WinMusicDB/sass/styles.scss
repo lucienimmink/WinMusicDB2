@@ -445,12 +445,16 @@ footer {
   border-top: 1px solid $brand-secondary;
   text-transform: capitalize;
   z-index: 11;
-  box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
+  box-shadow: 0px -2px 5px rgba(0,0,0,0.26);
   height: 140px;
+  -webkit-transition: height 0.3s;
+  transition: height 0.3s;
+
+  &.minimized {
+    height: 15px;
+  }
 
   &.partyMode {
-    -webkit-transition: height 0.3s;
-    transition: height 0.3s;
     height: 101%;
     background: #000000;
     .inPartyMode {
@@ -1205,4 +1209,22 @@ i.loadingImageIndicator {
  .justOneRow li:nth-child(-n+7) {
   display: block;
 }
+}
+
+footer.minimized .progressContainer .time.stop {
+  margin-right: 20px;
+}
+footer {
+  .releaseButton {
+    position: absolute;
+    right: 5px;
+    top: -2px;
+    display: none;
+  }
+}
+
+footer.minimized {
+  .releaseButton {
+    display: block;
+  }
 }

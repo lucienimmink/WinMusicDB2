@@ -200,6 +200,13 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		}
 	};
 
+	$scope.minimizePlayer = function () {
+		$("footer").addClass("minimized");
+	};
+	$scope.releasePlayer = function () {
+		$("footer").removeClass("minimized");
+	};
+
 	$scope.inVideoMode = false;
 	$scope.toggleVideo = function() {
 		if (!$scope.inVideoMode) {

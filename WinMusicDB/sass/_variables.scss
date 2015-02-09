@@ -22,10 +22,10 @@
  $gray-lighter:           #d1d1d1; // #eee
  $gray-ultralight:        #f2f2f2;
 
- $brand-primary:          #607D8B; // 500
- $brand-secondary:        #CFD8DC; // 100
- $brand-tertiary:         #455A64; // 700
- $brand-background:       #eceff1; // 50
+ $brand-primary:          #5A8DBA; // 500
+ $brand-secondary:        lighten($brand-primary, 25%); // 100
+ $brand-tertiary:         darken($brand-primary, 25%); // 700
+ $brand-background:       lighten($brand-primary, 50%);; // 50
  $brand-background2:      #f8f8f8;
 
  //$accent-color:           #536DFE;

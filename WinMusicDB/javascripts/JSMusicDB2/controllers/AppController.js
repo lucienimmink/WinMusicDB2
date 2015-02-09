@@ -21,7 +21,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		cursorwidth : 5,
 		cursorborderradius : "0px",
 		horizrailenabled : false,
-		cursorcolor : '#455a64',
+		cursorcolor : '#5A8DBA',
 		cursorborder : '1px solid #607d8b'
 	});
 
