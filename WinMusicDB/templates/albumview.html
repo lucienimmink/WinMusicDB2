@@ -1,5 +1,5 @@
 <div ng-controller="AlbumViewController" class="fancyAlbum">
-	<div class="row fullArt" bn-lazy-bg="{{viewAlbum.artistNode.name}}">
+	<div class="row fullArt" bn-lazy-bg="{{albumart}}">
 		<div class="cover"></div>
 		<div class="col-xs-5 col-sm-3 col-lg-2 albumartwrapper">
 			<div class="editWrapper" ng-class="(viewAlbum.state === 'secondary') ? 'secondary' : 'primary'" ng-swipe-left="viewAlbum.state = 'secondary'" ng-swipe-right="viewAlbum.state = 'primary'">
@@ -54,7 +54,11 @@
 			<table class="table table-hover table-condensed">
 				<tr ng-repeat="track in viewAlbum.tracks" ng-click="playTrack(track)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
 					<td class="counter" width="50"><span ng-show="track.isPlaying"> <i class="ion-ios-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">{{::track.number}}</span></td>
-					<td class="primary">{{::track.title}}</td>
+					<td class="primary">{{::track.title}}
+					 <span ng-if="track.collection" class="small">
+					   ({{::track.artist}})
+					 </span>
+					</td>
 					<td class="counter primary" width="65" align="right">{{::track.time}}</td>
 					<td class="toggle primary hidden-xs" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="ion-edit"></i></a></td>
 					<td colspan="2" class="secondary">

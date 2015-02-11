@@ -76,6 +76,11 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 					});
 					$scope.viewAlbum = album;
 					$rootScope.path = artist.name + " - " + album.album;
+					if ($scope.viewAlbum.collection) {
+						$scope.albumart = $scope.viewAlbum.artistNode.name + "|" + $scope.viewAlbum.album;
+					} else {
+						$scope.albumart = $scope.viewAlbum.artistNode.name;
+					}
 
 					// get current playlists
 					RestService.Playlists.getPlaylists(function(json) {

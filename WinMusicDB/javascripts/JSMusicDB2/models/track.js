@@ -2,6 +2,7 @@ var Track = function (line, artistName, isLocal) {
 	this.id = line.id;
 	this.file = line.Naam,
 	this.artist = line.Artiest;
+	this.albumArtist = line.AlbumArtiest;
 	this.artistID = artistName;
 	this.album = $.trim(line.Album);
 	this.time = line.Duur;

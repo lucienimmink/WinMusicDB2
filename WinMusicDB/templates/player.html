@@ -12,12 +12,12 @@
         <div class="col-xs-12 col-md-5 pushed-left" style="min-height: 73px;">
           <i class="{{playing.track.source}}" style="margin: 12px 0 0 -20px; position: absolute; text-align: center; width: 20px; z-index: 1;"></i>
           <h3>{{playing.track.title}}</h3>
-          <span class="small">{{playing.track.albumNode.artistNode.name}} - {{playing.track.albumNode.album}}</span>
+          <span class="small">{{playing.track.artist}} - {{playing.track.albumNode.album}}</span>
         </div>
         <div class="hidden-xs hidden-sm col-md-5" ng-show="playing.nextTrack">
           <h4 translate="player.upNext">Up next:</h4>
           <p>
-            {{playing.nextTrack.title}} <span class="small"><span translate="player.by">by</span> {{playing.nextTrack.albumNode.artistNode.name}}</span>
+            {{playing.nextTrack.title}} <span class="small"><span translate="player.by">by</span> {{playing.nextTrack.artist}}</span>
           </p>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <div class="col-xs-12 col-sm-6">
           <div>
             <h3>{{playing.track.title}}</h3>
-            <span class="small">{{playing.track.albumNode.artistNode.name}} - {{playing.track.albumNode.album}}</span>
+            <span class="small">{{playing.track.artist}} - {{playing.track.albumNode.album}}</span>
             <br />
             <br />
           </div>
@@ -77,7 +77,7 @@
           <p>
             {{playing.nextTrack.title}}
             <br />
-            <span class="small">{{playing.nextTrack.albumNode.artistNode.name}} - {{playing.nextTrack.albumNode.album}}</span>
+            <span class="small">{{playing.nextTrack.artist}} - {{playing.nextTrack.albumNode.album}}</span>
           </p>
         </div>
       </div>
@@ -97,7 +97,7 @@
             <p>
               {{playing.nextTrack.title}}
               <br />
-              <span class="small">{{playing.nextTrack.albumNode.artistNode.name}} - {{playing.nextTrack.albumNode.album}}</span>
+              <span class="small">{{playing.nextTrack.artist}} - {{playing.nextTrack.albumNode.album}}</span>
             </p>
           </div>
         </div>

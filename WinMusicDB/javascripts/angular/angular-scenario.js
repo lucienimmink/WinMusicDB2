@@ -9190,7 +9190,7 @@ return jQuery;
 }));
 
 /**
- * @license AngularJS v1.3.11
+ * @license AngularJS v1.3.13
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -9246,7 +9246,7 @@ function minErr(module, ErrorConstructor) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.3.11/' +
+    message = message + '\nhttp://errors.angularjs.org/1.3.13/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i - 2) + '=' +
@@ -9573,8 +9573,7 @@ function nextUid() {
 function setHashKey(obj, h) {
   if (h) {
     obj.$$hashKey = h;
-  }
-  else {
+  } else {
     delete obj.$$hashKey;
   }
 }
@@ -9883,7 +9882,7 @@ function isElement(node) {
 function makeMap(str) {
   var obj = {}, items = str.split(","), i;
   for (i = 0; i < items.length; i++)
-    obj[ items[i] ] = true;
+    obj[items[i]] = true;
   return obj;
 }
 
@@ -10664,8 +10663,12 @@ function bootstrap(element, modules, config) {
     forEach(extraModules, function(module) {
       modules.push(module);
     });
-    doBootstrap();
+    return doBootstrap();
   };
+
+  if (isFunction(angular.resumeDeferredBootstrap)) {
+    angular.resumeDeferredBootstrap();
+  }
 }
 
 /**
@@ -11310,11 +11313,11 @@ function toDebugString(obj) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.3.11',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.3.13',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 3,
-  dot: 11,
-  codeName: 'spiffy-manatee'
+  dot: 13,
+  codeName: 'meticulous-riffleshuffle'
 };
 
 
@@ -13349,7 +13352,7 @@ function createInjector(modulesToLoad, strictDi) {
       }
 
       var args = [],
-          $inject = annotate(fn, strictDi, serviceName),
+          $inject = createInjector.$$annotate(fn, strictDi, serviceName),
           length, i,
           key;
 
@@ -13388,7 +13391,7 @@ function createInjector(modulesToLoad, strictDi) {
       invoke: invoke,
       instantiate: instantiate,
       get: getService,
-      annotate: annotate,
+      annotate: createInjector.$$annotate,
       has: function(name) {
         return providerCache.hasOwnProperty(name + providerSuffix) || cache.hasOwnProperty(name);
       }
@@ -17062,8 +17065,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
           afterTemplateChildLinkFn,
           beforeTemplateCompileNode = $compileNode[0],
           origAsyncDirective = directives.shift(),
-          // The fact that we have to copy and patch the directive seems wrong!
-          derivedSyncDirective = extend({}, origAsyncDirective, {
+          derivedSyncDirective = inherit(origAsyncDirective, {
             templateUrl: null, transclude: null, replace: null, $$originalDirective: origAsyncDirective
           }),
           templateUrl = (isFunction(origAsyncDirective.templateUrl))
@@ -17516,6 +17518,8 @@ function removeComments(jqNodes) {
   return jqNodes;
 }
 
+var $controllerMinErr = minErr('$controller');
+
 /**
  * @ngdoc provider
  * @name $controllerProvider
@@ -17603,7 +17607,12 @@ function $ControllerProvider() {
       }
 
       if (isString(expression)) {
-        match = expression.match(CNTRL_REG),
+        match = expression.match(CNTRL_REG);
+        if (!match) {
+          throw $controllerMinErr('ctrlfmt',
+            "Badly formed controller string '{0}'. " +
+            "Must match `__name__ as __id__` or `__name__`.", expression);
+        }
         constructor = match[1],
         identifier = identifier || match[3];
         expression = controllers.hasOwnProperty(constructor)
@@ -20554,7 +20563,7 @@ function $LocationProvider() {
 
 
     // rewrite hashbang url <> html5 url
-    if ($location.absUrl() != initialUrl) {
+    if (trimEmptyHash($location.absUrl()) != trimEmptyHash(initialUrl)) {
       $browser.url($location.absUrl(), true);
     }
 
@@ -21528,6 +21537,11 @@ Parser.prototype = {
             ? fn.apply(context, args)
             : fn(args[0], args[1], args[2], args[3], args[4]);
 
+      if (args) {
+        // Free-up the memory (arguments of the last function call).
+        args.length = 0;
+      }
+
       return ensureSafeObject(v, expressionText);
       };
   },
@@ -22399,8 +22413,7 @@ function qFactory(nextTick, exceptionHandler) {
           'qcycle',
           "Expected promise to be resolved with value other than itself '{0}'",
           val));
-      }
-      else {
+      } else {
         this.$$resolve(val);
       }
 
@@ -33743,10 +33756,11 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
  *
  * By default, the `.ng-hide` class will style the element with `display: none!important`. If you wish to change
  * the hide behavior with ngShow/ngHide then this can be achieved by restating the styles for the `.ng-hide`
- * class in CSS:
+ * class CSS. Note that the selector that needs to be used is actually `.ng-hide:not(.ng-hide-animate)` to cope
+ * with extra animation classes that can be added.
  *
  * ```css
- * .ng-hide {
+ * .ng-hide:not(.ng-hide-animate) {
  *   /&#42; this is just another form of hiding an element &#42;/
  *   display: block!important;
  *   position: absolute;
@@ -35262,7 +35276,7 @@ var maxlengthDirective = function() {
         ctrl.$validate();
       });
       ctrl.$validators.maxlength = function(modelValue, viewValue) {
-        return (maxlength < 0) || ctrl.$isEmpty(modelValue) || (viewValue.length <= maxlength);
+        return (maxlength < 0) || ctrl.$isEmpty(viewValue) || (viewValue.length <= maxlength);
       };
     }
   };
@@ -35590,7 +35604,7 @@ _jQuery.fn.bindings = function(windowJquery, bindExp) {
     var element = windowJquery(this),
         bindings;
     if (bindings = element.data('$binding')) {
-      for (var expressions = [], binding, j=0, jj=bindings.length;  j < jj; j++) {
+      for (var expressions = [], binding, j=0, jj=bindings.length; j < jj; j++) {
         binding = bindings[j];
 
         if (binding.expressions) {
@@ -35666,8 +35680,7 @@ _jQuery.fn.bindings = function(windowJquery, bindExp) {
       if (window.WebKitTransitionEvent) {
         evnt = new WebKitTransitionEvent(eventType, eventData);
         evnt.initEvent(eventType, false, true);
-      }
-      else {
+      } else {
         try {
           evnt = new TransitionEvent(eventType, eventData);
         }
@@ -35676,13 +35689,11 @@ _jQuery.fn.bindings = function(windowJquery, bindExp) {
           evnt.initTransitionEvent(eventType, null, null, null, eventData.elapsedTime || 0);
         }
       }
-    }
-    else if (/animationend/.test(eventType)) {
+    } else if (/animationend/.test(eventType)) {
       if (window.WebKitAnimationEvent) {
         evnt = new WebKitAnimationEvent(eventType, eventData);
         evnt.initEvent(eventType, false, true);
-      }
-      else {
+      } else {
         try {
           evnt = new AnimationEvent(eventType, eventData);
         }
@@ -35691,8 +35702,7 @@ _jQuery.fn.bindings = function(windowJquery, bindExp) {
           evnt.initAnimationEvent(eventType, null, null, null, eventData.elapsedTime || 0);
         }
       }
-    }
-    else {
+    } else {
       evnt = document.createEvent('MouseEvents');
       x = x || 0;
       y = y || 0;
@@ -35797,18 +35807,30 @@ angular.scenario.Application.prototype.navigateTo = function(url, loadFn, errorF
       try {
         var $window = self.getWindow_();
 
-        if ($window.angular) {
-          // Disable animations
-          $window.angular.resumeBootstrap([['$provide', function($provide) {
-            return ['$animate', function($animate) {
-              $animate.enabled(false);
-            }];
-          }]]);
+        if (!$window.angular) {
+          self.executeAction(loadFn);
+          return;
         }
 
-        self.executeAction(loadFn);
+        if (!$window.angular.resumeBootstrap) {
+          $window.angular.resumeDeferredBootstrap = resumeDeferredBootstrap;
+        } else {
+          resumeDeferredBootstrap();
+        }
+
       } catch (e) {
         errorFn(e);
+      }
+
+      function resumeDeferredBootstrap() {
+        // Disable animations
+        var $injector = $window.angular.resumeBootstrap([['$provide', function($provide) {
+          return ['$animate', function($animate) {
+            $animate.enabled(false);
+          }];
+        }]]);
+        self.rootElement = $injector.get('$rootElement')[0];
+        self.executeAction(loadFn);
       }
     }).attr('src', url);
 
@@ -35834,7 +35856,14 @@ angular.scenario.Application.prototype.executeAction = function(action) {
   if (!$window.angular) {
     return action.call(this, $window, _jQuery($window.document));
   }
-  angularInit($window.document, function(element) {
+
+  if (!!this.rootElement) {
+    executeWithElement(this.rootElement);
+  } else {
+    angularInit($window.document, angular.bind(this, executeWithElement));
+  }
+
+  function executeWithElement(element) {
     var $injector = $window.angular.element(element).injector();
     var $element = _jQuery(element);
 
@@ -35847,7 +35876,7 @@ angular.scenario.Application.prototype.executeAction = function(action) {
         action.call(self, $window, $element);
       });
     });
-  });
+  }
 };
 
 /**

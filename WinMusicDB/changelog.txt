@@ -1,3 +1,5 @@
+<strong>0.4.0</strong> <br />
+- Added collections support (make sure AlbumArtist is used in the ID3 tags) <br />
 <strong>0.3.9</strong> <br />
 - Adeptive recently added view; the amount of albums you see is based on your resolution <br />
 - Updated the base color to match it more against the new blue of Windows 10 <br />

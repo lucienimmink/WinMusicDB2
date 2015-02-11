@@ -1,5 +1,5 @@
 var Artist = function (line, artistName, firstLetter) {
-	this.name = line.Naam;
+	this.name = line.AlbumArtiest || line.Naam;
 	this.albumArtist = line.AlbumArtiest;
 	this.sortName = artistName;
 	this.albums = [];
