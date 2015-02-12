@@ -102,12 +102,22 @@ function($log, $translate, $timeout) {
 					if (!context.albums[artistName + "-" + line.Album.toLowerCase()]) {
 						var album = new Album(line, artistName, firstLetter);
 						context.albums[artistName + "-" + $.trim(line.Album.toLowerCase())] = album;
-						if (context.artists[artistName]) {
-							context.artists[artistName].albums.push(album);
-							context.year[album.year] = context.year[album.year] || [];
-							context.year[album.year].push(album);
-							album.artistNode = context.artists[artistName];
+						if (!context.artists[artistName]) {
+							if (!context.letters[firstLetter]) {
+								var letter = new Letter(firstLetter);
+								context.letters[letter.letter] = letter;
+							}
+							if (!context.artists[artistName]) {
+								var artist = new Artist(line, artistName, firstLetter);
+								context.artists[artistName] = artist;
+								context.letters[firstLetter].artists.push(artist);
+								artist.letterNode = context.letters[firstLetter];
+							}
 						}
+						context.artists[artistName].albums.push(album);
+						context.year[album.year] = context.year[album.year] || [];
+						context.year[album.year].push(album);
+						album.artistNode = context.artists[artistName];
 					}
 				}
 			}
