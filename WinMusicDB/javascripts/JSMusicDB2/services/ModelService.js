@@ -73,7 +73,7 @@ function($log, $translate, $timeout) {
 				var firstLetter = factory.getFirstLetter(line.Artiest), artistName = factory.stripThe(line.Artiest);
 
 				// add album
-				if (line.AlbumArtiest && (line.Naam.toLowerCase() !== line.AlbumArtiest.toLowerCase())) {
+				if (line.AlbumArtiest && (line.Artiest.toLowerCase() !== line.AlbumArtiest.toLowerCase())) {
 					var collectionName = factory.stripThe(line.AlbumArtiest);
 					var collectionLetter = factory.getFirstLetter(line.AlbumArtiest);
 
