@@ -50,9 +50,6 @@ function($log, $translate, $timeout) {
 					var collectionLetter = factory.getFirstLetter(line.AlbumArtiest);
 					// this is part of a collection; we add the collection
 					if (!context.artists[collectionName]) {
-						if (artistName === "BUSH") {
-							console.log('various artist', line);
-						}
 						var artist = new Artist(line, collectionName, collectionLetter);
 						artist.collection = true;
 						context.artists[collectionName] = artist;
@@ -63,9 +60,6 @@ function($log, $translate, $timeout) {
 				} else {
 					var firstLetter = factory.getFirstLetter(line.Naam), artistName = factory.stripThe(line.Naam);
 					if (!context.artists[artistName]) {
-						if (artistName === "BUSH") {
-							console.log('normal artist', line);
-						}
 						var artist = new Artist(line, artistName, firstLetter);
 						context.artists[artistName] = artist;
 						context.letters[firstLetter].artists.push(artist);

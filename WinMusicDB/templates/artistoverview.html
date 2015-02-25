@@ -1,6 +1,6 @@
 <div ng-controller="ArtistOverviewController">
   <ul class="media {{viewMode}}">
-    <li ng-repeat="artist in ::viewArtists | orderBy:'sortName':false" bn-lazy-bg="{{artist.name}}">
+    <li ng-repeat="artist in viewArtists | orderBy:'sortName':false" bn-lazy-bg="{{artist.name}}">
       <a ng-href="#/{{artist.artistURL()}}">
       <p class="details">
         {{artist.name}}
