@@ -29,7 +29,6 @@ function($log, $translate, $timeout) {
 		}
 		case 'artist' : {
 			if (line.Naam) {
-				var firstLetter = factory.getFirstLetter(line.Naam), artistName = factory.stripThe(line.Naam);
 
 				if (line.AlbumArtiest && (line.Naam.toLowerCase() !== line.AlbumArtiest.toLowerCase())) {
 					var collectionLetter = factory.getFirstLetter(line.AlbumArtiest);
@@ -39,6 +38,7 @@ function($log, $translate, $timeout) {
 					}
 
 				} else {
+					var firstLetter = factory.getFirstLetter(line.Naam), artistName = factory.stripThe(line.Naam);
 					if (!context.letters[firstLetter]) {
 						var letter = new Letter(firstLetter);
 						context.letters[letter.letter] = letter;
@@ -50,6 +50,9 @@ function($log, $translate, $timeout) {
 					var collectionLetter = factory.getFirstLetter(line.AlbumArtiest);
 					// this is part of a collection; we add the collection
 					if (!context.artists[collectionName]) {
+						if (artistName === "BUSH") {
+							console.log('various artist', line);
+						}
 						var artist = new Artist(line, collectionName, collectionLetter);
 						artist.collection = true;
 						context.artists[collectionName] = artist;
@@ -58,7 +61,11 @@ function($log, $translate, $timeout) {
 					}
 
 				} else {
+					var firstLetter = factory.getFirstLetter(line.Naam), artistName = factory.stripThe(line.Naam);
 					if (!context.artists[artistName]) {
+						if (artistName === "BUSH") {
+							console.log('normal artist', line);
+						}
 						var artist = new Artist(line, artistName, firstLetter);
 						context.artists[artistName] = artist;
 						context.letters[firstLetter].artists.push(artist);
@@ -86,7 +93,7 @@ function($log, $translate, $timeout) {
 								var letter = new Letter(collectionLetter);
 								context.letters[letter.letter] = letter;
 							}
-							var artist = new Artist(line, collectionName, collectionLetter);
+							var artist = new Artist(line, collectionName, collectionLetter, true);
 							artist.collection = true;
 							context.artists[collectionName] = artist;
 							context.letters[collectionLetter].artists.push(artist);
@@ -108,7 +115,7 @@ function($log, $translate, $timeout) {
 								context.letters[letter.letter] = letter;
 							}
 							if (!context.artists[artistName]) {
-								var artist = new Artist(line, artistName, firstLetter);
+								var artist = new Artist(line, artistName, firstLetter, true);
 								context.artists[artistName] = artist;
 								context.letters[firstLetter].artists.push(artist);
 								artist.letterNode = context.letters[firstLetter];

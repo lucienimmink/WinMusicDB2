@@ -51,6 +51,7 @@
 	</div>
 	<div class="row tracklist">
 		<div class="col-xs-12">
+			<a ng-click="shuffle()" class="shuffle"><i class="ion-shuffle"></i> {{shuffleState}}</a>
 			<table class="table table-hover table-condensed">
 				<tr ng-repeat="track in viewAlbum.tracks" ng-click="playTrack(track)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
 					<td class="counter" width="50"><span ng-show="track.isPlaying"> <i class="ion-ios-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">{{::track.number}}</span></td>

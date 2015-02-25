@@ -28,6 +28,7 @@ html {
 html,body {
   touch-action: pan-y;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -47,6 +48,7 @@ body {
   background: $brand-background;
   color: $font-primary;
   font-family: "Roboto", "Segoe UI", "Helvetica Neue",Helvetica,Arial,sans-serif;
+
 
   > canvas {
     display: none;
@@ -1002,7 +1004,7 @@ ul.media.list {
     @include jsmusicdb-respond-min-width(sm) {
       padding: 200px 390px 0;
       margin: -150px -390px -1200px;
-      min-height: 200vh;
+      min-height: 110vh;
 
     }
 
