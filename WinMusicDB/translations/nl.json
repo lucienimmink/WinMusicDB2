@@ -112,7 +112,8 @@
     "language": {
       "label": "Taal",
       "dutch": "Nederlands",
-      "english": "English"
+      "englishUS": "English (US)",
+      "englishUK": "English (UK)"
     }
   },
   "album": {
