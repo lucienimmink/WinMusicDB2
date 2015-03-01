@@ -64,14 +64,14 @@ function($log, $rootScope, $http, $interval, ModelService) {
 		}
 		if (path) {
 			var start = new Date();
-			var child = exec('"' + $rootScope.pythonPath + '" "' + path + '" "' + folder + '"', function(error, stdout, stderr) {
+			var child = exec('"' + $rootScope.pythonPath + '" "' + path + '" ' + folder + '', function(error, stdout, stderr) {
 				if (error != null) {
 					console.log(error, stderr);
 					// error handling & exit
 				} else {
 					$rootScope.debug = $rootScope.debug || {};
 					$rootScope.debug.getJSONLocal = new Date().getTime() - start;
-					$http.get(folder + "/music.json").success(function(json) {
+					$http.get(folder + "\music.json").success(function(json) {
 						ModelService.parse(json, $scope, $rootScope, true);
 						win.setProgressBar(-1);
 					});
