@@ -39,7 +39,8 @@
         </div>
       </div>
       <div class="hidden-xs albumart push-up">
-        <img bn-lazy-src="{{playing.track.albumNode.artistNode.name + '|' + playing.track.albumNode.album}}" src="images/nocover.png" height="100">
+      	<img bn-lazy-src="{{playing.track.artist}}" src="images/nocover.png" width="100" ng-show="playing.track.artist !== playing.track.albumNode.artistNode.name">
+        <img bn-lazy-src="{{playing.track.artist + '|' + playing.track.albumNode.album}}" src="images/nocover.png" height="100" ng-hide="playing.track.artist !== playing.track.albumNode.artistNode.name">
       </div>
       <div class="hidden-xs analyzer push-up"></div>
     </div>
@@ -53,7 +54,8 @@
       <div id="yt-playerMask" style="position: absolute; background: #000; bottom: 0; height: 50px; width: 100%;"></div>
     </div>
     <div class="imageWrapper">
-      <img class="currentAlbumArt" bn-lazy-src="{{playing.track.albumNode.artistNode.name + '|' + playing.track.albumNode.album}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()">
+      <img class="currentAlbumArt" bn-lazy-src="{{playing.track.artist}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()" ng-show="playing.track.artist !== playing.track.albumNode.artistNode.name">
+      <img class="currentAlbumArt" bn-lazy-src="{{playing.track.albumNode.artistNode.name + '|' + playing.track.albumNode.album}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()" ng-hide="playing.track.artist !== playing.track.albumNode.artistNode.name">
       <img src='' width="100%" class="previousAlbumArt">
     </div>
     <div class="container">
