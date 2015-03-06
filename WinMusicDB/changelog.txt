@@ -1,3 +1,6 @@
+<strong>0.4.1</strong> <br />
+- Updated nwjs <br />
+- Added new Radio option based on listened artists <br />
 <strong>0.4.0</strong> <br />
 - Fixed incorrect artists <br />
 - Fixed undefined artist names <br />

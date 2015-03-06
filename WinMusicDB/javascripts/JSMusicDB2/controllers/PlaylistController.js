@@ -342,7 +342,7 @@ function($scope, $routeParams, $log, RestService, $rootScope, ModelService, $mod
 				$scope.loading.playlist = false;
 				$scope.canSavePlaylist = true;
 			});
-		} else if (playlist === 'radio') {
+		} else if (playlist === 'artistradio') {
 			$translate('playlists.lists.radio').then(function(translation) {
 				$rootScope.path = translation;
 				$scope.niceScroll.resize();
@@ -366,6 +366,20 @@ function($scope, $routeParams, $log, RestService, $rootScope, ModelService, $mod
 					items : []
 				};
 				$scope.noMoreSimilarArtists = false;
+			});
+		} else if (playlist === 'radio') {
+			var highRotation = [],
+					mediumRotation = [];
+			RestService.Playlists.getLastFMTopArtists($rootScope.user.lastfmuser, function(json) {
+				angular.forEach(json.topartists.artist, function (v, i) {
+					var artistName = ModelService.stripThe(v.name.toUpperCase());
+					if (i < 7) {
+						highRotation.push($scope.artists[artistName]);
+					} else {
+						mediumRotation.push($scope.artists[artistName]);
+					}
+				});
+				$scope.generateRadio(highRotation, mediumRotation);
 			});
 		}
 	};
@@ -518,6 +532,66 @@ function($scope, $routeParams, $log, RestService, $rootScope, ModelService, $mod
 				}
 			}
 		});
+	};
+
+	$scope.generateRadio = function (h,m) {
+		// generate 50 items
+		var playlist = [];
+		for (var i = 0; i < 50; i++) {
+			if (i % 3 === 0 || i % 4 === 0) {
+				var a = $scope.getRandomArtistFromList(h);
+				if (a && a.albums) {
+					playlist.push($scope.getTrackFromArtist(a));
+				}
+			} else if (i % 5 === 0 || i % 7 === 0) {
+				var a = $scope.getRandomArtistFromList(h);
+				if (a && a.albums) {
+					playlist.push($scope.getTrackFromArtist(a));
+				}
+			} else {
+				var a = $scope.getRandomArtistFromList($scope.artists, true);
+				if (a && a.albums) {
+					playlist.push($scope.getTrackFromArtist(a));
+				}
+			}
+		}
+		$scope.viewPlaylist = {
+			title : "Radio",
+			items : playlist
+		};
+		$scope.loading.playlist = false;
+		$scope.canSavePlaylist = true;
+		$scope.niceScroll.resize();
+	};
+
+	$scope.getTrackFromArtist = function (artist) {
+		var tracks = [];
+		if (artist && artist.albums) {
+			angular.forEach(artist.albums, function(album) {
+				angular.forEach(album.tracks, function(track) {
+					tracks.push(track);
+				});
+			});
+			tracks = shuffle(tracks);
+			return tracks[0];
+		} else {
+			console.error(artist);
+		}
+	};
+
+	$scope.getRandomArtistFromList = function (list, isAllArtists) {
+		var max = list.length;
+		var random = Math.random();
+		random = Math.floor(random * max);
+		if (isAllArtists) {
+			var artists = Object.keys($scope.artists);
+			max = artists.length;
+			random = Math.random();
+			random = Math.floor(random * max);
+			var key = artists[random];
+			return list[key];
+		}
+		return list[random];
 	};
 
 }]);

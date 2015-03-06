@@ -246,6 +246,11 @@ function($http, $log, $location) {
 					callback(json);
 				});
 			},
+			getLastFMTopArtists: function (username, callback) {
+				$http.get('http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user='+ username +'&api_key='+lastfm.api_key+'&format=json&limit=50&period=3month').success(function (json) {
+					callback(json);
+				});
+			},
 			storeIdByKey : function(key, track) {
 				localStorage.setItem(key, track.id);
 			},

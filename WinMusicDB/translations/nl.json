@@ -65,7 +65,8 @@
       "lastfmName": "Geliefde nummers op Last.fm van",
       "random": "50 willekeurige nummers",
       "current": "Huidige speellijst",
-      "radio": "Radio"
+      "radio": "Radio",
+      "artistradio": "Artiesten Radio"
     },
     "popup": {
       "add": {

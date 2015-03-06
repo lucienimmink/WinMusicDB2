@@ -18,8 +18,9 @@
 			  	</div>
 			  </li>
 			  <li><a ng-click="setPlaylist('random')"><span translate="playlists.lists.random">Random 100</span></a></li>
-			  <li><a ng-click="setPlaylist('last.fm')"><span translate="playlists.lists.lastfmName">Last.fm loved list for</span> {{user.lastfmuser}}</a></li>
-			  <li><a ng-click="setPlaylist('radio')"><span translate="playlists.lists.radio"></a></li>
+			  <li ng-if="user.lastfmuser"><a ng-click="setPlaylist('last.fm')"><span translate="playlists.lists.lastfmName">Last.fm loved list for</span> {{user.lastfmuser}}</a></li>
+			  <li><a ng-click="setPlaylist('artistradio')"><span translate="playlists.lists.artistradio"></a></li>
+			  <li ng-if="user.lastfmuser"><a ng-click="setPlaylist('radio')"><span translate="playlists.lists.radio"></a></li>
 			</ul>
 		</div>
 		<button class="btn btn-primary btn-block" ng-click="addPlaylist()"><span translate="playlists.action.add">Add new playlist</span></button>

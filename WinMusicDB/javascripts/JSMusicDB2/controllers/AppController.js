@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 40;
+	$scope.version = 41;
 
 	// version checker
 	$http.get("http://www.arielext.org/version.txt?ts=" + new Date().getTime()).success(function(remote) {

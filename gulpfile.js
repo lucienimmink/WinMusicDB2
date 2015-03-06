@@ -56,9 +56,10 @@ gulp.task('nw', function(cb) {
 	setTimeout(function () {
 		var nw = new NwBuilder({
 		files: './dist/**/**', // use the glob format
-		platforms: ['win', 'linux'],
+		// platforms: ['win', 'linux'], // update libffmpegsumo first!
+		platforms: ['win'],
 		winIco: './icon.ico'
-		,version: '0.11.6' // Latest stable
+		// ,version: '0.11.6' // Latest stable
 		// macIcns: './icon.icns'
 	});
 

@@ -65,7 +65,8 @@
       "lastfmName": "Last.fm loved list for",
       "random": "50 random songs",
       "current": "Current playlist",
-      "radio": "Radio"
+      "radio": "Radio",
+      "artistradio": "Artistradio"
     },
     "popup": {
       "add": {
