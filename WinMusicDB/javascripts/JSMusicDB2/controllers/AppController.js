@@ -272,16 +272,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		$scope.debug = $scope.debug || {};
 		var start = new Date().getTime();
 		$scope.parsing = true;
-		//if (localStorage.getItem("music") && !force) {
-		//	$scope.music = JSON.parse(localStorage.getItem("music"));
-		//	$scope.debug.getJSON = new Date().getTime() - start;
-		//	ModelService.parse($scope.music, $scope, $rootScope);
-		//} else {
 		RestService.Music.get(function(json) {
-			try {
-				localStorage.setItem("music", JSON.stringify(json));
-			} catch (e) {
-			}// ignore if we have no more space
 			$scope.debug = $scope.debug || {};
 			$scope.debug.getJSON = new Date().getTime() - start;
 			ModelService.parse(json, $scope, $rootScope);
