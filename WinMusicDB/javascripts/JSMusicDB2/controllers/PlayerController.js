@@ -345,7 +345,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		}
 		angular.forEach(audiotags, function(value) {
 			value.pause();
-			value.src = null;
+			value.src = '//:0';
 		});
 		$scope.playing = {};
 		canUsePrebuffer = false;

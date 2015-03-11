@@ -1,7 +1,7 @@
 <div ng-controller="ArtistOverviewController">
   <ul class="media {{viewMode}}">
     <li ng-repeat="artist in viewArtists | orderBy:'sortName':false" bn-lazy-bg="{{artist.name}}">
-      <a ng-href="#/{{artist.artistURL()}}">
+      <a ng-href="#/{{artist.artistURL}}">
       <p class="details">
         {{artist.name}}
         <span class="small"> <ng-pluralize count="artist.albums.length" when="{

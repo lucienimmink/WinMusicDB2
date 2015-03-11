@@ -14,23 +14,25 @@ function($log, $translate, $timeout) {
 		});
 		// act on data from worker
 		worker.addEventListener('message', function(e) {
-    		var data = e.data;
-    		$scope.debug.parseJSON = new Date().getTime() - start;
-    		// console.log('data from worker', data, $scope.debug.parseJSONWorker);
-    		var context = (isLocal) ? $scope.local : $scope.cloud;
-    		context.totals = data.totals;
-    		context.letters = data.letters;
-    		context.artists = data.artists;
-    		context.albums = data.albums;
-    		context.tracks = data.tracks;
-    		context.year = data.year;
-    		// merge local and cloud music
-			angular.extend($scope.both, $scope.local);
-			angular.extend($scope.both, $scope.cloud);
-			$timeout(function() {
-				$rootScope.parsed = true;
-			}, 0);
-			$scope.parsing = false;
+			$scope.$apply(function () {
+	    		var data = e.data;
+	    		$scope.debug.parseJSON = new Date().getTime() - start;
+	    		// console.log('data from worker', data, $scope.debug.parseJSONWorker);
+	    		var context = (isLocal) ? $scope.local : $scope.cloud;
+				context.totals = data.totals;
+	    		context.letters = data.letters;
+	    		context.artists = data.artists;
+	    		context.albums = data.albums;
+	    		context.tracks = data.tracks;
+	    		context.year = data.year;	
+	    		// merge local and cloud music
+				angular.extend($scope.both, $scope.local);
+				angular.extend($scope.both, $scope.cloud);
+				if (!isLocal) {
+					$rootScope.parsed = true;
+				}
+				$scope.parsing = false;
+			});
   		}, false);
   		
 		$rootScope.parsed = false;
