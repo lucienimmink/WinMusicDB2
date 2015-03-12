@@ -89,13 +89,17 @@ function($http, $log, $location) {
 		},
 		Music : {
 			get : function(callback) {
-				$http.get(cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON.' + serverType.extension, {
-					params : {
+				
+				var worker = new Worker('javascripts/JSMusicDB2/workers/fetcher.js');
+				worker.postMessage({
+					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON.' + serverType.extension, // this is slow since a copy of json has to be made back and forth
+					params: {
 						sid : cache.sid,
 						server : cache.server
 					}
-				}).success(function(json) {
-					callback(json);
+				});
+				worker.addEventListener('message', function(e) {
+					callback(e.data);
 				});
 			},
 			play : function($scope, track, callback) {

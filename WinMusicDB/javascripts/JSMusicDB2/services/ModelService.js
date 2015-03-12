@@ -2,55 +2,73 @@ angular.module('JSMusicDB.ModelService', []).factory('ModelService', ['$log', '$
 function($log, $translate, $timeout) {
 	var factory = {};
 
-	factory.parse = function(json, $scope, $rootScope, isLocal) {
+	factory.inject = function(json, $scope, $rootScope, isLocal) {
+		$scope.$apply(function() {
+			var start = new Date().getTime();
+			var context = (isLocal) ? $scope.local : $scope.cloud;
+			context.totals = json.totals;
+			context.letters = json.letters;
+			context.artists = json.artists;
+			context.albums = json.albums;
+			context.tracks = json.tracks;
+			context.year = json.year;
+			// merge local and cloud music
+			angular.extend($scope.both, $scope.local);
+			angular.extend($scope.both, $scope.cloud);
+			if (!isLocal) {
+				$rootScope.parsed = true;
+				$scope.parsing = false;
+			}
+		});
+	}, factory.parse = function(json, $scope, $rootScope, isLocal) {
 		var start = new Date().getTime();
 		// create a worker to parse the data
 		// note path is relative to the HTML
 		var worker = new Worker('javascripts/JSMusicDB2/workers/parser.js');
 		// start the worker
 		worker.postMessage({
-			json: json, // this is slow since a copy of json has to be made back and forth
-			isLocal: isLocal
+			json : json, // this is slow since a copy of json has to be made back and forth
+			isLocal : isLocal
 		});
 		// act on data from worker
 		worker.addEventListener('message', function(e) {
-			$scope.$apply(function () {
-	    		var data = e.data;
-	    		$scope.debug.parseJSON = new Date().getTime() - start;
-	    		// console.log('data from worker', data, $scope.debug.parseJSONWorker);
-	    		var context = (isLocal) ? $scope.local : $scope.cloud;
+			$scope.$apply(function() {
+				var data = e.data;
+				$scope.debug.parseJSON = new Date().getTime() - start;
+				// console.log('data from worker', data, $scope.debug.parseJSONWorker);
+				var context = (isLocal) ? $scope.local : $scope.cloud;
 				context.totals = data.totals;
-	    		context.letters = data.letters;
-	    		context.artists = data.artists;
-	    		context.albums = data.albums;
-	    		context.tracks = data.tracks;
-	    		context.year = data.year;	
-	    		// merge local and cloud music
+				context.letters = data.letters;
+				context.artists = data.artists;
+				context.albums = data.albums;
+				context.tracks = data.tracks;
+				context.year = data.year;
+				// merge local and cloud music
 				angular.extend($scope.both, $scope.local);
 				angular.extend($scope.both, $scope.cloud);
 				if (!isLocal) {
 					$rootScope.parsed = true;
+					$scope.parsing = false;
 				}
-				$scope.parsing = false;
 			});
-  		}, false);
-  		
+		}, false);
+
 		$rootScope.parsed = false;
 		/*
-		if (json[0] !== "<") {
-			angular.forEach(json, function(value) {
-				factory.parseLine(value, $scope, isLocal);
-			});
-			// merge local and cloud music
-			angular.extend($scope.both, $scope.local);
-			angular.extend($scope.both, $scope.cloud);
-			$timeout(function() {
-				$rootScope.parsed = true;
-			}, 0);
-			$scope.parsing = false;
-			$scope.debug.parseJSON = new Date().getTime() - start;
-		}
-		*/
+		 if (json[0] !== "<") {
+		 angular.forEach(json, function(value) {
+		 factory.parseLine(value, $scope, isLocal);
+		 });
+		 // merge local and cloud music
+		 angular.extend($scope.both, $scope.local);
+		 angular.extend($scope.both, $scope.cloud);
+		 $timeout(function() {
+		 $rootScope.parsed = true;
+		 }, 0);
+		 $scope.parsing = false;
+		 $scope.debug.parseJSON = new Date().getTime() - start;
+		 }
+		 */
 	};
 
 	factory.parseLine = function(line, $scope, isLocal) {

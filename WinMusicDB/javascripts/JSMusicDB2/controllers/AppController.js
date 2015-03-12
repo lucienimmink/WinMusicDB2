@@ -275,7 +275,15 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		RestService.Music.get(function(json) {
 			$scope.debug = $scope.debug || {};
 			$scope.debug.getJSON = new Date().getTime() - start;
-			ModelService.parse(json, $scope, $rootScope);
+			if (json.totals) {
+				// already parsed by the worker thread; inject code
+				console.log('only inject');
+				ModelService.inject(json, $scope, $rootScope);
+			} else {
+				// non-parsed so parse and inject
+				console.log('parse and inject');
+				ModelService.parse(json, $scope, $rootScope);
+			}
 		});
 		//}
 	});
