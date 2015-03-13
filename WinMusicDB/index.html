@@ -18,12 +18,13 @@
 		<!-- endbuild -->
 	</head>
 
-	<body ng-class="(playing && playing.track && (playing.track.isPlaying || playing.track.isPaused)) ? 'playing': ''">
+	<body ng-class="(playing && playing.track && (playing.track.isPlaying || playing.track.isPaused)) ? 'playing': ''" ng-cloak>
 
-		<div id="loadingBackground" ng-show="loadingLocalFolder"><i class="ion-ios-reloading"></i> <span translate="general.loadingBackground"></span>
+		<div id="loadingBackground" ng-show="loadingLocalFolder"><i class="ion-ios-loop"></i> <span translate="general.loadingBackground"></span>
 		  <span ng-show="scanProgress">
 		   : {{scanProgress}}%, ETA: {{scanETA}}
 		</span></div>
+		<div id="loadingBackground2" ng-show="fetching"><i class="ion-ios-loop"></i></div>
 		<header ng-hide="inPartyMode">
 			<div class="containerx">
 				<div class="row">
@@ -55,7 +56,7 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<ul class="dropdown-menu dropdown-menu-right">
+							<ul class="dropdown-menu dropdown-menu-right" ng-show="parsed">
 								<li ng-repeat="letter in letters" ng-class="(letter.active) ? 'active': ''">
 									<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 								</li>
@@ -72,7 +73,7 @@
 			<div class="containerx">
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
+					<ul class="nav navbar-nav" ng-show="parsed">
 						<li ng-repeat="letter in letters" ng-class="(letter.active) ? 'active': ''">
 							<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 						</li>
@@ -84,22 +85,22 @@
 			</div>
 		</nav>
 		<div class="containerx" id="main">
-			<div ng-view class="view"></div>
-		</div>
-		<div ng-include="'templates/player.html'"></div>
-
-		<div class="row" id="loader" ng-show="parsing">
-      <h2 translate="general.loading">Please wait, loading data</h2>
-      <div class="md-progress-linear">
+		  <div ng-show="!parsed" class="row" id="loader">
+        <h2 translate="general.loading">Please wait, loading data</h2>
+        <div class="md-progress-linear">
         <div class="md-container md-ready">
           <div class="md-dashed"></div>
           <div class="md-bar md-bar1"></div>
           <div class="md-bar md-bar2"></div>
         </div>
+        </div>
+        <p id="loadingType"></p>
       </div>
-      <p id="loadingType"></p>
-    </div>
-    <div id="loaderbg" ng-show="parsing">
+			<div ng-view class="view"></div>
+		</div>
+		<div ng-include="'templates/player.html'"></div>
+
+
 
 
 		<script src="javascripts/jquery-2.0.3.min.js"></script>

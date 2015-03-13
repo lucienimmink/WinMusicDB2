@@ -1,3 +1,7 @@
+<strong>0.4.2</strong> <br />
+- Loading the remote music file is now done in the background. <br />
+- Readded the upcoming albums in overview. <br />
+- Changed rendering of the albumview; this should render a bit better now! <br />
 <strong>0.4.1</strong> <br />
 - Updated nwjs <br />
 - Added new Radio option based on listened artists <br />

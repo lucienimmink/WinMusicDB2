@@ -11,17 +11,30 @@ var isLocal = false;
 
 
 addEventListener('message', function(e) {
-	var data = e.data, url = data.url, params = data.params;
+	postMessage({status: "fetching"});
+	var data = e.data, url = data.url, params = data.params, interval = data.interval;
+	if (url.indexOf('?ts=') === -1) {
+		url += "?ts=";
+	}
 
 	httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = alertContents;
-	httpRequest.open('GET', url);
+
+	setInterval(function () {
+		var getUrl = url + new Date().getTime();
+		httpRequest.open('GET', getUrl);
+		httpRequest.send();
+		postMessage({status: "fetching"});
+	}, interval); // check every 5 minutes
+
+	httpRequest.open('GET', url + new Date().getTime());
 	httpRequest.send();
 });
 
 function alertContents() {
 	if (httpRequest.readyState === 4) {
 		if (httpRequest.status === 200) {
+			postMessage({status: "fetched"});
 			// alert(httpRequest.responseText);
 			var json = JSON.parse(httpRequest.responseText);
 			parse(json);

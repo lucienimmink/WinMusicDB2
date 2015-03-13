@@ -17,7 +17,6 @@ function($log, $translate, $timeout) {
 			angular.extend($scope.both, $scope.cloud);
 			if (!isLocal) {
 				$rootScope.parsed = true;
-				$scope.parsing = false;
 			}
 		});
 	}, factory.parse = function(json, $scope, $rootScope, isLocal) {
@@ -48,7 +47,6 @@ function($log, $translate, $timeout) {
 				angular.extend($scope.both, $scope.cloud);
 				if (!isLocal) {
 					$rootScope.parsed = true;
-					$scope.parsing = false;
 				}
 			});
 		}, false);

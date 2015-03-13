@@ -1,7 +1,8 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 41;
+	$scope.version = 42;
+	$scope.workerInterval = 5 * 60 * 1000;
 
 	// version checker
 	$http.get("http://www.arielext.org/version.txt?ts=" + new Date().getTime()).success(function(remote) {
@@ -271,17 +272,25 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 	$scope.$on("music.get", function(e, force) {
 		$scope.debug = $scope.debug || {};
 		var start = new Date().getTime();
-		$scope.parsing = true;
-		RestService.Music.get(function(json) {
-			$scope.debug = $scope.debug || {};
-			$scope.debug.getJSON = new Date().getTime() - start;
-			if (json.totals) {
+		$scope.fetching = true;
+
+		RestService.Music.get($scope.workerInterval, function(json) {
+			if (json.status) {
+				if (json.status === "fetching") {
+					$scope.fetching = true;
+					start = new Date().getTime();
+				}
+				else if (json.status === "fetched") {
+					// $scope.fetching = false;
+					$scope.debug.getJSON = new Date().getTime() - start;
+				}
+			}
+			else if (json.totals) {
+				$scope.fetching = false;
 				// already parsed by the worker thread; inject code
-				console.log('only inject');
 				ModelService.inject(json, $scope, $rootScope);
 			} else {
 				// non-parsed so parse and inject
-				console.log('parse and inject');
 				ModelService.parse(json, $scope, $rootScope);
 			}
 		});
@@ -317,6 +326,9 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 					$scope.scanProgress = response.split("|")[0];
 					win.setProgressBar($scope.scanProgress / 100);
 					$scope.scanETA = response.split("|")[1];
+				}
+				if ($scope.scanProgress > 99) {
+					win.setProgressBar(0);
 				}
 			});
 		}, 1000);

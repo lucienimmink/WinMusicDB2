@@ -29,4 +29,16 @@
 			</li>
 		</ul>
 	</div>
+	<div class="loading" ng-show="loading.upcomming"><i class="ion-ios-reloading"></i> <span translate="overview.loading.upcomming">Loading recently added</span></div>
+  <div ng-show="upcommingAlbums.length > 0">
+    <h1 translate="overview.headers.upcoming">Recently added</h1>
+    <ul class="media justOneRow">
+      <li ng-repeat="album in upcommingAlbums" bn-lazy-bg="{{album.artist + '|' + album.album}}">
+        <p class="details">
+          {{album.artist}}
+          <span class="small">{{album.album}}</span>
+        </p>
+      </li>
+    </ul>
+  </div>
 </div>

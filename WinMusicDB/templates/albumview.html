@@ -1,6 +1,5 @@
 <div ng-controller="AlbumViewController" class="fancyAlbum">
-	<div class="row fullArt" bn-lazy-bg="{{albumart}}">
-		<div class="cover"></div>
+	<div class="row" style="z-index: 4;">
 		<div class="col-xs-5 col-sm-3 col-lg-2 albumartwrapper">
 			<div class="editWrapper" ng-class="(viewAlbum.state === 'secondary') ? 'secondary' : 'primary'" ng-swipe-left="viewAlbum.state = 'secondary'" ng-swipe-right="viewAlbum.state = 'primary'">
 				<img bn-lazy-src="{{viewAlbum.artistNode.name + '|' + viewAlbum.album}}" src="images/nocover.png" width="100%" class="albumart">
@@ -49,7 +48,9 @@
 			</table>
 		</div>
 	</div>
-	<div class="row tracklist">
+	<div class="cover fullArt" bn-lazy-bg="{{albumart}}" style="z-index: 1"></div>
+	<div class="cover" style="z-index: 1"></div>
+	<div class="row tracklist" style="z-index: 3; position: relative;">
 		<div class="col-xs-12">
 			<a ng-click="shuffle()" class="shuffle"><i class="ion-shuffle"></i> {{shuffleState}}</a>
 			<table class="table table-hover table-condensed">

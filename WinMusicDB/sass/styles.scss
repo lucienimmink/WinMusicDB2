@@ -995,23 +995,31 @@ ul.media.list {
     margin: 0 0 5px 8px;
   }
 
+  .cover {
+    background: -webkit-linear-gradient(top, rgba(236,239,241,0.1) 0%,rgba(236,239,241,0.2) 60%,rgba(255,255,255,1) 100%);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    &.fullArt {
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+
   > .row:first-child {
     margin-top: -75px;
-    margin-bottom: -831px; //margin-bottom: min-height-193
-    padding: 65px 14px 110px;
-    min-height: 675px;
+    margin-bottom: -90px;
+    padding: 65px 14px 0;
     position: relative;
     @include jsmusicdb-respond-min-width(sm) {
-      padding: 200px 390px 0;
-      margin: -150px -390px -1200px;
-      min-height: 110vh;
+      padding: 170px 390px 0;
+      margin: -150px -390px -90px;
 
     }
-
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-
     > div {
       // box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
       padding: 0 5px;
@@ -1026,14 +1034,6 @@ ul.media.list {
           padding: 12px !important;
         }
       }
-    }
-    .cover {
-      background: -webkit-linear-gradient(top, rgba(236,239,241,0.1) 0%,rgba(236,239,241,0.2) 60%,rgba(255,255,255,1) 100%);
-      height: 100%;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
     }
     .albumartwrapper {
       padding: 0;
@@ -1144,6 +1144,16 @@ ul.media.list {
     left: 40%;
     top: 10px;
   }
+}
+#loadingBackground2 {
+  padding: 5px 10px;
+  background: rgba(0,0,0,0.5);
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 1000;
+  color: #fff;
 }
 #newVersion {
   padding: 10px 10px;

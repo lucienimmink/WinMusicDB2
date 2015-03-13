@@ -44,7 +44,7 @@
   <div class="col-xs-12" ng-show="results">
     <ul class="media" ng-show="searchfor === 'artists'">
       <li ng-repeat="artist in results | orderBy:'sortName':false" bn-lazy-bg="{{artist.name}}">
-        <a ng-href="#/{{artist.artistURL()}}">
+        <a ng-href="#/{{artist.artistURL}}">
         <p class="details">
           {{artist.name}}
           <span class="small"> <ng-pluralize count="artist.albums.length" when="{
@@ -56,7 +56,7 @@
     </ul>
     <ul class="media" ng-show="searchfor === 'albums' || searchfor === 'year'">
       <li ng-repeat="album in results | orderBy:'artist':false" bn-lazy-bg="{{album.artistNode.name + '|' + album.album}}">
-        <a ng-href="#/{{album.albumURL()}}">
+        <a ng-href="#/{{album.albumURL}}">
         <p class="details">
           <strong>{{album.artistNode.name}}</strong> <br />
           {{album.album}} <span ng-if="album.year">({{album.year}})</span>
