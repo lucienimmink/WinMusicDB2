@@ -1,9 +1,9 @@
 <div ng-controller="ArtistOverviewController">
   <ul class="media {{viewMode}}">
-    <li ng-repeat="artist in viewArtists | orderBy:'sortName':false" bn-lazy-bg="{{artist.name}}">
+    <li ng-repeat="artist in viewArtists | orderBy:'sortName':false" bn-lazy-bg="{{artist.albumartist || artist.name}}">
       <a ng-href="#/{{artist.artistURL}}">
       <p class="details">
-        {{artist.name}}
+        {{artist.albumartist || artist.name}}
         <span class="small"> <ng-pluralize count="artist.albums.length" when="{
           '0': '{{ &quot;general.noalbums&quot; | translate }}',
           '1': '{{ &quot;general.onealbum&quot; | translate }}',

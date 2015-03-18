@@ -32,7 +32,7 @@ function($scope, $routeParams, $log, $rootScope, RestService, $timeout) {'use st
 				}
 				$scope.artist = artist;
 
-				$rootScope.path = artist.name;
+				$rootScope.path = artist.albumartist||artist.name;
 
 				// get dominant color
 				RestService.Music.getDominantColor($rootScope, artist.name, function(color) {

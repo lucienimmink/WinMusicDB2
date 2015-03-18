@@ -41,6 +41,7 @@ function($http, $log, $location) {
 			doLogin : function(user, callback) {
 				cache.server = user.serverurl + ":" + user.serverport;
 				cache.jsmusicdb = user.serverurl + "/jsmusicdb/";
+				sessionStorage.setItem("synoServer", cache.server);
 
 				$http.get(cache.server + '/webapi/query.cgi?api=SYNO.API.Info&version=1&method=query&query=all').success(function(json) {
 					// session should be AudioStation but the api is broken
@@ -62,7 +63,7 @@ function($http, $log, $location) {
 				});
 			},
 			recent : function(username, callback) {
-				$http.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + username + '&api_key=' + lastfm.api_key + '&format=json').success(function(json) {
+				$http.get('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' + username + '&api_key=' + lastfm.api_key + '&format=json&limit=6').success(function(json) {
 					callback(json);
 				});
 			},
@@ -91,7 +92,7 @@ function($http, $log, $location) {
 			get : function(interval, callback) {
 				var worker = new Worker('javascripts/JSMusicDB2/workers/fetcher.js');
 				worker.postMessage({
-					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON.' + serverType.extension,
+					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON_new.' + serverType.extension + '?model=1',
 					params: {
 						sid : cache.sid,
 						server : cache.server

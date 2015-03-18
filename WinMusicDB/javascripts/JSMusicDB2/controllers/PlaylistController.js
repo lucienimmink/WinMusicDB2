@@ -538,12 +538,12 @@ function($scope, $routeParams, $log, RestService, $rootScope, ModelService, $mod
 		// generate 50 items
 		var playlist = [];
 		for (var i = 0; i < 50; i++) {
-			if (i % 3 === 0 || i % 4 === 0) {
+			if (i % 3 === 0 || i % 5 === 0) {
 				var a = $scope.getRandomArtistFromList(h);
 				if (a && a.albums) {
 					playlist.push($scope.getTrackFromArtist(a));
 				}
-			} else if (i % 5 === 0 || i % 7 === 0) {
+			} else if (i % 6 === 0 || i % 11 === 0) {
 				var a = $scope.getRandomArtistFromList(h);
 				if (a && a.albums) {
 					playlist.push($scope.getTrackFromArtist(a));

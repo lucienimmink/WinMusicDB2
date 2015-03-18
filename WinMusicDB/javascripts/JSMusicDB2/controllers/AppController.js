@@ -285,13 +285,23 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 					$scope.debug.getJSON = new Date().getTime() - start;
 				}
 			}
+			else if (json.tree) {
+				$scope.fetching = false;
+				console.log('tree');
+				ModelService.tree(json.tree, $scope, $rootScope);
+				$scope.debug.getJSON = new Date().getTime() - start;
+			}
 			else if (json.totals) {
 				$scope.fetching = false;
 				// already parsed by the worker thread; inject code
+				console.log('inject');
 				ModelService.inject(json, $scope, $rootScope);
+				$scope.debug.getJSON = new Date().getTime() - start;
 			} else {
 				// non-parsed so parse and inject
+				console.log('parse');
 				ModelService.parse(json, $scope, $rootScope);
+				$scope.debug.getJSON = new Date().getTime() - start;
 			}
 		});
 		//}
@@ -347,7 +357,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 	};
 
 	if (localStorage.getItem("localFolder")) {
-		$scope.loadingLocalFolder = true;
+		// $scope.loadingLocalFolder = true;
 		$scope.folder = localStorage.getItem("localFolder");
 		$("#fileBrowser").val($scope.folder);
 		doScan($scope.folder);

@@ -75,7 +75,7 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 						}
 					});
 					$scope.viewAlbum = album;
-					$rootScope.path = artist.name + " - " + album.album;
+					$rootScope.path = artist.albumartist || artist.name + " - " + album.album;
 					if ($scope.viewAlbum.collection) {
 						$scope.albumart = $scope.viewAlbum.artistNode.name + "|" + $scope.viewAlbum.album;
 					} else {
@@ -99,6 +99,8 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 					$timeout(function () {
 						$scope.niceScroll.resize();
 					}, 100);
+				} else {
+					console.log('no album found');
 				}
 
 			}

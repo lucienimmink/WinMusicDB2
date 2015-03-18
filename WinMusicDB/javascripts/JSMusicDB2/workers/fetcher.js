@@ -13,15 +13,12 @@ var isLocal = false;
 addEventListener('message', function(e) {
 	postMessage({status: "fetching"});
 	var data = e.data, url = data.url, params = data.params, interval = data.interval;
-	if (url.indexOf('?ts=') === -1) {
-		url += "?ts=";
-	}
 
 	httpRequest = new XMLHttpRequest();
 	httpRequest.onreadystatechange = alertContents;
 
 	setInterval(function () {
-		var getUrl = url + new Date().getTime();
+		var getUrl = url;
 		httpRequest.open('GET', getUrl);
 		httpRequest.send();
 		postMessage({status: "fetching"});
@@ -37,7 +34,12 @@ function alertContents() {
 			postMessage({status: "fetched"});
 			// alert(httpRequest.responseText);
 			var json = JSON.parse(httpRequest.responseText);
-			parse(json);
+			if (json.tree) {
+				postMessage(json);
+				// this is a precompiled tree
+			} else {
+				parse(json);
+			}
 		} else {
 			alert('There was a problem with the request.');
 		}
