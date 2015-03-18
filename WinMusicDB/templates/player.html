@@ -53,6 +53,10 @@
       <div id="yt-player"></div>
       <div id="yt-playerMask" style="position: absolute; background: #000; bottom: 0; height: 50px; width: 100%;"></div>
     </div>
+    <div style="z-index: 0; position: absolute; left: 0; right: 0; top: 0; bottom: 0;">
+      <img class="currentAlbumArt" bn-lazy-src="{{playing.track.artist}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()" ng-show="playing.track.artist.toLowerCase() !== playing.track.albumNode.artistNode.name.toLowerCase()" style="width: 100%; -webkit-filter: blur(20px);">
+      <img class="currentAlbumArt" bn-lazy-src="{{playing.track.albumNode.artistNode.name + '|' + playing.track.albumNode.album}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()" ng-hide="playing.track.artist.toLowerCase() !== playing.track.albumNode.artistNode.name.toLowerCase()" style="width: 100%; -webkit-filter: blur(20px);">
+    </div>
     <div class="imageWrapper">
       <img class="currentAlbumArt" bn-lazy-src="{{playing.track.artist}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()" ng-show="playing.track.artist.toLowerCase() !== playing.track.albumNode.artistNode.name.toLowerCase()">
       <img class="currentAlbumArt" bn-lazy-src="{{playing.track.albumNode.artistNode.name + '|' + playing.track.albumNode.album}}" src="images/nocover.png" width="100%" ng-swipe-right="back()" ng-swipe-left="next()" ng-hide="playing.track.artist.toLowerCase() !== playing.track.albumNode.artistNode.name.toLowerCase()">
