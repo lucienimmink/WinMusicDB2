@@ -287,24 +287,23 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 			}
 			else if (json.tree) {
 				$scope.fetching = false;
-				console.log('tree');
 				ModelService.tree(json.tree, $scope, $rootScope);
 				$scope.debug.getJSON = new Date().getTime() - start;
+				$scope.$apply(function () {
+					$scope.totals = json.totals;
+				});
 			}
 			else if (json.totals) {
 				$scope.fetching = false;
 				// already parsed by the worker thread; inject code
-				console.log('inject');
 				ModelService.inject(json, $scope, $rootScope);
 				$scope.debug.getJSON = new Date().getTime() - start;
 			} else {
 				// non-parsed so parse and inject
-				console.log('parse');
 				ModelService.parse(json, $scope, $rootScope);
 				$scope.debug.getJSON = new Date().getTime() - start;
 			}
 		});
-		//}
 	});
 
 	var doScan = function(folder) {
