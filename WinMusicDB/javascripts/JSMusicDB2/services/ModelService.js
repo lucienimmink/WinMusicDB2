@@ -13,8 +13,8 @@ function($log, $translate, $timeout) {
 				// process artists
 				angular.forEach(letter.artists, function (artist) {
 					var artist = artist;
-					artist.name = artist.artist; // TODO: rename 'artist' back to 'name' in PHP
-					artist.sortName = factory.stripThe(artist.albumartist || artist.name); // TODO: add 'sortName' PHP
+					// artist.name = artist.artist; // TODO: rename 'artist' back to 'name' in PHP
+					// artist.sortName = factory.stripThe(artist.albumartist || artist.name); // TODO: add 'sortName' PHP
 					artist.artistURL = "letter/" + letter.letter + "/artist/" + artist.sortName; // TODO: add artistURL to PHP
 					context.artists[artist.sortName.toUpperCase()] = artist;
 
@@ -22,7 +22,7 @@ function($log, $translate, $timeout) {
 					angular.forEach(artist.albums, function (album) {
 						var album = album;
 						album.artistNode = artist;
-						album.albumURL = "letter/" + letter.letter + "/artist/" + artist.sortName + "/album/" + album.album; // TODO: add albumURL to PHP
+						//album.albumURL = "letter/" + letter.letter + "/artist/" + artist.sortName + "/album/" + album.album; // TODO: add albumURL to PHP
 						if (album.year) {
 							context.year[album.year] = context.year[album.year] || [];
 							context.year[album.year].push(album);
@@ -33,7 +33,7 @@ function($log, $translate, $timeout) {
 						angular.forEach(album.tracks, function (track) {
 							var track = track;
 							track.albumNode = album;
-							track.number = Number(track.track); // TODO: rename 'track' back to 'number' in PHP + save as NUMBER
+							// track.number = Number(track.track); // TODO: rename 'track' back to 'number' in PHP + save as NUMBER
 							context.tracks[artist.sortName.toUpperCase() + "-" + album.album.toLowerCase() + "-" + track.title.toLowerCase()] = track;
 						});
 					});
