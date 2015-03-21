@@ -373,7 +373,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		
 		$scope.playing.track.albumArt = function () {
 			// check if track is compilation or not
-			if ($scope.playing.track.artist === $scope.playing.track.albumNode.artistNode.name) {
+			if ($scope.playing.track.artist.toLowerCase() === $scope.playing.track.albumNode.artistNode.name.toLowerCase()) {
 				// no; album art = artist|album
 				return $scope.playing.track.artist + "|" + $scope.playing.track.albumNode.album;
 			} else {
