@@ -370,6 +370,17 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		$scope.playing.track.isPlaying = true;
 		$scope.isPlaying = 'ios-pause';
 		scrobbleNowPlaying();
+		
+		$scope.playing.track.albumArt = function () {
+			// check if track is compilation or not
+			if ($scope.playing.track.artist === $scope.playing.track.albumNode.artistNode.name) {
+				// no; album art = artist|album
+				return $scope.playing.track.artist + "|" + $scope.playing.track.albumNode.album;
+			} else {
+				// yes; album art = artist
+				return $scope.playing.track.artist;
+			}
+		}();
 
 		setTimeout(function() {
 			$(".previousAlbumArt").addClass("animated");
