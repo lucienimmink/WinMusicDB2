@@ -92,7 +92,7 @@ function($http, $log, $location) {
 			get : function(interval, callback) {
 				var worker = new Worker('javascripts/JSMusicDB2/workers/fetcher.js');
 				worker.postMessage({
-					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON_new.' + serverType.extension + '?model=1',
+					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON.' + serverType.extension + '?model=tree',
 					params: {
 						sid : cache.sid,
 						server : cache.server
