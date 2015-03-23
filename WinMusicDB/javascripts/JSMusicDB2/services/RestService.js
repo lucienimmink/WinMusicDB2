@@ -8,7 +8,8 @@ function($http, $log, $location) {
 	var cache = {
 		sid : null,
 		server : null,
-		url : null
+		url : null,
+		user : null
 	};
 	var getPlaySrc = function($scope, path, id, track) {
 		var src;
@@ -42,6 +43,7 @@ function($http, $log, $location) {
 				cache.server = user.serverurl + ":" + user.serverport;
 				cache.jsmusicdb = user.serverurl + "/jsmusicdb/";
 				sessionStorage.setItem("synoServer", cache.server);
+				cache.user = user;
 
 				$http.get(cache.server + '/webapi/query.cgi?api=SYNO.API.Info&version=1&method=query&query=all').success(function(json) {
 					// session should be AudioStation but the api is broken
@@ -92,11 +94,7 @@ function($http, $log, $location) {
 			get : function(interval, callback) {
 				var worker = new Worker('javascripts/JSMusicDB2/workers/fetcher.js');
 				worker.postMessage({
-					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON.' + serverType.extension + '?model=tree',
-					params: {
-						sid : cache.sid,
-						server : cache.server
-					},
+					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON_new.' + serverType.extension + '?port='+cache.user.serverport+'&username='+cache.user.account+'&password='+cache.user.passwd+'&ts=',
 					interval: interval
 				});
 				worker.addEventListener('message', function(e) {
