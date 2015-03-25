@@ -1,4 +1,5 @@
 <strong>0.4.2</strong> <br />
+- Updated to new JSMusicDB backend <br />
 - Loading the remote music file is now done in the background. <br />
 - Readded the upcoming albums in overview. <br />
 - Changed rendering of the albumview; this should render a bit better now! <br />
