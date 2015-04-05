@@ -77,6 +77,9 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 									return 1;
 								}
 							});
+							angular.forEach(json, function (v,i) {
+								v.albumNode = album;
+							});
 							album.tracks = json;
 							$rootScope.fetchingTracks = false;
 						});
