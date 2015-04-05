@@ -57,8 +57,8 @@ class Album:
         else:
             self.Album = ""
             self.Naam = ""
-        if file.tag.best_release_date:
-            self.Jaar = str(file.tag.best_release_date)
+        if file.tag.getBestDate():
+            self.Jaar = str(file.tag.getBestDate())
         else:
             self.Jaar = "null"
         self.Type = "album"
@@ -77,8 +77,8 @@ class Track:
             self.Album = file.tag.album.replace("\"", "")
         else:
             self.Album = ""
-        if file.tag.best_release_date:
-            self.Jaar = str(file.tag.best_release_date)
+        if file.tag.getBestDate():
+            self.Jaar = str(file.tag.getBestDate())
         else:
             self.Jaar = "null"
         self.Track = file.tag.track_num[0]
@@ -183,7 +183,7 @@ def parseFile(filename, jsonFile, showInfo=True):
             perc = int((float(float(nrScanned) / float(countfiles))) * 100)
             if (countfiles > 100 and nrScanned % int(countfiles / 100) == 0 and showInfo):
                 inc = time.time()
-                # print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
+                #print "Scanner has scanned" , str(nrScanned) , "files, time elapsed =", ums(inc-start)
                 diff = inc - start
                 if (perc > 0):
                     tot = (diff / perc) * 100

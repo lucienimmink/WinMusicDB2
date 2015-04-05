@@ -56,24 +56,31 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 					$scope.letters[letter].active = true;
 				}
 				if (album) {
-					album.tracks.sort(function(a, b) {
-						var totalNumberA = 0, totalNumberB = 0;
-						if (a.disc) {
-							totalNumberA = a.disc * 100 + a.number;
-						} else {
-							totalNumberA = 100 + a.number;
-						}
-						if (b.disc) {
-							totalNumberB = b.disc * 100 + b.number;
-						} else {
-							totalNumberB = 100 + b.number;
-						}
-						if (totalNumberA < totalNumberB) {
-							return -1;
-						} else {
-							return 1;
-						}
-					});
+					if (album.tracks.length === 0) {
+						$rootScope.fetchingTracks = true;
+						RestService.Music.getTracksForAlbum(album, function (json) {
+							json.sort(function(a, b) {
+								var totalNumberA = 0, totalNumberB = 0;
+								if (a.disc) {
+									totalNumberA = a.disc * 100 + a.number;
+								} else {
+									totalNumberA = 100 + a.number;
+								}
+								if (b.disc) {
+									totalNumberB = b.disc * 100 + b.number;
+								} else {
+									totalNumberB = 100 + b.number;
+								}
+								if (totalNumberA < totalNumberB) {
+									return -1;
+								} else {
+									return 1;
+								}
+							});
+							album.tracks = json;
+							$rootScope.fetchingTracks = false;
+						});
+					}
 					$scope.viewAlbum = album;
 					$rootScope.path = artist.albumartist || artist.name + " - " + album.album;
 					if ($scope.viewAlbum.collection) {

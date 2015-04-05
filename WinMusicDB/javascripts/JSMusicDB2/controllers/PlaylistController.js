@@ -153,7 +153,7 @@ function($scope, $routeParams, $log, RestService, $rootScope, ModelService, $mod
 				$timeout(function() {
 					var tmplist = [];
 					angular.forEach(json.data.playlists[0].additional.songs, function(t) {
-						var track = $scope.tracks[t.id.substring(6)];
+						var track = $scope.tracks[t.id];
 						if (track) {
 							tmplist.push(track);
 						}
@@ -418,7 +418,7 @@ function($scope, $routeParams, $log, RestService, $rootScope, ModelService, $mod
 			if (playlistName) {
 				var songs = [];
 				angular.forEach($scope.viewPlaylist.items, function (track) {
-					songs.push("music_" + track.id);
+					songs.push(track.id);
 				});
 				RestService.Playlists.addPlaylist(playlistName, function(json) {
 					$timeout(function() {

@@ -1,3 +1,6 @@
+<strong>0.4.3</strong> <br />
+- Updated local scanner <br />
+- Updated to new JSMusicDB backend <br />
 <strong>0.4.2</strong> <br />
 - Updated to new JSMusicDB backend <br />
 - Loading the remote music file is now done in the background. <br />

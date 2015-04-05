@@ -14,7 +14,7 @@
             <li>
               <a ng-click="setFilter('albums')" translate="search.albums">Albums</a>
             </li>
-            <li>
+            <li ng-hide="true">
               <a ng-click="setFilter('tracks')" translate="search.tracks">Tracks</a>
             </li>
             <li>
@@ -58,12 +58,8 @@
       <li ng-repeat="album in results | orderBy:'artist':false" bn-lazy-bg="{{album.artistNode.name + '|' + album.album}}">
         <a ng-href="#/{{album.albumURL}}">
         <p class="details">
-          <strong>{{album.artistNode.name}}</strong> <br />
-          {{album.album}} <span ng-if="album.year">({{album.year}})</span>
-          <span class="small"> <ng-pluralize count="album.tracks.length" when="{
-            '0': '{{ &quot;general.notracks&quot; | translate }}',
-            '1': '{{ &quot;general.onetrack&quot; | translate }}',
-            'other': '{} {{ &quot;general.moretracks&quot; | translate }}'}"></ng-pluralize> </span>
+          {{album.artistNode.name}}
+          <span class="small" ng-if="album.year != '0'">{{album.album}}</span>
         </p> </a>
       </li>
     </ul>
@@ -77,7 +73,7 @@
             <td class="primary">{{track.artist}}</td>
             <td class="primary">{{track.albumNode.album}}</td>
             <td class="primary">{{track.title}}</td>
-            <td class="counter primary" width="65" align="right">{{track.time}}</td>
+            <td class="counter primary" width="65" align="right">{{track.duration}}</td>
             <td class="toggle primary" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="ion-edit"></i></a></td>
             <td colspan="4" class="secondary">
             <div class="dropdown" ng-hide="loading.addToPlaylist">

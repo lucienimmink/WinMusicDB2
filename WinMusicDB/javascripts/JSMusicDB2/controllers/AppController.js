@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 42;
+	$scope.version = 43;
 	$scope.workerInterval = 5 * 60 * 1000;
 
 	// version checker
@@ -315,7 +315,28 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 
 		// parse cached data
 		$http.get(folder + "/music.json").success(function(json) {
-			ModelService.parse(json, $scope, $rootScope, true);
+			//ModelService.parse(json, $scope, $rootScope, true);
+			$rootScope.parsed = true;
+			if (json.tree) {
+				$scope.fetching = false;
+				ModelService.tree(json.tree, $scope, $rootScope, true);
+				//$scope.debug.getJSON = new Date().getTime() - start;
+				/*
+				$scope.$apply(function () {
+					$scope.totals = json.totals;
+				});
+				*/
+			}
+			else if (json.totals) {
+				$scope.fetching = false;
+				// already parsed by the worker thread; inject code
+				ModelService.inject(json, $scope, $rootScope, true);
+				//$scope.debug.getJSON = new Date().getTime() - start;
+			} else {
+				// non-parsed so parse and inject
+				ModelService.parse(json, $scope, $rootScope, true);
+				// $scope.debug.getJSON = new Date().getTime() - start;
+			}
 			$scope.loadingLocalFolder = false;
 		}).error(function() {
 			$scope.syncLocal();

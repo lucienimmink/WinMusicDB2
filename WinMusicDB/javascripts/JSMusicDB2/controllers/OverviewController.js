@@ -129,29 +129,31 @@ function($scope, RestService, $rootScope, ModelService, $translate, $interval, $
 				$scope.loading.recentAdded = true;
 			}
 			RestService.Overview.recentlyAdded(function(json) {
-				$scope.loading.recentAdded = false;
-				if (json) {
-					angular.forEach(json.data.albums, function(album) {
-						var exists = false;
-						angular.forEach(tmplist, function(tmpalbum) {
-							if ((tmpalbum.artist === (album.artist || album.album_artist).toLowerCase()) && (tmpalbum.album === (album.album_name || album.name).toLowerCase())) {
-								// already in the list; skip
-								exists = true;
+				$timeout(function() {
+					$scope.loading.recentAdded = false;
+					if (json && json.data) {
+						angular.forEach(json.data.albums, function(album) {
+							var exists = false;
+							angular.forEach(tmplist, function(tmpalbum) {
+								if ((tmpalbum.artist === (album.artist || album.album_artist).toLowerCase()) && (tmpalbum.album === (album.album_name || album.name).toLowerCase())) {
+									// already in the list; skip
+									exists = true;
+								}
+							});
+							if (!exists) {
+								var recentAlbum = {
+									artist : (album.artist || album.album_artist).toLowerCase(),
+									album : (album.album_name || album.name).toLowerCase(),
+									letter : getFirstLetter(album.artist || album.album_artist),
+									url : '/letter/' + getFirstLetter(album.artist || album.album_artist) + '/artist/' + stripThe((album.artist || album.album_artist)) + '/album/' + (album.album_name || album.name).toLowerCase()
+								};
+								tmplist.push(recentAlbum);
 							}
 						});
-						if (!exists) {
-							var recentAlbum = {
-								artist : (album.artist || album.album_artist).toLowerCase(),
-								album : (album.album_name || album.name).toLowerCase(),
-								letter : getFirstLetter(album.artist || album.album_artist),
-								url : '/letter/' + getFirstLetter(album.artist || album.album_artist) + '/artist/' + stripThe((album.artist || album.album_artist)) + '/album/' + (album.album_name || album.name).toLowerCase()
-							};
-							tmplist.push(recentAlbum);
-						}
-					});
-					$scope.recentlyAdded = tmplist;
-					$rootScope.recentlyAdded = $scope.recentlyAdded;
-				}
+						$scope.recentlyAdded = tmplist;
+						$rootScope.recentlyAdded = $scope.recentlyAdded;
+					}
+				}, 10);
 			});
 			$scope.$watch(function() {
 				return $rootScope.user && $rootScope.user.lastfmuser;

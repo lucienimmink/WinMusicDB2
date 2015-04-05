@@ -15,10 +15,10 @@ function($http, $log, $location) {
 		var src;
 		if ($scope.currentSrc === "both") {
 			// do we have a local version?
-			if ($scope.local.tracks[track.artistID + "-" + track.album.toLowerCase() + "-" + track.title.toLowerCase()]) {
+			if ($scope.local.tracks[track.albumNode.artistNode.sortName.toUpperCase()+"-"+track.albumNode.album.toLowerCase()+"-"+track.title.toLowerCase()]) {
 				$scope.playing.track.source = "ion-monitor";
 				$scope.playing.track.sourceString = "local";
-				src = $scope.local.tracks[track.artistID + "-" + track.album.toLowerCase() + "-" + track.title.toLowerCase()].path;
+				src = $scope.local.tracks[track.albumNode.artistNode.sortName.toUpperCase()+"-"+track.albumNode.album.toLowerCase()+"-"+track.title.toLowerCase()].path;
 			} else {
 				// if not play the cloud based version
 				$scope.playing.track.source = "ion-cloud";
@@ -94,11 +94,26 @@ function($http, $log, $location) {
 			get : function(interval, callback) {
 				var worker = new Worker('javascripts/JSMusicDB2/workers/fetcher.js');
 				worker.postMessage({
-					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getJSON_new.' + serverType.extension + '?port='+cache.user.serverport+'&username='+cache.user.account+'&password='+cache.user.passwd+'&ts=',
+					url: cache.jsmusicdb + 'proxy/' + serverType.type + '/getAlbums.' + serverType.extension + '?port='+cache.user.serverport+'&username='+cache.user.account+'&password='+cache.user.passwd+'&ts=',
 					interval: interval
 				});
 				worker.addEventListener('message', function(e) {
 					callback(e.data);
+				});
+			},
+			getTracksForAlbum: function (album, callback) {
+				var url = cache.jsmusicdb + "proxy/" + serverType.type + '/getTracksOnAlbum.' + serverType.extension;
+				var post = {
+					port: cache.user.serverport,
+					username: cache.user.account,
+					password: cache.user.passwd,
+					artist: album.artistNode.albumartist || album.artistNode.name,
+					album: album.album
+				};
+				$http.post(url, $.param(post), {
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+				}).success(function(json) {
+					callback(json);
 				});
 			},
 			play : function($scope, track, callback) {
