@@ -116,6 +116,20 @@ function($http, $log, $location) {
 					callback(json);
 				});
 			},
+			getTracks : function(offset, callback) {
+				var url = cache.jsmusicdb + "proxy/" + serverType.type + '/getTracks.' + serverType.extension;
+				var post = {
+					port: cache.user.serverport,
+					username: cache.user.account,
+					password: cache.user.passwd,
+					offset: offset
+				};
+				$http.post(url, $.param(post), {
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+				}).success(function(json) {
+					callback(json);
+				});
+			},
 			play : function($scope, track, callback) {
 				if (track) {
 //					console.log(track);

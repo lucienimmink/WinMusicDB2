@@ -2,6 +2,10 @@
   "general": {
     "loading": "Bezig met ophalen data",
     "loadingBackground": "Folder aan het scannen",
+    "fetching": {
+    	"header": "Bezig met synchroniseren",
+    	"text": " niet alle informatie is beschikbaar zolang synchronisatie bezig is"
+    },
     "menu": {
       "overview": "Overzicht",
       "playlists": "Speellijsten",
@@ -104,6 +108,7 @@
     "debug": "debug:",
     "fetched": "Muziekbestand gedownload in : ",
     "fetchedLocal": "Lokale muziek gescanned in : ",
+    "fetchedTracks": "Track info gedownload in: ",
     "parsed": "Muziekbestand verwerkt in : ",
     "intro": "WinMusicDB is een webstandaard gebaseerde muziek bibliotheek en -speler die ge&iuml;nstalleerd kan worden op een windows systeem, deze kan een connectie maken met een Synology NAS die JSMusicDB draait.",
     "beta": "WinMusicDB is beta. Ga naar http://www.jsmusicdb.com om een bug te melden of om een probleem te melden.",

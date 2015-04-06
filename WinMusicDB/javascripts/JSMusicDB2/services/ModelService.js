@@ -2,6 +2,28 @@ angular.module('JSMusicDB.ModelService', []).factory('ModelService', ['$log', '$
 function($log, $translate, $timeout) {
 	var factory = {};
 
+	factory.mergeTree = function (json, $scope, $rootScope) {
+		var context = $scope.cloud;
+		angular.forEach(json, function(item) {
+			var letter = item;
+			angular.forEach(letter.artists, function (artist) {
+				var artist = artist;
+				angular.forEach(artist.albums, function (album) {
+					var album = album;
+					angular.forEach(album.tracks, function (track) {
+						var track = track;
+						var contextAlbum = context.albums[artist.sortName.toUpperCase() + "-" + album.album.toLowerCase()];
+						context.tracks[track.id] = track;
+						if (contextAlbum) {
+							contextAlbum.tracks.push(track);
+							track.albumNode = contextAlbum;
+						}
+					});
+				});
+			});
+		});
+	},
+
 	factory.tree = function(json, $scope, $rootScope, isLocal) {
 		$scope.$apply(function() {
 			var start = new Date().getTime();

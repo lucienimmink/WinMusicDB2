@@ -14,7 +14,7 @@
             <li>
               <a ng-click="setFilter('albums')" translate="search.albums">Albums</a>
             </li>
-            <li ng-hide="true">
+            <li>
               <a ng-click="setFilter('tracks')" translate="search.tracks">Tracks</a>
             </li>
             <li>
@@ -32,6 +32,9 @@
     </form>
     <br />
   </div>
+  <div class="alert alert-warning" ng-show="fetchingTracks">
+			<strong>{{'general.fetching.header' | translate}}</strong> {{'general.fetching.text' | translate}}
+		</div>
   <div class="loading" ng-show="loading.search"><i class="ion-ios-reloading"></i> <span translate="search.searching">Searching ...</span></div>
   <div class="col-xs-12" ng-show="results">
     <h2><span translate="search.results"></span> <span translate="search.{{searchfor}}"></span> '{{searchString}}'</h2>

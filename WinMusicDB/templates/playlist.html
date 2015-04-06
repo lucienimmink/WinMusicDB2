@@ -27,6 +27,9 @@
 		<button class="btn btn-primary btn-block" ng-click="savePlaylist()" ng-show="canSavePlaylist"><span translate="playlists.action.save">Save as new playlist</span></button>
 	</div>
 	<div class="col-xs-12 col-sm-8 col-md-9">
+		<div class="alert alert-warning" ng-show="fetchingTracks">
+			<strong>{{'general.fetching.header' | translate}}</strong> {{'general.fetching.text' | translate}}
+		</div>
 		<div class="loading" ng-show="loading.playlist"><i class="ion-ios-reloading"></i> <span translate="playlists.loadingSingle">Loading playlist</span></div>
 		<div ng-show="viewPlaylist.title">
 			<h1>{{viewPlaylist.title}}&nbsp;<i class="ion-ios-reloading" ng-show="loading.radio"></i></h1>

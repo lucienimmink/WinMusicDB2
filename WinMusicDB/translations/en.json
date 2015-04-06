@@ -2,6 +2,10 @@
   "general": {
     "loading": "Please wait, loading data",
     "loadingBackground": "Scanning folder",
+    "fetching": {
+    	"header": "Synchronising",
+    	"text": " not all information is available while synchronising"
+    },
     "menu": {
       "overview": "Overview",
       "playlists": "Playlists",
@@ -104,6 +108,7 @@
     "debug": "debug:",
     "fetched": "Fetched music file in : ",
     "fetchedLocal": "Scanned local music in : ",
+    "fetchedTracks": "Track info downloaded in: ",
     "parsed": "Parsed music file in : ",
     "intro": "WinMusicDB is a webstandards based music library/player that can be installed on a windows system and can connect to a synology nas running JSMusicDB",
     "beta": "WinMusicDB is in public beta. Please visit http://www.jsmusicdb.com if you have found a bug or want to report a problem.",

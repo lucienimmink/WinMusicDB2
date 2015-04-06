@@ -18,9 +18,14 @@
         <td>{{totals.albums}}</td>
     </tr>
     <tr>
+        <td translate="about.tracks">Total amount of albums:</td>
+        <td>{{totals.tracksDone}} / {{totals.tracks}}</td>
+    </tr>
+    <tr>
         <td translate="about.debug">Debug</td>
         <td>
         	<span translate="about.fetched">Fetched music file in : </span>{{ debug.getJSON / 1000}} sec <br />
+        	<span translate="about.fetchedTracks">Fetched music file in : </span>{{ debug.getTracks / 1000}} sec <br />
         	<span ng-show="debug.getJSONLocal">
         	 <span translate="about.fetchedLocal">Fetched music file in : </span>{{ debug.getJSONLocal / 1000}} sec <br />
         	</span>

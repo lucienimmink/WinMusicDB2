@@ -2,7 +2,7 @@ jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$locati
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
 	$scope.version = 43;
-	$scope.workerInterval = 5 * 60 * 1000;
+	$scope.workerInterval = 50 * 60 * 1000;
 
 	// version checker
 	$http.get("http://www.arielext.org/version.txt?ts=" + new Date().getTime()).success(function(remote) {
@@ -219,7 +219,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 
 	$scope.setMusicSource = function(src) {
 		if ($scope[src]) {
-			$scope.totals = $scope[src].totals;
+			// $scope.totals = $scope[src].totals;
 			$scope.letters = $scope[src].letters;
 			if (src === "both") {
 				angular.forEach($scope.local.letters, function(localLetter) {
@@ -291,6 +291,31 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 				$scope.debug.getJSON = new Date().getTime() - start;
 				$scope.$apply(function () {
 					$scope.totals = json.totals;
+				});
+				// now get all song info in the background
+				var offset = 0;
+				var getMoreTracks = function (callback) {
+					$scope.fetchingTracks = true;
+					RestService.Music.getTracks(offset, function (json) {
+						var total = json.total;
+						$scope.totals.tracks = total;
+						ModelService.mergeTree(json.tree, $scope, $rootScope);
+						$scope.setMusicSource($scope.musicSource);
+						offset = offset + 1000;
+						$scope.totals.tracksDone = offset;
+						$scope.fetchingTracks = false;
+						if (offset < total) {
+							getMoreTracks(callback);
+						} else {
+							$scope.totals.tracksDone = total;
+							callback();
+						}
+					});
+				};
+				start = new Date();
+				getMoreTracks(function () {
+					$scope.debug.getTracks = new Date().getTime() - start;
+					$scope.setMusicSource($scope.musicSource);
 				});
 			}
 			else if (json.totals) {
