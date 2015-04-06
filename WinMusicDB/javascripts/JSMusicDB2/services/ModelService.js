@@ -15,8 +15,17 @@ function($log, $translate, $timeout) {
 						var contextAlbum = context.albums[artist.sortName.toUpperCase() + "-" + album.album.toLowerCase()];
 						context.tracks[track.id] = track;
 						if (contextAlbum) {
-							contextAlbum.tracks.push(track);
-							track.albumNode = contextAlbum;
+							var hasTrack = false;
+							angular.forEach(contextAlbum.tracks, function (v) {
+								if (v.id === track.id) {
+									hasTrack = true;
+									return false;
+								}
+							});
+							if (!hasTrack) {
+								contextAlbum.tracks.push(track);
+								track.albumNode = contextAlbum;
+							}
 						}
 					});
 				});
