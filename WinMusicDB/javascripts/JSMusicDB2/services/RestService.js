@@ -24,11 +24,17 @@ function($http, $log, $location) {
 				$scope.playing.track.source = "ion-cloud";
 				$scope.playing.track.sourceString = "cloud";
 				src = cache.server + "/webapi/AudioStation/stream.cgi/0.mp3?sid=" + cache.clientSID + "&api=SYNO.AudioStation.Stream&version=2&method=stream&id=" + id;
+				if ($scope.playing.track.transcode) {
+					src = cache.server + "/webapi/AudioStation/stream.cgi/0.mp3?sid=" + cache.clientSID + "&api=SYNO.AudioStation.Stream&version=2&method=transcode&format=mp3&id=" + id;
+				}
 			}
 		} else if ($scope.currentSrc === "cloud") {
 			$scope.playing.track.source = "ion-cloud";
 			$scope.playing.track.sourceString = "cloud";
 			src = cache.server + "/webapi/AudioStation/stream.cgi/0.mp3?sid=" + cache.clientSID + "&api=SYNO.AudioStation.Stream&version=2&method=stream&id=" + id;
+			if ($scope.playing.track.transcode) {
+				src = cache.server + "/webapi/AudioStation/stream.cgi/0.mp3?sid=" + cache.clientSID + "&api=SYNO.AudioStation.Stream&version=2&method=transcode&format=mp3&id=" + id;
+			}
 		} else {
 			$scope.playing.track.source = "ion-monitor";
 			$scope.playing.track.sourceString = "local";

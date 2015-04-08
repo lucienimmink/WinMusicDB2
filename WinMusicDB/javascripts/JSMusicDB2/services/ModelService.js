@@ -13,7 +13,6 @@ function($log, $translate, $timeout) {
 					angular.forEach(album.tracks, function (track) {
 						var track = track;
 						var contextAlbum = context.albums[artist.sortName.toUpperCase() + "-" + album.album.toLowerCase()];
-						context.tracks[track.id] = track;
 						if (contextAlbum) {
 							var hasTrack = false;
 							angular.forEach(contextAlbum.tracks, function (v) {
@@ -25,6 +24,7 @@ function($log, $translate, $timeout) {
 							if (!hasTrack) {
 								contextAlbum.tracks.push(track);
 								track.albumNode = contextAlbum;
+								context.tracks[track.id] = track;
 							}
 						}
 					});
