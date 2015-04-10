@@ -15,7 +15,7 @@
   padding: 0 15px;
 }
 .slide-left.ng-enter {
-  z-index: 101;
+  z-index: 8;
   //-webkit-transform: translateX(100%);
   //transform: translateX(100%);
   opacity: 0;
@@ -26,7 +26,7 @@
   opacity: 1;
 }
 .slide-left.ng-leave {
-  z-index: 100;
+  z-index: 7;
   //-webkit-transform: translateX(0);
   //transform: translateX(0);
   opacity: 1;
@@ -37,7 +37,7 @@
   opacity: 0;
 }
 .slide-right.ng-enter {
-  z-index: 100;
+  z-index: 7;
   //-webkit-transform: translateX(-100%);
   //transform: translateX(-100%);
   opacity: 0;
@@ -48,7 +48,7 @@
   opacity: 1;
 }
 .slide-right.ng-leave {
-  z-index: 101;
+  z-index: 8;
   //-webkit-transform: translateX(0);
   //transform: translateX(0);
   opacity: 1;
