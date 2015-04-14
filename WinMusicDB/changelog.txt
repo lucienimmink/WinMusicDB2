@@ -1,3 +1,6 @@
+<strong>0.4.4</strong> <br />
+- Added transcode option <br />
+- Added page transitions <br />
 <strong>0.4.3</strong> <br />
 - Updated local scanner <br />
 - Updated to new JSMusicDB backend <br />
