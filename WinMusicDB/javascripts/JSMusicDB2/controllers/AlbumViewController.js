@@ -77,13 +77,36 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 									return 1;
 								}
 							});
+							var multiDisc = false;
+							var test;
 							angular.forEach(json, function (v,i) {
 								v.albumNode = album;
+								if (!test) {
+									test = v.disc;
+								} else if (test !== v.disc) {
+									multiDisc = true;
+								}
 							});
+							album.multiDisc = multiDisc;
 							album.tracks = json;
 							$rootScope.fetchingTracks = false;
+
+
+
 						});
+					} else {
+						var multiDisc = false;
+						var test;
+						angular.forEach(album.tracks, function (v,i) {
+							if (!test) {
+								test = v.disc;
+							} else if (test !== v.disc) {
+								multiDisc = true;
+							}
+						});
+						album.multiDisc = multiDisc;
 					}
+
 					$scope.viewAlbum = album;
 					$rootScope.path = artist.albumartist || artist.name + " - " + album.album;
 					if ($scope.viewAlbum.collection) {

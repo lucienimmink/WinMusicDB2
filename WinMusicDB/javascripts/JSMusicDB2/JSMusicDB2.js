@@ -1,4 +1,4 @@
-var jsmusicdb = angular.module('jsmusicdb', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ngTouch', 'ui.bootstrap', 'JSMusicDB.RestService', 'JSMusicDB.ModelService', 'JSMusicDB.ImageService', 'JSMusicDB.PlatformService', 'TimeFilters', 'VersionFilters', 'tmh.dynamicLocale', 'pascalprecht.translate']).config(['$routeProvider', '$translateProvider', '$compileProvider',
+var jsmusicdb = angular.module('jsmusicdb', ['ngRoute', 'ngSanitize', 'ngAnimate', 'ngTouch', 'ui.bootstrap', 'JSMusicDB.RestService', 'JSMusicDB.ModelService', 'JSMusicDB.ImageService', 'JSMusicDB.PlatformService', 'TimeFilters', 'VersionFilters', 'PrefixZeroFilters', 'tmh.dynamicLocale', 'pascalprecht.translate']).config(['$routeProvider', '$translateProvider', '$compileProvider',
 function($routeProvider, $translateProvider, $compileProvider) {
 	$routeProvider.when('/letter/:letter', {
 		templateUrl : 'templates/artistoverview.html',
