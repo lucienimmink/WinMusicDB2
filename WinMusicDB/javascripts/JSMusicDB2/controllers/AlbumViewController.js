@@ -17,7 +17,8 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 		}
 		*/
 		var depthMultiplier = -0.25;
-		$(".fullArt").css("background-position", "center " + depthMultiplier * scroll + "px");
+		// $(".fullArt").css("background-position", "center " + depthMultiplier * scroll + "px");
+		$(".fullArt").css("transform", "translateY(" + depthMultiplier * scroll + "px)");
 	});
 
 	$scope.$on("$destroy", function () {

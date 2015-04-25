@@ -58,3 +58,7 @@
   //transform: translateX(100%);
   opacity: 0;
 }
+
+#main .fancyAlbum .cover.fullArt, #main .fancyPlaylist .cover.fullArt {
+  -webkit-transition: 0.05s ease-in-out;
+}
