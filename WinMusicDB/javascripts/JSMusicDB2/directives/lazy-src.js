@@ -353,22 +353,6 @@ jsmusicdb.directive("bnLazySrc", function($window, $document, $http, ImageServic
 						$(".previousAlbumArt").addClass('animate');
 					}
 					$(".previousAlbumArt").removeClass("temp-back");
-					if ($(".desktop").length === 1) {
-						$(".imageWrapper").width(element[0].width);
-						$(".imageWrapper, .analyzerWrapper").height('');
-					} else {
-						$(".imageWrapper").width('');
-						$(".imageWrapper, .analyzerWrapper").height($(window).width());
-					}
-				}
-			});
-			$(window).on("resize", function() {
-				if ($(".desktop").length === 1) {
-					$(".imageWrapper").width(element[0].width);
-					$(".imageWrapper, .analyzerWrapper").height('');
-				} else {
-					$(".imageWrapper").width('');
-					$(".imageWrapper, .analyzerWrapper").height($(window).width());
 				}
 			});
 		}

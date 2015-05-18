@@ -177,18 +177,30 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		$scope.prebufferdTrack = null;
 		$scope.play(track);
 	});
+	
+	var setImageSize = function () {
+		if ($(".desktop").length === 1) {
+			var x = $(".inPartyMode").height() - 30;
+			$(".imageWrapper").width(x);
+			$(".imageWrapper").height(x);
+		} else {
+			$(".imageWrapper").width('');
+			$(".imageWrapper").height('');
+		}
+	};
 
 	$scope.toggle = function(toggleType) {
 		if (toggleType === 'partyMode') {
 			$rootScope.inPartyMode = !$rootScope.inPartyMode;
 			// trigger resize albumart
-			if ($(".desktop").length === 1) {
-				setTimeout(function() {
-					$(".imageWrapper").width($(".inPartyMode").height());
-				}, 200);
-			} else {
-				$(".imageWrapper").width('');
-			}
+			setTimeout(function() {
+				setImageSize();
+			}, 350);
+			$(window).on("resize", function () {
+				setImageSize();
+			});
+		} else {
+			$(window).off("resize");
 		}
 		if (toggleType == 'isPlaying') {
 			$scope.playpause();

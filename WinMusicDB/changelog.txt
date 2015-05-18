@@ -1,3 +1,5 @@
+<strong>0.4.5</strong> <br />
+- Changed icon set <br />
 <strong>0.4.4</strong> <br />
 - Added transcode option <br />
 - Added page transitions <br />
