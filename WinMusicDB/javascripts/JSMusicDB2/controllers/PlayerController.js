@@ -18,7 +18,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 
 	var tray = null;
 
-	$scope.isPlaying = "ios-play";
+	$scope.isPlaying = "play";
 	$scope.isRandom = "shuffle";
 	$scope.isMuted = "volume-high";
 	$rootScope.inPartyMode = false;
@@ -35,14 +35,12 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		angular.forEach(audiotags, function(value) {
 			value.volume = n / 100;
 		});
-		if (n < 25) {
-			$scope.volumeIcon = "mute";
-		} else if (n < 50) {
-			$scope.volumeIcon = "low";
-		} else if (n < 75) {
-			$scope.volumeIcon = "medium";
+		if (n < 1) {
+			$scope.volumeIcon = "off";
+		} else if (n < 51) {
+			$scope.volumeIcon = "down";
 		} else {
-			$scope.volumeIcon = "high";
+			$scope.volumeIcon = "up";
 		}
 	});
 
@@ -368,7 +366,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 		$scope.playing.track = track;
 		$scope.playing.nextTrack = $scope.upNext();
 		$scope.playing.track.isPlaying = true;
-		$scope.isPlaying = 'ios-pause';
+		$scope.isPlaying = 'pause';
 		scrobbleNowPlaying();
 		
 		$scope.playing.track.albumArt = function () {
@@ -447,8 +445,8 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	};
 
 	$scope.playpause = function() {
-		if ($scope.isPlaying === 'ios-pause') {
-			$scope.isPlaying = 'ios-play';
+		if ($scope.isPlaying === 'pause') {
+			$scope.isPlaying = 'play';
 			$scope.playing.track.isPlaying = false;
 			$scope.playing.track.isPaused = true;
 			if ($scope.inVideoMode) {
@@ -465,7 +463,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 			trayTooltip = "Paused: " + $scope.playing.track.artist.capitalize() + " - " + $scope.playing.track.title.capitalize();
 
 		} else {
-			$scope.isPlaying = 'ios-pause';
+			$scope.isPlaying = 'pause';
 			$scope.playing.track.isPlaying = true;
 			$scope.playing.track.isPaused = false;
 			if ($scope.inVideoMode && $scope.ytplayer && $scope.ytplayer.playVideo) {
@@ -490,7 +488,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	};
 
 	$scope.pause = function() {
-		$scope.isPlaying = 'ios-play';
+		$scope.isPlaying = 'play';
 		$scope.playing.track.isPlaying = false;
 		$scope.playing.track.isPaused = true;
 		if ($scope.inVideoMode) {

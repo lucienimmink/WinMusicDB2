@@ -59,6 +59,8 @@
   opacity: 0;
 }
 
+
 #main .fancyAlbum .cover.fullArt, #main .fancyPlaylist .cover.fullArt {
   -webkit-transition: 0.05s ease-in-out;
+  transition: 0.05s ease-in-out;
 }

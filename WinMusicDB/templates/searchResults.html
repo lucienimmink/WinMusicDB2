@@ -25,7 +25,7 @@
         <input type="text" class="form-control" ng-model="searchString" style="box-shadow: 0px 2px 5px rgba(0,0,0,0.26)">
         <div class="input-group-btn">
           <button class="btn btn-default" type="button" ng-click="doSearch()">
-            <i class="ion-ios-search"></i>
+            <i class="fa fa-fw fa-search"></i>
           </button>
         </div>
       </div>
@@ -35,7 +35,7 @@
   <div class="alert alert-warning" ng-show="fetchingTracks">
 			<strong>{{'general.fetching.header' | translate}}</strong> {{'general.fetching.text' | translate}}
 		</div>
-  <div class="loading" ng-show="loading.search"><i class="ion-ios-reloading"></i> <span translate="search.searching">Searching ...</span></div>
+  <div class="loading" ng-show="loading.search"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> <span translate="search.searching">Searching ...</span></div>
   <div class="col-xs-12" ng-show="results">
     <h2><span translate="search.results"></span> <span translate="search.{{searchfor}}"></span> '{{searchString}}'</h2>
   </div>
@@ -72,15 +72,19 @@
       <div class="table-responsive col-xs-12">
         <table class="table table-hover">
           <tr ng-repeat="track in results" ng-click="playTrack(track, results)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
-            <td class="counter" width="40"><span ng-show="track.isPlaying"> <i class="ion-ios-play"></i> </span><span ng-show="track.isPaused"> <i class="ion-ios-pause"></i> </span><span ng-show="!track.isPlaying && !track.isPaused">&nbsp;&nbsp;</span></td>
+            <td class="counter" width="40">
+              <span ng-show="track.isPlaying"> <i class="fa fa-fw fa-play"></i> </span>
+              <span ng-show="track.isPaused"> <i class="fa fa-fw fa-pause"></i> </span>
+              <span ng-show="!track.isPlaying && !track.isPaused">&nbsp;&nbsp;</span>
+            </td>
             <td class="primary">{{track.artist}}</td>
             <td class="primary">{{track.albumNode.album}}</td>
             <td class="primary">{{track.title}}</td>
             <td class="counter primary" width="65" align="right">{{track.duration}}</td>
-            <td class="toggle primary" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="ion-edit"></i></a></td>
+            <td class="toggle primary" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="fa fa-fw fa-pencil"></i></a></td>
             <td colspan="4" class="secondary">
             <div class="dropdown" ng-hide="loading.addToPlaylist">
-              <a class="add dropdown-toggle" data-toggle="dropdown" ng-click="$event.stopPropagation();"><i class="ion-plus"></i> <span translate="album.playlist.add">Add to playlist</span></a>
+              <a class="add dropdown-toggle" data-toggle="dropdown" ng-click="$event.stopPropagation();"><i class="fa fa-fw fa-plus"></i> <span translate="album.playlist.add">Add to playlist</span></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                 <li role="presentation" ng-repeat="playlist in playlists.items">
                   <a role="menuitem" tabindex="-1" ng-click="addToPlaylist(playlist, track)">{{playlist.title}}</a>
@@ -92,9 +96,9 @@
               </ul>
             </div>
             <div ng-show="loading.addToPlaylist">
-              <i class="ion-ios-reloading"></i><span translate="playlists.action.processing">processing</span>
+              <i class="fa fa-circle-o-notch fa-spin fa-fw"></i><span translate="playlists.action.processing">processing</span>
             </div></td>
-            <td class="toggle secondary" width="25" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();"><a class="toggle"><i class="ion-arrow-right-b"></i></a></td>
+            <td class="toggle secondary" width="25" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();"><a class="toggle"><i class="fa fa-fw fa-minus"></i></a></td>
           </tr>
         </table>
       </div>

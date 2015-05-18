@@ -3,7 +3,7 @@
     <div class="progressContainer">
       <span class="time start">{{position | timeFilter}}</span>
       <span class="time stop">{{len | timeFilter}}</span>
-      <a ng-click="releasePlayer(); $event.stopPropagation()" class="stop releaseButton"><i class="ion-ios-arrow-up"></i></a>
+      <a ng-click="releasePlayer(); $event.stopPropagation()" class="stop releaseButton"><i class="fa fa-fw fa-angle-up"></i></a>
       <div class="prebuffer" ng-style="{width: bufferpos()}" ng-click="updatePosition($event)"></div>
       <div class="progress"  ng-style="{width: pos()}" ng-click="updatePosition($event)"></div>
     </div>
@@ -23,19 +23,19 @@
       </div>
       <div class="row icons">
         <div class="col-xs-5 col-sm-5 pushed-left">
-          <a ng-click="back()"><i class="ion-ios-skipbackward"></i></a>
-          <a ng-click="toggle('isPlaying')" class="icon-big"><i class="ion-{{isPlaying}}"></i></a>
-          <a ng-click="stop()" class="icon-big"><i class="ion-stop"></i></a>
-          <a ng-click="next()"><i class="ion-ios-skipforward"></i></a>
+          <a ng-click="back()"><i class="fa fa-step-backward fa-fw"></i></a>
+          <a ng-click="toggle('isPlaying')" class="icon-big"><i class="fa fa-{{isPlaying}} fa-fw"></i></a>
+          <a ng-click="stop()" class="icon-big"><i class="fa fa-stop fa-fw"></i></a>
+          <a ng-click="next()"><i class="fa fa-step-forward fa-fw"></i></a>
         </div>
         <div class="col-xs-7 col-sm-5">
-          <span class="volumeControl"> <i class="ion-volume-{{volumeIcon}}"></i>
-            <input id="slider2" type ="range" min="0" max="100" step="25" ng-model="volume"/>
+          <span class="volumeControl"> <i class="fa fa-fw fa-volume-{{volumeIcon}}"></i>
+            <input id="slider2" type ="range" min="0" max="100" step="1" ng-model="volume"/>
           </span>
-          <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="ion-ios-heart-outline" ng-hide="playing.track.isLoved"></i><i class="ion-ios-heart" ng-show="playing.track.isLoved"></i></a>
-          <a ng-click="toggle('partyMode')"><i class="ion-arrow-expand"></i></a>
-          <a ng-click="showPlaylist()"><i class="ion-ios-paper-outline"></i></a>
-          <a ng-click="minimizePlayer()"><i class="ion-ios-arrow-down"></i></a>
+          <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="fa fa-fw fa-heart-o" ng-hide="playing.track.isLoved"></i><i class="fa fa-fw fa-heart" ng-show="playing.track.isLoved"></i></a>
+          <a ng-click="toggle('partyMode')"><i class="fa fa-fw fa-arrows-alt"></i></a>
+          <a ng-click="showPlaylist()"><i class="fa fa-fw fa-list"></i></a>
+          <a ng-click="minimizePlayer()"><i class="fa fa-fw fa-angle-down"></i></a>
         </div>
       </div>
       <div class="hidden-xs albumart push-up">
@@ -92,10 +92,10 @@
 
       <div class="row icons primary">
         <div class="col-xs-12">
-          <a ng-click="back()"><i class="ion-ios-skipbackward"></i></a>
-          <a ng-click="toggle('isPlaying')" class="icon-big"><i class="ion-{{isPlaying}}"></i></a>
-          <a ng-click="next()"><i class="ion-ios-skipforward"></i></a>
-          <a ng-click="toggleVideo()" ng-hide="cantPlayYT" style="position: absolute; right: 10px; top: -5px;"><i class="ion-social-youtube"></i></a>
+          <a ng-click="back()"><i class="fa fa-step-backward fa-fw"></i></a>
+          <a ng-click="toggle('isPlaying')" class="icon-big"><i class="fa fa-{{isPlaying}} fa-fw"></i></a>
+          <a ng-click="next()"><i class="fa fa-step-forward fa-fw"></i></a>
+          <a ng-click="toggleVideo()" ng-hide="cantPlayYT" style="position: absolute; right: 10px; top: -5px;"><i class="fa fa-youtube"></i></a>
         </div>
       </div>
       <div class="row visible-xs upnext">

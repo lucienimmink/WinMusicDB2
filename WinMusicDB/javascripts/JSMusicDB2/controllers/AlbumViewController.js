@@ -41,13 +41,13 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 				var source = '';
 				if ($scope.currentSrc === 'both') {
 					if ($scope.local && $scope.local.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()]) {
-						source = "ion-monitor";
+						source = "fa fa-desktop";
 					}
 					if ($scope.cloud && $scope.cloud.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()]) {
-						source = (!source) ? "ion-cloud" : "ion-radio-waves";
+						source = (!source) ? "fa fa-cloud" : "fa fa-globe";
 					}
 				} else {
-					source = ($scope.currentSrc === 'local') ? "ion-monitor" : "ion-cloud";
+					source = ($scope.currentSrc === 'local') ? "fa fa-desktop" : "fa fa-cloud";
 				}
 				$scope.source = source;
 				for (var letterObject in $scope.letters) {

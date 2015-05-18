@@ -5,11 +5,11 @@
 				<img bn-lazy-src="{{viewAlbum.artistNode.name + '|' + viewAlbum.album}}" src="images/nocover.png" width="100%" class="albumart">
 				<i class="{{source}} albumSource"></i>
 				<div class="primary">
-					<a class="toggle" ng-click="viewAlbum.state = 'secondary'"><i class="ion-edit"></i></a>
+					<a class="toggle" ng-click="viewAlbum.state = 'secondary'"><i class="fa fa-pencil fa-fw"></i></a>
 				</div>
 				<div class="secondary">
 					<div class="dropdown" ng-hide="loading.addAlbumToPlaylist">
-						<a class="add dropdown-toggle" data-toggle="dropdown"><i class="ion-plus"></i> <span translate="album.playlist.add">Add to playlist</span></a>
+						<a class="add dropdown-toggle" data-toggle="dropdown"><i class="fa fa-plus fa-fw"></i> <span translate="album.playlist.add">Add to playlist</span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 							<li role="presentation" ng-repeat="playlist in playlists.data.playlists">
 								<a role="menuitem" tabindex="-1" ng-click="addAlbumToPlaylist(playlist, viewAlbum)">{{playlist.name}}</a>
@@ -21,9 +21,9 @@
 						</ul>
 					</div>
 					<div ng-show="loading.addAlbumToPlaylist">
-						<i class="ion-ios-reloading"></i><span translate="playlists.action.processing">processing</span>
+						<i class="fa fa-circle-o-notch fa-spin fa-fw"></i><span translate="playlists.action.processing">processing</span>
 					</div>
-					<a class="toggle" ng-click="viewAlbum.state = 'primary'; $event.stopPropagation();"><i class="ion-close"></i></a>
+					<a class="toggle" ng-click="viewAlbum.state = 'primary'; $event.stopPropagation();"><i class="fa fa-close fa-fw"></i></a>
 				</div>
 			</div>
 		</div>
@@ -52,15 +52,15 @@
 	<div class="cover" style="z-index: 1"></div>
 	<div class="row tracklist" style="z-index: 3; position: relative;">
 		<div class="col-xs-12">
-			<a ng-click="shuffle()" class="shuffle"><i class="ion-shuffle"></i> {{shuffleState}}</a>
+			<a ng-click="shuffle()" class="shuffle"><i class="fa fa-random fa-fw"></i> {{shuffleState}}</a>
 			<table class="table table-hover table-condensed">
 				<tr ng-repeat="track in viewAlbum.tracks" ng-click="playTrack(track)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
 					<td class="counter" width="50">
 					  <span ng-show="track.isPlaying">
-					    <i class="ion-ios-play"></i>
+					    <i class="fa fa-fw fa-play"></i>
 					  </span>
 					  <span ng-show="track.isPaused">
-					    <i class="ion-ios-pause"></i>
+					    <i class="fa fa-fw fa-pause"></i>
 					  </span>
 					  <span ng-show="!track.isPlaying && !track.isPaused && track.number">
 					    <span ng-if="viewAlbum.multiDisc">{{::track.disc}}.</span>{{::track.number | PrefixZeroFilter}}</span>
@@ -71,10 +71,10 @@
 					 </span>
 					</td>
 					<td class="counter primary" width="65" align="right">{{::track.duration}}</td>
-					<td class="toggle primary hidden-xs" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="ion-edit"></i></a></td>
+					<td class="toggle primary hidden-xs" width="35" align="right" ng-click="track.state = 'secondary'; $event.stopPropagation();"><a class="toggle"><i class="fa fa-fw fa-pencil"></i></a></td>
 					<td colspan="2" class="secondary">
 					<div class="dropdown" ng-hide="loading.addToPlaylist">
-						<a class="add dropdown-toggle" data-toggle="dropdown" ><i class="ion-plus"></i> <span translate="album.playlist.add">Add to playlist</span></a>
+						<a class="add dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-fw fa-plus"></i> <span translate="album.playlist.add">Add to playlist</span></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 							<li role="presentation" ng-repeat="playlist in playlists.data.playlists">
 								<a role="menuitem" tabindex="-1" ng-click="addToPlaylist(playlist, track)">{{playlist.name}}</a>
@@ -86,9 +86,9 @@
 						</ul>
 					</div>
 					<div ng-show="loading.addToPlaylist">
-						<i class="ion-ios-reloading"></i><span translate="playlists.action.processing">processing</span>
+						<i class="fa fa-circle-o-notch fa-spin fa-fw"></i><span translate="playlists.action.processing">processing</span>
 					</div></td>
-					<td class="toggle secondary hidden-xs" width="35" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();"><a class="toggle"><i class="ion-close"></i></a></td>
+					<td class="toggle secondary hidden-xs" width="35" align="right" ng-click="track.state = 'primary'; $event.stopPropagation();"><a class="toggle"><i class="fa fa-fw fa-close"></i></a></td>
 				</tr>
 			</table>
 		</div>

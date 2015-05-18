@@ -1,31 +1,55 @@
 <!doctype html>
-<!--[if !IE]>      <html class="no-js non-ie" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
-<!--[if IE 7 ]>    <html class="no-js ie7" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
-<!--[if IE 8 ]>    <html class="no-js ie8" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
-<!--[if IE 9 ]>    <html class="no-js ie9" dir="ltr" lang="en-US" ng-app="jsmusicdb"> <![endif]-->
-<!--[if gt IE 9]><!-->
 <html class="no-js" dir="ltr" lang="en-US" ng-app="jsmusicdb" ng-controller="AppController" ng-class="{partyMode: inPartyMode, nofocus: !focused}">
-	<!--<![endif]-->
 	<head>
 		<title>WinMusicDB2</title>
 		<meta charset="UTF-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width"/>
-
-		<!-- build:css stylesheets/all.css -->
-		<link rel="stylesheet" type="text/css" href="stylesheets/ionicons.css" />
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width" />
+		
+		<link rel="stylesheet" type="text/css" href="stylesheets/font-awesome/font-awesome.css" />
 		<link rel="stylesheet" type="text/css" href="stylesheets/styles.css" />
-		<!-- endbuild -->
+		
 	</head>
-
 	<body ng-class="(playing && playing.track && (playing.track.isPlaying || playing.track.isPaused)) ? 'playing': ''" ng-cloak>
-
-		<div id="loadingBackground" ng-show="loadingLocalFolder"><i class="ion-ios-loop"></i> <span translate="general.loadingBackground"></span>
-		  <span ng-show="scanProgress">
-		   : {{scanProgress}}%, ETA: {{scanETA}}
-		</span></div>
-		<div id="loadingBackground2" ng-show="fetching"><svg viewBox="0 0 64 64"><g><defs><linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="55" y1="46" x2="2" y2="46"><stop offset="0.1" class="stop1"></stop><stop offset="1" class="stop2"></stop></linearGradient></defs><g stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(205.852 32 32)"><path stroke="#8DA7CC" d="M4,32 c0,15,12,28,28,28c8,0,16-4,21-9"></path><path d="M60,32 C60,16,47.464,4,32,4S4,16,4,32"></path><animateTransform values="0,32,32;360,32,32" attributeName="transform" type="rotate" repeatCount="indefinite" dur="750ms"></animateTransform></g></g></svg></div>
-		<div id="loadingBackground2" ng-show="fetchingTracks"><svg viewBox="0 0 64 64"><g><defs><linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="55" y1="46" x2="2" y2="46"><stop offset="0.1" class="stop1"></stop><stop offset="1" class="stop2"></stop></linearGradient></defs><g stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(205.852 32 32)"><path stroke="#8DA7CC" d="M4,32 c0,15,12,28,28,28c8,0,16-4,21-9"></path><path d="M60,32 C60,16,47.464,4,32,4S4,16,4,32"></path><animateTransform values="0,32,32;360,32,32" attributeName="transform" type="rotate" repeatCount="indefinite" dur="750ms"></animateTransform></g></g></svg></div>
+		<div id="loadingBackground" ng-show="loadingLocalFolder">
+			<i class="fa fa-circle-o-notch fa-spin"></i>
+			<span translate="general.loadingBackground"></span>
+			<span ng-show="scanProgress">: {{scanProgress}}%, ETA: {{scanETA}}</span>
+		</div>
+		<div id="loadingBackground2" ng-show="fetching">
+			<svg viewBox="0 0 64 64">
+				<g>
+					<defs>
+						<linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="55" y1="46" x2="2" y2="46">
+							<stop offset="0.1" class="stop1"></stop>
+							<stop offset="1" class="stop2"></stop>
+						</linearGradient>
+					</defs>
+					<g stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(205.852 32 32)">
+						<path stroke="#8DA7CC" d="M4,32 c0,15,12,28,28,28c8,0,16-4,21-9"></path>
+						<path d="M60,32 C60,16,47.464,4,32,4S4,16,4,32"></path>
+						<animateTransform values="0,32,32;360,32,32" attributeName="transform" type="rotate" repeatCount="indefinite" dur="750ms"></animateTransform>
+					</g>
+				</g>
+			</svg>
+		</div>
+		<div id="loadingBackground2" ng-show="fetchingTracks">
+			<svg viewBox="0 0 64 64">
+				<g>
+					<defs>
+						<linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="55" y1="46" x2="2" y2="46">
+							<stop offset="0.1" class="stop1"></stop>
+							<stop offset="1" class="stop2"></stop>
+						</linearGradient>
+					</defs>
+					<g stroke-width="4" stroke-linecap="round" fill="none" transform="rotate(205.852 32 32)">
+						<path stroke="#8DA7CC" d="M4,32 c0,15,12,28,28,28c8,0,16-4,21-9"></path>
+						<path d="M60,32 C60,16,47.464,4,32,4S4,16,4,32"></path>
+						<animateTransform values="0,32,32;360,32,32" attributeName="transform" type="rotate" repeatCount="indefinite" dur="750ms"></animateTransform>
+					</g>
+				</g>
+			</svg>
+		</div>
 		<header ng-hide="inPartyMode">
 			<div class="containerx">
 				<div class="row">
@@ -34,16 +58,16 @@
 							<a data-toggle="dropdown" id="logo">JSMusicDB</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="#/overview"><i class="ion-ios-home-outline"></i> <span translate="general.menu.overview">Overview</span></a>
+									<a href="#/overview"><i class="fa fa-home fa-fw"></i> <span translate="general.menu.overview">Overview</span></a>
 								</li>
 								<li>
-									<a href="#/playlist"><i class="ion-ios-paper-outline"></i> <span translate="general.menu.playlists">playlists</span></a>
+									<a href="#/playlist"><i class="fa fa-list fa-fw"></i> <span translate="general.menu.playlists">playlists</span></a>
 								</li>
 								<li>
-                  <a href="#/settings"><i class="ion-ios-gear-outline"></i> <span translate="general.menu.settings">settings</span></a>
-                </li>
+									<a href="#/settings"><i class="fa fa-tasks fa-fw"></i> <span translate="general.menu.settings">settings</span></a>
+								</li>
 								<li>
-									<a href="#/about"><i class="ion-ios-information-outline"></i> <span translate="general.menu.about">about</span></a>
+									<a href="#/about"><i class="fa fa-info-circle fa-fw"></i> <span translate="general.menu.about">about</span></a>
 								</li>
 							</ul>
 						</div>
@@ -62,7 +86,7 @@
 									<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 								</li>
 								<li>
-								  <a href="#/search/"><i class="ion-ios-search"></i></a>
+									<a href="#/search/"><i class="fa fa-search"></i></a>
 								</li>
 							</ul>
 						</div>
@@ -79,50 +103,41 @@
 							<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 						</li>
 						<li>
-              <a href="#/search/"><i class="ion-ios-search"></i></a>
-            </li>
+							<a href="#/search/"><i class="fa fa-search"></i></a>
+						</li>
 					</ul>
-				</div><!-- /.navbar-collapse -->
+				</div>
+				<!-- /.navbar-collapse -->
 			</div>
 		</nav>
 		<div class="containerx" id="main">
-		  <div ng-show="!parsed" class="row">
-        	<div class="alert alert-warning col-xs-10 col-xs-offset-1" translate="general.loading">Please wait, loading data</div>
-  	      </div>
-		  <div ng-view class="view slide-left"></div>
+			<div ng-show="!parsed" class="row">
+				<div class="alert alert-warning col-xs-10 col-xs-offset-1" translate="general.loading">Please wait, loading data</div>
+			</div>
+			<div ng-view class="view slide-left"></div>
 		</div>
 		<div ng-include="'templates/player.html'"></div>
-
-
-
-
 		<script src="javascripts/jquery-2.0.3.min.js"></script>
 		<script src="javascripts/angular/angular.min.js"></script>
-    <script src="javascripts/angular/angular-route.min.js"></script>
-    <script src="javascripts/angular/angular-sanitize.min.js"></script>
-    <script src="javascripts/angular/angular-animate.min.js"></script>
-    <script src="javascripts/angular/angular-touch.min.js"></script>
+		<script src="javascripts/angular/angular-route.min.js"></script>
+		<script src="javascripts/angular/angular-sanitize.min.js"></script>
+		<script src="javascripts/angular/angular-animate.min.js"></script>
+		<script src="javascripts/angular/angular-touch.min.js"></script>
 		<script src="javascripts/md5.js"></script>
 		<script src="javascripts/jquery.getimagedata.min.js"></script>
 		<script src="javascripts/colorThief.min.js"></script>
 		<script src="javascripts/nicescroll.min.js"></script>
-
 		<script src="javascripts/angular.ui/ui-bootstrap-tpls-0.12.0.min.js"></script>
-
 		<script src="javascripts/lastfm.js"></script>
-
 		<script src="javascripts/fullscreen.js"></script>
 		<script src="javascripts/notify.js"></script>
-
 		<script src="javascripts/bootstrap/collapse.js"></script>
 		<script src="javascripts/bootstrap/dropdown.js"></script>
 		<script src="javascripts/JSMusicDB2/JSMusicDB2.js"></script>
-
 		<script src="javascripts/JSMusicDB2/models/letter.js"></script>
 		<script src="javascripts/JSMusicDB2/models/artist.js"></script>
 		<script src="javascripts/JSMusicDB2/models/album.js"></script>
 		<script src="javascripts/JSMusicDB2/models/track.js"></script>
-
 		<script src="javascripts/JSMusicDB2/controllers/AppController.js"></script>
 		<script src="javascripts/JSMusicDB2/controllers/LoginController.js"></script>
 		<script src="javascripts/JSMusicDB2/controllers/ArtistOverviewController.js"></script>
@@ -133,24 +148,19 @@
 		<script src="javascripts/JSMusicDB2/controllers/OverviewController.js"></script>
 		<script src="javascripts/JSMusicDB2/controllers/AddPlaylistController.js"></script>
 		<script src="javascripts/JSMusicDB2/controllers/SearchController.js"></script>
-
 		<script src="javascripts/JSMusicDB2/modules/angular-translate.min.js"></script>
 		<script src="javascripts/JSMusicDB2/modules/tmh-dynamicLocale.js"></script>
-
 		<script src="javascripts/JSMusicDB2/directives/lazy-bg.js"></script>
 		<script src="javascripts/JSMusicDB2/directives/lazy-src.js"></script>
 		<script src="javascripts/JSMusicDB2/directives/customOnChange.js"></script>
-
 		<script src="javascripts/JSMusicDB2/filters/TimeFilter.js"></script>
 		<script src="javascripts/JSMusicDB2/filters/VersionFilter.js"></script>
 		<script src="javascripts/JSMusicDB2/filters/PrefixZeroFilter.js"></script>
-
 		<script src="javascripts/JSMusicDB2/services/RestService.js"></script>
 		<script src="javascripts/JSMusicDB2/services/ModelService.js"></script>
 		<script src="javascripts/JSMusicDB2/services/ImageService.js"></script>
 		<script src="javascripts/JSMusicDB2/services/PlatformService.js"></script>
-
 		<script src="https://www.youtube.com/iframe_api"></script>
-
 	</body>
+
 </html>
