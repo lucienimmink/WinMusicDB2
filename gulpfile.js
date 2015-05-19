@@ -59,7 +59,7 @@ gulp.task('nw', function(cb) {
 		// platforms: ['win', 'linux'], // update libffmpegsumo first!
 		platforms: ['win'],
 		winIco: './icon.ico'
-		// ,version: '0.11.6' // Latest stable
+		,version: '0.12.1' // Latest stable
 		// macIcns: './icon.icns'
 	});
 

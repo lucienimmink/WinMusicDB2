@@ -10,11 +10,16 @@
       "overview": "Overzicht",
       "playlists": "Speellijsten",
       "settings": "Instellingen",
-      "about": "Over dit programma"
+      "about": "Over dit programma",
+      "nowplaying": "Speelt nu",
+      "search": "Zoeken"
     },
     "noalbums": "Geen albums",
     "onealbum": "1 album",
     "morealbums": "albums",
+    "noartist": "Geen artiesten",
+    "oneartist": "1 artiest",
+    "moreartists": "artiesten",
     "notracks": "Geen nummers",
     "onetrack": "Een nummer",
     "moretracks": "nummers"

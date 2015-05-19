@@ -18,9 +18,12 @@ function($routeProvider, $translateProvider, $compileProvider) {
 	}).when("/settings", {
 		templateUrl : 'templates/settings.html',
 		needsLogin : true
+	}).when("/nowplaying", {
+		templateUrl : 'templates/nowplaying.html',
+		needsLogin : false
 	}).when("/about", {
 		templateUrl : 'templates/about.html',
-		needsLogin : false
+		needsLogin : true
 	}).when("/search/:filter?/:query?", {
 		templateUrl : "templates/searchResults.html",
 		needsLogin : true

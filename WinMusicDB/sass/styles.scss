@@ -4,6 +4,8 @@
 @import "bootstrap";
 @import "mixins/_responsive.scss";
 @import "animations";
+@import "sidemenu";
+@import "nowplaying";
 
 @font-face {
     font-family: 'Roboto';
@@ -121,7 +123,7 @@ header {
       float: left;
       overflow: hidden;
       text-indent: -2000em;
-      margin-left: 10px;
+      margin-left: 25px;
     }
     .dropdown-menu {
       top: 50px;
@@ -138,7 +140,7 @@ header {
     }
     h1 {
       font-size: 1.3em;
-      margin: 12px 0 0 50px;
+      margin: 12px 0 0 110px;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: capitalize;
@@ -245,11 +247,12 @@ body.playing #main {
   padding-bottom: 150px;
 }
 #main {
-  margin: 0 15px;
-  padding-top: 80px;
-  @include jsmusicdb-respond-min-width(sm) {
-    padding-top: 110px;
-  }
+  margin: 0 10px 0 110px;
+  padding-top: 60px;
+
+  transition: all 0.3s ease-out;
+
+
   h1 {
     margin: 0 0 5px;
   }
@@ -310,6 +313,10 @@ body.playing #main {
   }
 }
 
+.nofocus #main {
+  margin-left: 10px;
+}
+
 ul.media {
   list-style: none;
   margin: 0;
@@ -355,6 +362,20 @@ ul.media {
     background: url(../images/nocover.webp);
     background-size: cover;
     background-position: center top;
+
+    &.letter {
+      background: $brand-background2;
+      h2 {
+        font-weight: normal;
+        text-align: center;
+        margin-top: 20px;
+        font-size: 100px;
+        color: $brand-primary;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.26);
+      }
+    }
+
+
     a {
       display: block;
       position: absolute;
@@ -363,6 +384,10 @@ ul.media {
       right: 0;
       bottom: 0;
       color: $font-primary;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
     p {
       color: $font-tertiary;
@@ -446,18 +471,17 @@ ul.media {
 /* the player */
 footer {
   position: fixed;
-  left: 0;
+  left: 100px;
   bottom: 0;
   right: 0;
-  background: $brand-background2;//rgba(236, 239, 241, 0.9);
+  background: $brand-background;
   color: $font-primary;
   border-top: 1px solid $brand-secondary;
   text-transform: capitalize;
   z-index: 11;
   box-shadow: 0px -2px 5px rgba(0,0,0,0.26);
   height: 140px;
-  -webkit-transition: height 0.3s;
-  transition: height 0.3s;
+  transition: all 0.3s ease-out;
 
   &.minimized {
     height: 15px;
@@ -738,6 +762,10 @@ footer {
     }
 
   }
+}
+
+.nofocus footer {
+  left: 0;
 }
 
 @include jsmusicdb-respond-min-width(sm) {

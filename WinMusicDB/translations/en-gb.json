@@ -10,11 +10,16 @@
       "overview": "Overview",
       "playlists": "Playlists",
       "settings": "Settings",
-      "about": "About this program"
+      "about": "About this program",
+      "nowplaying": "Now playing",
+      "search": "Search"
     },
     "noalbums": "No albums",
     "onealbum": "1 album",
     "morealbums": "albums",
+    "noartist": "No artists",
+    "oneartist": "1 artist",
+    "moreartists": "artists",
     "notracks": "No tracks",
     "onetrack": "One tracks",
     "moretracks": "tracks"

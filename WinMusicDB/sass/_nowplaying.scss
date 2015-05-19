@@ -1,0 +1,59 @@
+.inPartyMode {
+  position: absolute;
+  left: 70px;
+  top: 23px;
+  bottom: 110px;
+  right: -30px;
+  background: #000000;
+  color: $font-tertiary;
+  transition: all 0.3s ease-out;
+
+  .imageWrapper, .analyzerWrapper {
+    position: absolute;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+
+    img {
+      width: 100%;
+      &.currentAlbumArt {
+        position: relative;
+        z-index: 0;
+      }
+      &.previousAlbumArt {
+         z-index: 1;
+         -webkit-transform: translateY(0%);
+         transform: translate3d(0%, 0, 0);
+         opacity: 1;
+       }
+       &.animate {
+         z-index: 2;
+         transition: 0.7s ease-out;
+         -webkit-transform: translateY(-150%);
+         transform: translate3d(-150%, 0, 0);
+         opacity: 1;
+       }
+       &.animateBack {
+         z-index: 2;
+         transition: 0.7s ease-in;
+         -webkit-transform: translateY(150%);
+         transform: translate3d(150%, 0, 0);
+         opacity: 1;
+       }
+      @include jsmusicdb-respond-min-width(sm) {
+       height: 100%;
+       width: auto;
+       display: block;
+       margin: 0 auto;
+       top: 0;
+      }
+    }
+  }
+}
+
+.nofocus .inPartyMode {
+  left: -30px;
+}
