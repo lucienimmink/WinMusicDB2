@@ -38,6 +38,12 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 				var letter = $routeParams.letter,
 				artist = $scope.artists[$routeParams.artist.toUpperCase()] || $scope.local.artists[$routeParams.artist.toUpperCase()],
 				album = $scope.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()] || $scope.local.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()];
+
+				$scope.letter = letter;
+				$scope.artist = artist;
+				$scope.album = album;
+
+
 				var source = '';
 				if ($scope.currentSrc === 'both') {
 					if ($scope.local && $scope.local.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()]) {

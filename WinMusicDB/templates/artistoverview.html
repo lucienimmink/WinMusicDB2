@@ -1,4 +1,8 @@
 <div ng-controller="ArtistOverviewController">
+  <ol class="breadcrumb">
+    <li><a ng-href="#/overview"><i class="fa fa-fw fa-home"></i></a></li>
+    <li class="active">{{letter}}</li>
+  </ol>
   <ul class="media {{viewMode}}">
     <li ng-repeat="artist in viewArtists | orderBy:'sortName':false" bn-lazy-bg="{{artist.albumartist || artist.name}}">
       <a ng-href="#/{{artist.artistURL}}">

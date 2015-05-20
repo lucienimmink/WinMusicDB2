@@ -1,5 +1,11 @@
 <div ng-controller="AlbumViewController" class="fancyAlbum">
 	<div class="row" style="z-index: 4;">
+	  <ol class="breadcrumb">
+      <li><a ng-href="#/overview"><i class="fa fa-fw fa-home"></i></a></li>
+      <li><a ng-href="#/letter/{{letter}}">{{letter}}</a></li>
+      <li><a ng-href="#/letter/{{letter}}/artist/{{artist.name}}">{{artist.name}}</a></li>
+      <li class="active">{{album.album}}</li>
+    </ol>
 		<div class="col-xs-5 col-sm-3 col-lg-2 albumartwrapper">
 			<div class="editWrapper" ng-class="(viewAlbum.state === 'secondary') ? 'secondary' : 'primary'" ng-swipe-left="viewAlbum.state = 'secondary'" ng-swipe-right="viewAlbum.state = 'primary'">
 				<img bn-lazy-src="{{viewAlbum.artistNode.name + '|' + viewAlbum.album}}" src="images/nocover.png" width="100%" class="albumart">

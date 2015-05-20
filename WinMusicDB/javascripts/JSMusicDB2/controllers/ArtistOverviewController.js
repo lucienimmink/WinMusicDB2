@@ -8,14 +8,14 @@ function($scope, $routeParams, $log, $rootScope, $timeout) {'use strict';
 			return $rootScope.parsed;
 		}, function (n,o) {
 			if (n) {
-				var letter = $routeParams.letter;
+				$scope.letter = $routeParams.letter;
 
 				for (var letterObject in $scope.letters) {
 					$scope.letters[letterObject].active = false;
 				}
-				if (letter) {
-					$scope.letters[letter].active = true;
-					$scope.viewArtists = angular.copy($scope.letters[letter].artists);
+				if ($scope.letter) {
+					$scope.letters[$scope.letter].active = true;
+					$scope.viewArtists = angular.copy($scope.letters[$scope.letter].artists);
 
 					var unique = {};
 					angular.forEach($scope.viewArtists, function (artist) {
