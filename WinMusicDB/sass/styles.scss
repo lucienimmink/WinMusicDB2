@@ -4,8 +4,6 @@
 @import "bootstrap";
 @import "mixins/_responsive.scss";
 @import "animations";
-@import "sidemenu";
-@import "nowplaying";
 
 @font-face {
     font-family: 'Roboto';
@@ -87,6 +85,10 @@ header {
     -o-transition: all 0.3s ease-out;
     transition: all 0.3s ease-out;
 
+    .partyMode.nofocus & {
+      height: 0;
+    }
+
     .btn-group {
       position:absolute;
       right: 0;
@@ -119,7 +121,7 @@ header {
       float: left;
       overflow: hidden;
       text-indent: -2000em;
-      margin-left: 25px;
+      margin-left: 10px;
     }
     .dropdown-menu {
       top: 50px;
@@ -136,7 +138,7 @@ header {
     }
     h1 {
       font-size: 1.3em;
-      margin: 12px 0 0 110px;
+      margin: 12px 0 0 50px;
       overflow: hidden;
       text-overflow: ellipsis;
       text-transform: capitalize;
@@ -243,12 +245,11 @@ body.playing #main {
   padding-bottom: 150px;
 }
 #main {
-  margin: 0 10px;
-  padding-top: 60px;
-
-  transition: all 0.3s ease-out;
-
-
+  margin: 0 15px;
+  padding-top: 80px;
+  @include jsmusicdb-respond-min-width(sm) {
+    padding-top: 110px;
+  }
   h1 {
     margin: 0 0 5px;
   }
@@ -354,20 +355,6 @@ ul.media {
     background: url(../images/nocover.webp);
     background-size: cover;
     background-position: center top;
-
-    &.letter {
-      background: $brand-background2;
-      h2 {
-        font-weight: normal;
-        text-align: center;
-        margin-top: 20px;
-        font-size: 100px;
-        color: $brand-primary;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.26);
-      }
-    }
-
-
     a {
       display: block;
       position: absolute;
@@ -376,10 +363,6 @@ ul.media {
       right: 0;
       bottom: 0;
       color: $font-primary;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
     p {
       color: $font-tertiary;
@@ -387,7 +370,7 @@ ul.media {
       padding: 30px 10px 10px;
       bottom: -1px;
       left: -1px;
-      right: -1px;
+      right: -10px;
       background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(100%,rgba(32,32,32,1)));
       background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(32,32,32,1) 100%);
       margin: 0;
@@ -466,14 +449,15 @@ footer {
   left: 0;
   bottom: 0;
   right: 0;
-  background: $brand-background;
+  background: $brand-background2;//rgba(236, 239, 241, 0.9);
   color: $font-primary;
   border-top: 1px solid $brand-secondary;
   text-transform: capitalize;
   z-index: 11;
   box-shadow: 0px -2px 5px rgba(0,0,0,0.26);
   height: 140px;
-  transition: all 0.3s ease-out;
+  -webkit-transition: height 0.3s;
+  transition: height 0.3s;
 
   &.minimized {
     height: 15px;
@@ -1260,21 +1244,4 @@ footer.minimized {
   .releaseButton {
     display: block;
   }
-}
-
-.breadcrumb {
-  margin-top: -5px;
-  width: 100%;
-  font-size: 15px;
-  padding: 3px 10px 3px;
-  border-radius: 0;
-  background: rgba(248,248,248,0.9);
-}
-
-.fancyAlbum .breadcrumb {
-  margin-top: 0;
-  position: absolute;
-  left: 390px;
-  top: 143px;
-  width: calc(100% - 781px);
 }

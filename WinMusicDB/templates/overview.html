@@ -1,13 +1,44 @@
-<ul class="media {{viewMode}}">
-  <li ng-repeat="letter in letters" class="letter">
-    <a ng-href="#/letter/{{letter.letter}}">
-      <h2>{{letter.letter}}</h2>
-    <p class="details">
-      <ng-pluralize count="letter.artists.length" when="{
-        '0': '{{ &quot;general.noartist&quot; | translate }}',
-        '1': '{{ &quot;general.oneartist&quot; | translate }}',
-        'other': '{} {{ &quot;general.moreartists&quot; | translate }}'}"></ng-pluralize>
-    </p> </a>
-    <i class="ion-ios-reloading loadingImageIndicator"></i>
-  </li>
-</ul>
+<div id="newVersion" ng-show="hasNewVersion">
+  <span translate="newversion.newversion"></span> ({{newVersion | versionFilter}}) <span translate="newversion.available"></span>: <a ng-click="downloadlink()"><span translate="newversion.download"></span></a>
+</div>
+<div ng-controller="OverviewController">
+	<div class="loading" ng-show="loading.recent"><i class="ion-ios-reload"></i> <span translate="overview.loading.recent">Loading recently listened</span></div>
+	<div ng-show="recentTracks.length > 0">
+		<h3><span translate="overview.headers.recent">Recently listened</span></h3>
+		<table class="table table-condensed">
+			<tr ng-repeat="track in recentTracks track by $index">
+				<td class="counter" width="40"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span><span ng-show="!track.isPlaying">&nbsp;</span></td>
+				<td>{{track.artist}}</td>
+				<td>{{track.title}}</td>
+				<td class="counter hidden-xs" align="right">{{track.lastPlayed | date : 'medium'}}</td>
+        <td class="counter visible-xs" width="85" align="right">{{track.lastPlayed | date : 'shortDate'}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="loading" ng-show="loading.recentAdded"><h3><span translate="overview.headers.added">Recently added</span> <i class="ion-ios-reload"></i></h3></div>
+	<div ng-show="recentlyAdded.length > 0">
+		<h3 translate="overview.headers.added">Recently added</h3>
+		<ul class="media justOneRow">
+			<li ng-repeat="album in recentlyAdded" bn-lazy-bg="{{album.artist + '|' + album.album}}">
+				<a ng-href="#{{album.url}}">
+					<p class="details">
+						{{album.artist}}
+						<span class="small">{{album.album}}</span>
+					</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="loading" ng-show="loading.upcomming"><h3><span translate="overview.headers.upcoming">Recently added</span> <i class="ion-ios-reload"></i></h3></div>
+  <div ng-show="upcommingAlbums.length > 0">
+    <h3 translate="overview.headers.upcoming">Recently added</h3>
+    <ul class="media justOneRow">
+      <li ng-repeat="album in upcommingAlbums" bn-lazy-bg="{{album.artist + '|' + album.album}}">
+        <p class="details">
+          {{album.artist}}
+          <span class="small">{{album.album}}</span>
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>

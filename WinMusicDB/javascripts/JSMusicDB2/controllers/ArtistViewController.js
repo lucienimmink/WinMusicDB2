@@ -13,9 +13,6 @@ function($scope, $routeParams, $log, $rootScope, RestService, $timeout) {'use st
 				for (var letterObject in $scope.letters) {
 					$scope.letters[letterObject].active = false;
 				}
-				$scope.letter = $routeParams.letter;
-				$scope.artist = artist;
-
 				$scope.letters[letter].active = true;
 				$scope.viewAlbums = angular.copy(artist.albums);
 				if ($scope.currentSrc === "both") {
