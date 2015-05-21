@@ -9,23 +9,14 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 
 	$(window).scroll(function () {
 		var scroll = $(window).scrollTop();
-		/*
-		if (scroll < 260) {
-			$("body").addClass("fancyAlbum");
-		} else {
-			$("body").removeClass("fancyAlbum");
-		}
-		*/
 		var depthMultiplier = -0.25;
-		// $(".fullArt").css("background-position", "center " + depthMultiplier * scroll + "px");
 		$(".fullArt").css("transform", "translateY(" + depthMultiplier * scroll + "px)");
 	});
 
 	$scope.$on("$destroy", function () {
 		$("body").removeClass("fancyAlbum");
-		// reset to default header
-		$("body header").css("background-color", "");
-		$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "");
+		//$("body header").css("background-color", "");
+		//$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "");
 		$(window).off("scroll");
 		$rootScope.path = $rootScope.platform + 'MusicDB2';
 	});
@@ -41,13 +32,13 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 				var source = '';
 				if ($scope.currentSrc === 'both') {
 					if ($scope.local && $scope.local.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()]) {
-						source = "fa fa-desktop";
+						source = "fa fa-desktop fa-fw";
 					}
 					if ($scope.cloud && $scope.cloud.albums[$routeParams.artist.toUpperCase() + "-" + $routeParams.album.toLowerCase()]) {
-						source = (!source) ? "fa fa-cloud" : "fa fa-globe";
+						source = (!source) ? "fa fa-cloud fa-fw" : "fa fa-globe fa-fw";
 					}
 				} else {
-					source = ($scope.currentSrc === 'local') ? "fa fa-desktop" : "fa fa-cloud";
+					source = ($scope.currentSrc === 'local') ? "fa fa-desktop fa-fw" : "fa fa-cloud fa-fw";
 				}
 				$scope.source = source;
 				for (var letterObject in $scope.letters) {
@@ -109,7 +100,11 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 					}
 
 					$scope.viewAlbum = album;
-					$rootScope.path = artist.albumartist || artist.name + " - " + album.album;
+
+					// make it a breadcrumb
+					$rootScope.path = letter + "\ " + (artist.albumartist || artist.name) + " \ " + album.album;
+
+
 					if ($scope.viewAlbum.collection) {
 						$scope.albumart = $scope.viewAlbum.artistNode.name + "|" + $scope.viewAlbum.album;
 					} else {
@@ -122,6 +117,7 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 					});
 
 					// get dominant color
+					/*
 					RestService.Music.getDominantColor($rootScope, artist.name, function(color) {
 						//$("body header").css("background-color", "rgba(" + color[0] + "," + color[1] + "," +color[2] + ", 0.9)");
 						$("body header").css("background-color", "rgb(" + color[0] + "," + color[1] + "," +color[2] + ")");
@@ -130,6 +126,7 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 							//$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "rgb(" + color[0] + "," + color[1] + "," +color[2] + ")");
 						}, 10);
 					});
+					*/
 					$timeout(function () {
 						$scope.niceScroll.resize();
 					}, 100);
