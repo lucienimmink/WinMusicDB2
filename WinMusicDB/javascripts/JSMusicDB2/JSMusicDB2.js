@@ -86,18 +86,6 @@ function($rootScope, $location, PlatformService) {
 	PlatformService.setPlatform();
 }]);
 
-var setResponsive = function() {
-	if ($(window).width() < 768) {
-		$("body").addClass("mobile").removeClass("desktop");
-	} else {
-		$("body").removeClass("mobile").addClass("desktop");
-	}
-};
-$(window).on("resize", function() {
-	setResponsive();
-});
-setResponsive();
-
 // WinMusicDB specific
 var gui = require('nw.gui');
 var win = gui.Window.get();

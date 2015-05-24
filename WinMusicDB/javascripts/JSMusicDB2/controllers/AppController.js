@@ -25,6 +25,21 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		cursorcolor : '#8DA7CC',
 		cursorborder : '1px solid #607d8b'
 	});
+	
+	var setResponsive = function() {
+		if ($(window).width() < 768) {
+			$scope.screensize = "mobile";
+			$("body").addClass("mobile").removeClass("desktop");
+		} else {
+			$scope.screensize = "desktop";
+			$("body").removeClass("mobile").addClass("desktop");
+		}
+	};
+	$(window).on("resize", function() {
+		setResponsive();
+	});
+	setResponsive();
+	
 
 	// show popup if we need to login first
 	$scope.$on("login", function() {

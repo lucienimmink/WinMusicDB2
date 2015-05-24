@@ -1,5 +1,5 @@
-var gulp = require('gulp'),
-	concat = require('gulp-concat'),
+var gulp = require('gulp');
+/* var	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
 	usemin = require('gulp-usemin'),
 	ngmin = require('gulp-ngmin'),
@@ -12,7 +12,8 @@ var gulp = require('gulp'),
 	cssmin = require('gulp-cssmin'),
 	cmq = require('gulp-combine-media-queries'),
 	ngAnnotate = require('gulp-ng-annotate'),
-	jsonminify = require('gulp-jsonminify');
+	jsonminify = require('gulp-jsonminify')
+*/
 var NwBuilder = require('node-webkit-builder');
 var exec = require('child_process').exec;
 var path = require('path');

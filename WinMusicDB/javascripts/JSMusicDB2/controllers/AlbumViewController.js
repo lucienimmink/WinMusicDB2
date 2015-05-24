@@ -1,5 +1,8 @@
-jsmusicdb.controller('AlbumViewController', ['$scope', '$routeParams', '$log', '$rootScope', 'RestService', '$modal', '$timeout',
-function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) {
+/* global jsmusicdb */
+/// <reference path="../../../../typings/angularjs/angular.d.ts"/>
+/// <reference path="../../../../typings/jquery/jquery.d.ts"/>
+jsmusicdb.controller('AlbumViewController', ['$scope', '$routeParams', '$log', '$rootScope', 'RestService', '$modal', '$timeout', '$sce', 
+function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout, $sce) {
 	'use strict';
 
 	window.scrollTo(0, 0);
@@ -7,18 +10,23 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 
 	$scope.loading = {};
 
+	/*
 	$(window).scroll(function () {
 		var scroll = $(window).scrollTop();
 		var depthMultiplier = -0.25;
 		$(".fullArt").css("transform", "translateY(" + depthMultiplier * scroll + "px)");
 	});
+	*/
 
 	$scope.$on("$destroy", function () {
 		$("body").removeClass("fancyAlbum");
-		//$("body header").css("background-color", "");
-		//$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "");
+		// reset to default header
+		/*
+		$("body header").css("background-color", "");
+		$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "");
 		$(window).off("scroll");
-		$rootScope.path = $rootScope.platform + 'MusicDB2';
+		*/
+		$rootScope.path = '';
 	});
 
 	if ($routeParams.letter) {
@@ -100,11 +108,12 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 					}
 
 					$scope.viewAlbum = album;
-
-					// make it a breadcrumb
-					$rootScope.path = letter + "\ " + (artist.albumartist || artist.name) + " \ " + album.album;
-
-
+					
+					$rootScope.path = $sce.trustAsHtml(
+						'<a href="#/letter/' + letter + '">' + letter + '</a> - ' + 
+						'<a href="#/letter/' + letter + '/artist/' + $routeParams.artist + '">' + (artist.albumartist || artist.name) + '</a> - ' + 
+						album.album
+					);
 					if ($scope.viewAlbum.collection) {
 						$scope.albumart = $scope.viewAlbum.artistNode.name + "|" + $scope.viewAlbum.album;
 					} else {
@@ -141,7 +150,7 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout) 
 	$scope.back = function() {
 		// go to album overview
 		var letter = $routeParams.letter, artist = $routeParams.artist;
-		document.location = "#/letter/" + letter + "/artist/" + artist;
+		document.location.hash = "/letter/" + letter + "/artist/" + artist;
 	};
 
 	$scope.playTrack = function(track, playlist) {

@@ -179,7 +179,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	});
 	
 	var setImageSize = function () {
-		if ($(".desktop").length === 1) {
+		if ($("body.desktop").length === 1) {
 			var x = $(".inPartyMode").height() - 30;
 			$(".imageWrapper").width(x);
 			$(".imageWrapper").height(x);
@@ -200,7 +200,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 				setImageSize();
 			});
 		} else {
-			$(window).off("resize");
+			//$(window).off("resize");
 		}
 		if (toggleType == 'isPlaying') {
 			$scope.playpause();

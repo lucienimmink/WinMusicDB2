@@ -1,5 +1,5 @@
-jsmusicdb.controller('ArtistViewController', ['$scope', '$routeParams', '$log', '$rootScope', 'RestService', '$timeout',
-function($scope, $routeParams, $log, $rootScope, RestService, $timeout) {'use strict';
+jsmusicdb.controller('ArtistViewController', ['$scope', '$routeParams', '$log', '$rootScope', 'RestService', '$timeout', '$sce', 
+function($scope, $routeParams, $log, $rootScope, RestService, $timeout, $sce) {'use strict';
 
 	window.scrollTo(0,0);
 
@@ -32,13 +32,20 @@ function($scope, $routeParams, $log, $rootScope, RestService, $timeout) {'use st
 				}
 				$scope.artist = artist;
 
-				$rootScope.path = artist.albumartist||artist.name;
+				// $rootScope.path = artist.albumartist||artist.name;
+				
+				$rootScope.path = $sce.trustAsHtml(
+						'<a href="#/letter/' + letter + '">' + letter + '</a> - ' + 
+						(artist.albumartist || artist.name)
+					);
 
 				// get dominant color
+				/*
 				RestService.Music.getDominantColor($rootScope, artist.name, function(color) {
 					$("body header").css("background-color", "rgb(" + color[0] + "," + color[1] + "," +color[2] + ")");
 					$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "rgba(" + color[0] + "," + color[1] + "," +color[2] + ", 0.5)");
 				});
+				*/
 
 				$timeout(function () {
 					$scope.niceScroll.resize();

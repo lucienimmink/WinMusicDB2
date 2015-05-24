@@ -28,7 +28,7 @@ function($scope, $routeParams, $log, $rootScope, $timeout) {'use strict';
 					});
 					$scope.viewArtists = uniqueArray;
 
-					$rootScope.path = $rootScope.platform + 'MusicDB2: ' + letter;
+					$rootScope.path = letter;
 
 					$scope.niceScroll.resize();
 				}
