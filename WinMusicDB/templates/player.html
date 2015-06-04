@@ -38,8 +38,8 @@
           <a ng-click="minimizePlayer()"><i class="fa fa-fw fa-angle-down"></i></a>
         </div>
       </div>
-      <div class="hidden-xs albumart push-up">
-      	<img bn-lazy-src="{{playing.track.albumArt}}" src="images/nocover.png" width="100">
+      <div class="hidden-xs albumart push-up" bn-lazy-bg="{{playing.track.albumArt}}">
+
       </div>
       <div class="hidden-xs analyzer push-up"></div>
     </div>
@@ -52,12 +52,12 @@
       <div id="yt-player"></div>
       <div id="yt-playerMask" style="position: absolute; background: #000; bottom: 0; height: 50px; width: 100%;"></div>
     </div>
-    <div bn-lazy-bg="{{playing.track.artist}}" 
-    	style="z-index: 0; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-position: center center; background-size: cover; -webkit-filter: blur(20px);" 
+    <div bn-lazy-bg="{{playing.track.artist}}"
+    	style="z-index: 0; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-position: center center; background-size: cover; -webkit-filter: blur(20px);"
     	ng-show="playing.track.artist.toLowerCase() !== playing.track.albumNode.artistNode.name.toLowerCase()"
    	></div>
-   	<div bn-lazy-bg="{{playing.track.artist + '|' + playing.track.albumNode.album}}" 
-    	style="z-index: 0; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-position: center center; background-size: cover; -webkit-filter: blur(20px);" 
+   	<div bn-lazy-bg="{{playing.track.artist + '|' + playing.track.albumNode.album}}"
+    	style="z-index: 0; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-position: center center; background-size: cover; -webkit-filter: blur(20px);"
     	ng-hide="playing.track.artist.toLowerCase() !== playing.track.albumNode.artistNode.name.toLowerCase()"
    	></div>
     <div class="imageWrapper">
