@@ -1,3 +1,4 @@
+/// <reference path="../../../../typings/angularjs/angular.d.ts"/>
 angular.module('JSMusicDB.ModelService', []).factory('ModelService', ['$log', '$translate', '$timeout',
 function($log, $translate, $timeout) {
 	var factory = {};
@@ -37,15 +38,12 @@ function($log, $translate, $timeout) {
 		$scope.$apply(function() {
 			var start = new Date().getTime();
 			var context = (isLocal) ? $scope.local : $scope.cloud;
-			context.letters = json;
 			angular.forEach(json, function (item) {
 				var letter = item;
 
 				// process artists
 				angular.forEach(letter.artists, function (artist) {
 					var artist = artist;
-					// artist.name = artist.artist; // TODO: rename 'artist' back to 'name' in PHP
-					// artist.sortName = factory.stripThe(artist.albumartist || artist.name); // TODO: add 'sortName' PHP
 					artist.artistURL = "letter/" + letter.letter + "/artist/" + artist.sortName; // TODO: add artistURL to PHP
 					context.artists[artist.sortName.toUpperCase()] = artist;
 
@@ -53,18 +51,15 @@ function($log, $translate, $timeout) {
 					angular.forEach(artist.albums, function (album) {
 						var album = album;
 						album.artistNode = artist;
-						//album.albumURL = "letter/" + letter.letter + "/artist/" + artist.sortName + "/album/" + album.album; // TODO: add albumURL to PHP
 						if (album.year) {
 							context.year[album.year] = context.year[album.year] || [];
 							context.year[album.year].push(album);
 						}
 						context.albums[artist.sortName.toUpperCase() + "-" + album.album.toLowerCase()] = album;
-
 						// process tracks
 						angular.forEach(album.tracks, function (track) {
 							var track = track;
 							track.albumNode = album;
-							// track.number = Number(track.track); // TODO: rename 'track' back to 'number' in PHP + save as NUMBER
 							context.tracks[artist.sortName.toUpperCase() + "-" + album.album.toLowerCase() + "-" + track.title.toLowerCase()] = track;
 						});
 					});
