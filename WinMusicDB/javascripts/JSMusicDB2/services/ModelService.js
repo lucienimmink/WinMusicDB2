@@ -38,6 +38,7 @@ function($log, $translate, $timeout) {
 		$scope.$apply(function() {
 			var start = new Date().getTime();
 			var context = (isLocal) ? $scope.local : $scope.cloud;
+			context.letters = json;
 			angular.forEach(json, function (item) {
 				var letter = item;
 
