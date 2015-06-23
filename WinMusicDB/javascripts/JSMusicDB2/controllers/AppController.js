@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 45;
+	$scope.version = 91;
 	$scope.workerInterval = 50 * 60 * 1000;
 
 	// version checker
@@ -25,7 +25,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		cursorcolor : '#8DA7CC',
 		cursorborder : '1px solid #607d8b'
 	});
-	
+
 	var setResponsive = function() {
 		if ($(window).width() < 768) {
 			$scope.screensize = "mobile";
@@ -39,7 +39,7 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		setResponsive();
 	});
 	setResponsive();
-	
+
 
 	// show popup if we need to login first
 	$scope.$on("login", function() {
