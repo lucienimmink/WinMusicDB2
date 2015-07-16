@@ -32,9 +32,9 @@
     </form>
     <br />
   </div>
-  <div class="alert alert-warning" ng-show="fetchingTracks">
-			<strong>{{'general.fetching.header' | translate}}</strong> {{'general.fetching.text' | translate}}
-		</div>
+  <div class="alert alert-warning col-xs-10 col-xs-offset-1" ng-show="fetchingTracks">
+		<strong>{{'general.fetching.header' | translate}}</strong> {{'general.fetching.text' | translate}}
+	</div>
   <div class="loading" ng-show="loading.search"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> <span translate="search.searching">Searching ...</span></div>
   <div class="col-xs-12" ng-show="results">
     <h2><span translate="search.results"></span> <span translate="search.{{searchfor}}"></span> '{{searchString}}'</h2>

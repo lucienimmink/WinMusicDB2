@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 91;
+	$scope.version = 92;
 	$scope.workerInterval = 50 * 60 * 1000;
 
 	// version checker

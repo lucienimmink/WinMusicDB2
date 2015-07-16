@@ -26,7 +26,7 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout, 
 		$(".navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover").css("background-color", "");
 		$(window).off("scroll");
 		*/
-		$rootScope.path = '';
+		$rootScope.path = $rootScope.platform + 'MusicDB2';
 	});
 
 	if ($routeParams.letter) {

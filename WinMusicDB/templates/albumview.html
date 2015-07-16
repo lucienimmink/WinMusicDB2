@@ -31,19 +31,19 @@
 			<table class="table table-condensed">
 				<tr>
 					<td translate="album.artist" width="100" class="hidden-xs">Artist</td>
-					<td>{{::viewAlbum.artistNode.albumartist||viewAlbum.artistNode.name}}</td>
+					<td><span style="display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><i class="fa fa-users fa-fw hidden-sm hidden-md hidden-lg"></i> {{::viewAlbum.artistNode.albumartist||viewAlbum.artistNode.name}}</span></td>
 				</tr>
 				<tr>
 					<td translate="album.album" width="100" class="hidden-xs">Album</td>
-					<td>{{::viewAlbum.album}}</td>
+					<td><span style="display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><i class="fa fa-folder fa-fw hidden-sm hidden-md hidden-lg"></i> {{::viewAlbum.album}}</span></td>
 				</tr>
 				<tr ng-show="viewAlbum.year != 0">
 					<td translate="album.year" width="100" class="hidden-xs">Year</td>
-					<td class="counter">{{::viewAlbum.year}}</td>
+					<td class="counter"><span style="display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><i class="fa fa-calendar fa-fw hidden-sm hidden-md hidden-lg"></i> {{::viewAlbum.year}}</span></td>
 				</tr>
 				<tr class="hidden-xs">
 					<td translate="album.tracks" width="100">Tracks</td>
-					<td class="counter">{{viewAlbum.tracks.length}}</td>
+					<td class="counter"><span style="display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;"><i class="fa fa-list-ol fa-fw hidden-sm hidden-md hidden-lg"></i> {{viewAlbum.tracks.length}}</span></td>
 				</tr>
 			</table>
 		</div>

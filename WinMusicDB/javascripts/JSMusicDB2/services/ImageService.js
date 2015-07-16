@@ -2,10 +2,11 @@ angular.module('JSMusicDB.ImageService', []).factory('ImageService', ['$log', '$
 function($log, $http, $rootScope, $sce) {
 
 	var baseArtistUrl = "https://api.spotify.com/v1/search?q={0}&type=artist&limit=1",
-			baseAlbumUrl = "https://api.spotify.com/v1/search?q=album:{1}+artist:{0}&type=album&limit=1";
+		baseAlbumUrl = "https://api.spotify.com/v1/search?q=album:{1}+artist:{0}&type=album&limit=1";
 
 	var synologyAlbumUrl = sessionStorage.getItem("synoServer") + "/webapi/AudioStation/cover.cgi?api=SYNO.AudioStation.Cover&output_default=true&is_hr=true&version=2&library=shared&method=getcover&view=album&album_name={1}&album_artist_name={0}";
-
+	var synologyArtistUrl = sessionStorage.getItem("synoServer") + "/webapi/AudioStation/cover.cgi?api=SYNO.AudioStation.Cover&output_default=true&is_hr=false&version=2&library=shared&method=getcover&view=default&artist_name={0}";
+	
 	var factory = {};
 
 	factory.getArt = function(art, callback) {
@@ -56,7 +57,11 @@ function($log, $http, $rootScope, $sce) {
 			album = factory.filter(art.split("|")[1]);
 		}
 		var query;
-		query = synologyAlbumUrl.replace("{1}", encodeURIComponent(album)).replace("{0}", encodeURIComponent(artist));
+		if (album) {
+			query = synologyAlbumUrl.replace("{1}", encodeURIComponent(album)).replace("{0}", encodeURIComponent(artist));
+		} else {
+			query = synologyArtistUrl.replace("{0}", encodeURIComponent(artist));
+		}
 		$http.get(query, {responseType:'blob'}).success(function(blob) {
 			callback(blob);
 		}).error(function() {

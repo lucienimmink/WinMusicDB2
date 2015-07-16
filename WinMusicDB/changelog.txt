@@ -1,3 +1,6 @@
+<strong>0.9.2</strong><br />
+- Fix search bug if query contains a space<br />
+- Fix layout bug while trackdata is synchronizing <br />
 <strong>0.9.1</strong><br />
 - small visual changes <br />
 - Bump to beta <br />

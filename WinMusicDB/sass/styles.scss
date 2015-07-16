@@ -481,6 +481,7 @@ footer {
         z-index: 0;
         margin: 0 auto;
         width: 100%;
+        text-align: center;
         @include jsmusicdb-respond-min-width(sm) {
           overflow: hidden;
         }
@@ -488,7 +489,6 @@ footer {
         img {
           width: 100%;
           &.currentAlbumArt {
-            position: absolute;
             z-index: 0;
           }
           &.previousAlbumArt {
@@ -1265,4 +1265,8 @@ footer.minimized {
   .releaseButton {
     display: block;
   }
+}
+
+.background-image {
+  z-index: 0; position: absolute; left: -20px; right: -20px; top: -20px; bottom: -20px; background-position: center center; background-size: cover; -webkit-filter: blur(20px);
 }

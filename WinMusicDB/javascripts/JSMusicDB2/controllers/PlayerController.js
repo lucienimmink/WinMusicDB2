@@ -179,12 +179,11 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 	});
 	
 	var setImageSize = function () {
+		$(".imageWrapper").width('');
 		if ($("body.desktop").length === 1) {
 			var x = $(".inPartyMode").height() - 30;
-			$(".imageWrapper").width(x);
 			$(".imageWrapper").height(x);
 		} else {
-			$(".imageWrapper").width('');
 			$(".imageWrapper").height('');
 		}
 	};

@@ -1,3 +1,5 @@
+/// <reference path="../../../../typings/angularjs/angular.d.ts"/>
+/* global jsmusicdb */
 jsmusicdb.controller('SearchController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$window',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $window) {
 
@@ -45,7 +47,6 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 					filteredList = filteredList.splice(0, $scope.maxYield);
 				}
 				$scope.$apply(function() {
-					$window.location = "#/search/" + $scope.searchfor + "/" + $scope.searchString;
 					$scope.results = filteredList;
 					$scope.loading.search = false;
 				});
