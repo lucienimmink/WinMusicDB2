@@ -127,7 +127,7 @@ def ums(i, ignoreZero=True):
         else:
             hours = hours + ":"
     else:
-        hours = hours + ":"
+        hours = str(hours) + ":"
     return hours + str(minutes) + ":" + str(seconds)
 def totals():
     return "{ \"totals\" : { \"artists\":" + str(totalArtist) + ", \"albums\":" + str(totalAlbums) + ", \"tracks\":" + str(nrScanned) + ", \"playingTime\":" + str(totalTime) + ", \"timestamp\":" + str(int(time.time())) + "}, \"Type\":\"totals\"}" 
