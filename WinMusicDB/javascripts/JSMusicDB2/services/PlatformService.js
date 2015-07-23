@@ -47,6 +47,19 @@ function($log, $rootScope, $http, $interval, ModelService) {
 					});
 				}
 			});
+		} else {
+			var exec = require('child_process').exec;
+			var child = exec('python --version', function(error, stdout, stderr) {
+				if (error != null) {
+					$rootScope.hasPython = false;
+				} else {
+					if (stderr.indexOf("Python 2.7") === -1) {
+						$rootScope.hasPython = false;
+					} else {
+						$rootScope.hasPython = true;
+					}
+				}
+			});
 		}
 	};
 
