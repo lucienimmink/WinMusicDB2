@@ -15,24 +15,6 @@ function($log, $rootScope, $http, $interval, ModelService) {
 		} else if (dataPath.indexOf('\AppData\Local') !== -1) {
 			$rootScope.platform = 'Win';
 		}
-		/*
-		python = "python.exe";
-		if ($rootScope.platform === 'Lin' || $rootScope.platform === 'Mac') {
-			python = 'python';
-		}
-		var exec = require('child_process').exec;
-		var child = exec(python + ' --version', function(error, stdout, stderr) {
-			if (error != null) {
-				$rootScope.hasPython = false;
-			} else {
-				if (stderr.indexOf("Python 2.7") === -1) {
-					$rootScope.hasPython = false;
-				} else {
-					$rootScope.hasPython = true;
-				}
-			}
-		});
-		*/
 		if ($rootScope.platform === 'Win') {
 			$rootScope.hasPython = false;
 			var exec = require('child_process').exec;
