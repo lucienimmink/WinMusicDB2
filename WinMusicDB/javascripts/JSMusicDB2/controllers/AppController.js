@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 92;
+	$scope.version = 93;
 	$scope.workerInterval = 50 * 60 * 1000;
 
 	// version checker
@@ -329,6 +329,10 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 				};
 				start = new Date();
 				getMoreTracks(function () {
+					// flush cache
+					var gui = require('nw.gui');
+					gui.App.clearCache();
+					// continue
 					$scope.debug.getTracks = new Date().getTime() - start;
 					$scope.setMusicSource($scope.musicSource);
 				});
