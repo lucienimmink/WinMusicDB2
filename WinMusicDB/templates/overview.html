@@ -5,7 +5,7 @@
 	<div class="loading" ng-show="loading.recent"><i class="ion-ios-reload"></i> <span translate="overview.loading.recent">Loading recently listened</span></div>
 	<div ng-show="recentTracks.length > 0">
 		<h3><span translate="overview.headers.recent">Recently listened</span></h3>
-		<table class="table table-condensed">
+		<table class="table table-condensed table-solid">
 			<tr ng-repeat="track in recentTracks track by $index">
 				<td class="counter" width="40"><span ng-show="track.isPlaying"> <i class="ion-play"></i> </span><span ng-show="!track.isPlaying">&nbsp;</span></td>
 				<td>{{track.artist}}</td>
@@ -29,16 +29,14 @@
 			</li>
 		</ul>
 	</div>
+	<!--
 	<div class="loading" ng-show="loading.upcomming"><h3><span translate="overview.headers.upcoming">Recently added</span> <i class="ion-ios-reload"></i></h3></div>
-  <div ng-show="upcommingAlbums.length > 0">
-    <h3 translate="overview.headers.upcoming">Recently added</h3>
-    <ul class="media justOneRow">
-      <li ng-repeat="album in upcommingAlbums" bn-lazy-bg="{{album.artist + '|' + album.album}}">
-        <p class="details">
-          {{album.artist}}
-          <span class="small">{{album.album}}</span>
-        </p>
-      </li>
-    </ul>
-  </div>
+  	<div ng-show="upcommingAlbums.length > 0">
+    	<h3 translate="overview.headers.upcoming">Recently added</h3>
+    	<ul class="media justOneRow">
+      		<li ng-repeat="album in upcommingAlbums" bn-lazy-bg="{{album.artist + '|' + album.album}}">
+        		<p class="details">{{album.artist}}<span class="small">{{album.album}}</span></p>
+      		</li>
+    	</ul>
+  	</div>
 </div>

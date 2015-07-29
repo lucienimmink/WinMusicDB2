@@ -1,5 +1,6 @@
 <strong>0.9.3</strong><br />
 - Flush cache after sync, the memory footprint should be a lot lower <br />
+- Updated player layout a bit <br />
 <strong>0.9.2</strong><br />
 - Fix search bug if query contains a space<br />
 - Fix layout bug while trackdata is synchronizing <br />
@@ -10,20 +11,3 @@
 - Changed icon set <br />
 - Added breadcrumb in title bar <br />
 - Small visual changes <br />
-<strong>0.4.4</strong> <br />
-- Added transcode option <br />
-- Added page transitions <br />
-<strong>0.4.3</strong> <br />
-- Updated local scanner <br />
-- Updated to new JSMusicDB backend <br />
-<strong>0.4.2</strong> <br />
-- Updated to new JSMusicDB backend <br />
-- Loading the remote music file is now done in the background. <br />
-- Readded the upcoming albums in overview. <br />
-- Changed rendering of the albumview; this should render a bit better now! <br />
-<strong>0.4.1</strong> <br />
-- Updated nwjs <br />
-- Added new Radio option based on listened artists <br />
-<strong>0.4.0</strong> <br />
-- Fixed incorrect artists <br />
-- Fixed undefined artist names <br />

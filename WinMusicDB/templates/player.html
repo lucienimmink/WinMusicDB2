@@ -1,15 +1,15 @@
 <footer ng-controller="PlayerController" ng-show="playing.track" ng-class="(inPartyMode) ? 'partyMode' : ''">
   <div ng-hide="inPartyMode">
-    <div class="progressContainer">
-      <span class="time start">{{position | timeFilter}}</span>
-      <span class="time stop">{{len | timeFilter}}</span>
-      <a ng-click="releasePlayer(); $event.stopPropagation()" class="stop releaseButton"><i class="fa fa-fw fa-angle-up"></i></a>
-      <div class="prebuffer" ng-style="{width: bufferpos()}" ng-click="updatePosition($event)"></div>
-      <div class="progress"  ng-style="{width: pos()}" ng-click="updatePosition($event)"></div>
-    </div>
     <div class="containerx" style="margin: 0 15px;">
       <div class="row">
-        <div class="col-xs-12 col-md-5 pushed-left" style="min-height: 73px;">
+        <div class="progressContainer pushed-left">
+          <span class="time start">{{position | timeFilter}}</span>
+          <span class="time stop">{{len | timeFilter}}</span>
+          <a ng-click="releasePlayer(); $event.stopPropagation()" class="stop releaseButton"><i class="fa fa-fw fa-angle-up"></i></a>
+          <div class="prebuffer" ng-style="{width: bufferpos()}" ng-click="updatePosition($event)"></div>
+          <div class="progress"  ng-style="{width: pos()}" ng-click="updatePosition($event)"></div>
+        </div>
+        <div class="col-xs-12 col-md-5 pushed-left" style="min-height: 79px;">
           <i class="{{playing.track.source}}" style="margin: 12px 0 0 -20px; position: absolute; text-align: center; width: 20px; z-index: 1;"></i>
           <h3>{{playing.track.title}}</h3>
           <span class="small">{{playing.track.artist}} - {{playing.track.albumNode.album}}</span>
@@ -63,7 +63,7 @@
       <img src='' width="100%" class="previousAlbumArt">
     </div>
     <div class="container">
-      <div class="progressContainer tertiary row">
+      <div class="progressContainer progressContainer-big tertiary row">
         <span class="time start">{{position | timeFilter}}</span>
         <div class="prebuffer" ng-style="{width: bufferpos()}" ng-click="updatePosition($event)"></div>
         <div class="progress"  ng-style="{width: pos()}" ng-click="updatePosition($event)"></div>
