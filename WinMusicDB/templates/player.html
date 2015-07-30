@@ -33,15 +33,13 @@
             <input id="slider2" type ="range" min="0" max="100" step="1" ng-model="volume"/>
           </span>
           <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="fa fa-fw fa-heart-o" ng-hide="playing.track.isLoved"></i><i class="fa fa-fw fa-heart" ng-show="playing.track.isLoved"></i></a>
-          <a ng-click="toggle('partyMode')"><i class="fa fa-fw fa-arrows-alt"></i></a>
           <a ng-click="showPlaylist()"><i class="fa fa-fw fa-list"></i></a>
           <a ng-click="minimizePlayer()"><i class="fa fa-fw fa-angle-down"></i></a>
         </div>
       </div>
-      <div class="hidden-xs albumart push-up" bn-lazy-bg="{{playing.track.albumArt}}">
-
+      <div class="hidden-xs albumart push-up" bn-lazy-bg="{{playing.track.albumArt}}" ng-click="toggle('partyMode')">
+        <i class="fa fa-arrows-alt"></i>
       </div>
-      <div class="hidden-xs analyzer push-up"></div>
     </div>
 
   </div>

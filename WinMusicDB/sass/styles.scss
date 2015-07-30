@@ -53,10 +53,10 @@ body {
 
 header {
   background: $brand-primary;
-  -webkit-transition: background-color 0.3s ease-out;
-  -moz-transition: background-color 0.3s ease-out;
-  -o-transition: background-color 0.3s ease-out;
-  transition: background-color 0.3s ease-out;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
 
   color: $font-tertiary;
   border-bottom: 1px solid transparent;
@@ -64,6 +64,10 @@ header {
   position: fixed;
   z-index: 12;
   width: 100%;
+  
+  &.isInPartyMode {
+    transform: translateY(-52px);
+  }
 
   &#bar {
     top: 0;
@@ -466,7 +470,7 @@ footer {
   transition: height 0.3s;
 
   &.minimized {
-    height: 15px;
+    height: 10px;
   }
 
   &.partyMode {
@@ -669,11 +673,37 @@ footer {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
+    cursor: pointer;
+    
+    > .fa {
+        color: #8DA7CC;
+        position: absolute;
+        left: 46px;
+        top: 46px;
+        font-size: 48px;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.75);
+        opacity: 0;
+        display: block;
+        -webkit-transition: 0.2s ease-out;
+        -moz-transition: 0.2s ease-out;
+        -o-transition: 0.2s ease-out;
+        transition: 0.2s ease-out;
+    }
+    
+    &:hover > .fa {
+      opacity: 0.8;
+    }
+  }
+  &.minimized .push-up {
+    display: none;
   }
   .pushed-left {
     @include jsmusicdb-respond-min-width(sm) {
       margin-left: 140px;
      }
+  }
+  &.minimized .pushed-left {
+    margin-left: 0;
   }
 
   .progressContainer {
@@ -1285,7 +1315,7 @@ footer {
   .releaseButton {
     position: absolute;
     right: 5px;
-    top: -2px;
+    top: -6px;
     display: none;
     z-index: 10;
   }
