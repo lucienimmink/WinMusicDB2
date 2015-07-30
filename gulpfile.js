@@ -14,7 +14,7 @@ var gulp = require('gulp');
 	ngAnnotate = require('gulp-ng-annotate'),
 	jsonminify = require('gulp-jsonminify')
 */
-var NwBuilder = require('node-webkit-builder');
+var NwBuilder = require('nw-builder');
 var exec = require('child_process').exec;
 var path = require('path');
 // copy files
