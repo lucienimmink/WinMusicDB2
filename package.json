@@ -13,7 +13,6 @@
   "single-instance": false,
   "devDependencies": {
     "gulp-webp": "~2.1.1",
-    "node-webkit-builder": "~1.0.6",
     "nw-builder": "^2.0.2"
   },
   "dependencies": {
