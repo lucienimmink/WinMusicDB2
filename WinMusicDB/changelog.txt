@@ -1,5 +1,6 @@
 <strong>0.9.4</strong><br />
 - Increased fetch count from 1000 to 7500 <br />
+- Added JSMusicDB version checker to saty compatible with older versions <br />
 <strong>0.9.3</strong><br />
 - Flush cache after sync, the memory footprint should be a lot lower <br />
 - Updated player layout a bit <br />
