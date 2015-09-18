@@ -60,8 +60,9 @@ gulp.task('nw', function(cb) {
 		// platforms: ['win', 'linux'], // update libffmpegsumo first!
 		platforms: ['win', 'linux'],
 		winIco: './icon.ico'
-		,version: '0.12.2' // Latest stable
+		,version: '0.12.3' // Latest stable
 		// macIcns: './icon.icns'
+		,zip: false
 	});
 
 	// Log stuff you want
