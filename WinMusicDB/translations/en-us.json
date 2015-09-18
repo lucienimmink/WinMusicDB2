@@ -118,6 +118,7 @@
     "intro": "WinMusicDB is a webstandards based music library/player that can be installed on a windows system and can connect to a synology nas running JSMusicDB",
     "beta": "WinMusicDB is in public beta. Please visit http://www.jsmusicdb.com if you have found a bug or want to report a problem.",
     "changelog": "Recent changes:",
+    "jsversion": "JSMusicDB version",
     "source": {
       "setSource": "Set source",
       "select": "Select music source",

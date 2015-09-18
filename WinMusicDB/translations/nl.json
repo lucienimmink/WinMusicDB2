@@ -120,6 +120,7 @@
     "version": "Versie",
     "downloadNew": "Nieuwe versie is beschikbaar",
     "changelog": "Recente wijzigingen<br />(engels):",
+    "jsversion": "JSMusicDB versie",
     "language": {
       "label": "Taal",
       "dutch": "Nederlands",

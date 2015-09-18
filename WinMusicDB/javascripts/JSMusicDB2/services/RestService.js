@@ -122,13 +122,14 @@ function($http, $log, $location) {
 					callback(json);
 				});
 			},
-			getTracks : function(offset, callback) {
+			getTracks : function(offset, count, callback) {
 				var url = cache.jsmusicdb + "proxy/" + serverType.type + '/getTracks.' + serverType.extension;
 				var post = {
 					port: cache.user.serverport,
 					username: cache.user.account,
 					password: cache.user.passwd,
-					offset: offset
+					offset: offset,
+					count: count || 1000
 				};
 				$http.post(url, $.param(post), {
 					headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -370,6 +371,11 @@ function($http, $log, $location) {
 					callback(json);
 				});
 			}
+		},
+		getJSVersion: function(callback) {
+			$http.get(cache.jsmusicdb + "version.txt").success(function(txt) {
+				callback(txt);
+			})
 		}
 	};
 }]);

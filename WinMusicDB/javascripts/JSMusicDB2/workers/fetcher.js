@@ -74,10 +74,10 @@ function parse(json) {
 
 
 // lineparser
-parseTotals = function(line) {
+var parseTotals = function(line) {
 	context.totals = line.totals;
 };
-parseArtist = function(line) {
+var parseArtist = function(line) {
 	if (line.Naam) {
 
 		if (line.AlbumArtiest && (line.Naam.toLowerCase() !== line.AlbumArtiest.toLowerCase())) {
@@ -118,7 +118,7 @@ parseArtist = function(line) {
 		}
 	}
 };
-parseAlbum = function(line) {
+var parseAlbum = function(line) {
 	if (line.Album && line.Artiest) {
 		var firstLetter = getFirstLetter(line.Artiest), artistName = stripThe(line.Artiest);
 
@@ -172,7 +172,7 @@ parseAlbum = function(line) {
 		}
 	}
 };
-parseTrack = function(line) {
+var parseTrack = function(line) {
 	var firstLetter = getFirstLetter(line.Artiest), artistName = stripThe(line.Artiest);
 	if (line.AlbumArtiest && (line.Artiest.toLowerCase() !== line.AlbumArtiest.toLowerCase())) {
 		var collectionName = stripThe(line.AlbumArtiest);
@@ -204,7 +204,7 @@ parseTrack = function(line) {
 };
 
 // utils
-getFirstLetter = function(name) {
+var getFirstLetter = function(name) {
 	if (name) {
 		name = stripThe(name);
 		var specialChars = [' ', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'], firstLetter = name.charAt(0);
@@ -214,7 +214,7 @@ getFirstLetter = function(name) {
 		return "" + firstLetter;
 	}
 };
-stripThe = function(name) {
+var stripThe = function(name) {
 	if (name) {
 		// name = (name.toUpperCase());
 		name = name.toUpperCase();

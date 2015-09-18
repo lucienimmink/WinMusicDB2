@@ -81,8 +81,8 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 							</button>
-							<ul class="dropdown-menu dropdown-menu-right" ng-show="parsed">
-								<li ng-repeat="letter in letters" ng-class="(letter.active) ? 'active': ''">
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li ng-repeat="letter in letters | orderByProperty: 'letter'" ng-class="(letter.active) ? 'active': ''">
 									<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 								</li>
 								<li>
@@ -98,8 +98,8 @@
 			<div class="containerx">
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav" ng-show="parsed">
-						<li ng-repeat="letter in letters" ng-class="(letter.active) ? 'active': ''">
+					<ul class="nav navbar-nav">
+						<li ng-repeat="letter in letters | orderByProperty: 'letter'" ng-class="(letter.active) ? 'active': ''">
 							<a ng-href="#/letter/{{letter.letter}}">{{letter.letter}}</a>
 						</li>
 						<li>

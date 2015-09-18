@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 93;
+	$scope.version = 94;
 	$scope.workerInterval = 50 * 60 * 1000;
 
 	// version checker
@@ -78,6 +78,10 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 			if (json.success) {
 				$rootScope.loggedIn = true;
 				$scope.login = login;
+				
+				RestService.getJSVersion(function (version) {
+					$scope.jsversion = Number(version);
+				});
 			} else {
 				// login failed
 				$rootScope.$broadcast("login");
@@ -311,12 +315,16 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 				var offset = 0;
 				var getMoreTracks = function (callback) {
 					$scope.fetchingTracks = true;
-					RestService.Music.getTracks(offset, function (json) {
+					var count = 1000;
+					if ($scope.jsversion && $scope.jsversion >= 20150918) {
+						count = 7500;
+					}
+					RestService.Music.getTracks(offset, count, function (json) {
 						var total = json.total;
 						$scope.totals.tracks = total;
 						ModelService.mergeTree(json.tree, $scope, $rootScope);
 						$scope.setMusicSource($scope.musicSource);
-						offset = offset + 1000;
+						offset = offset + count;
 						$scope.totals.tracksDone = offset;
 						$scope.fetchingTracks = false;
 						if (offset < total) {
