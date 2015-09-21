@@ -1035,7 +1035,7 @@ tr.secondary {
 /* list view */
 ul.media.list {
   li {
-    background-color: $brand-secondary;
+    background-color: $brand-background;
     background-repeat: no-repeat;
     background-size: 58px auto;
     background-position: 1px 50%;
@@ -1049,25 +1049,12 @@ ul.media.list {
       top: -1px;
       left: 60px;
       font-size: 20px;
-      background: $brand-secondary;
+      background: $brand-background;
       color: $font-primary;
-      padding-top: 20px;
+      padding-top: 14px;
       .small {
         font-size: 14px;
       }
-    }
-
-    &:hover {
-      -webkit-transform:scale(1.01);
-      -ms-transform:scale(1.01);
-      transform:scale(1.01);
-      z-index: 1;
-    }
-    &:active {
-      -webkit-transform:scale(0.99);
-      -ms-transform:scale(0.99);
-      transform:scale(0.99);
-      z-index: 1;
     }
   }
 }
@@ -1179,7 +1166,6 @@ ul.media.list {
   }
   .btn:hover {
     box-shadow: 0px 4px 8px 0 rgba(0,0,0,0.26);
-    transform: scale(1.05);
   }
 }
 

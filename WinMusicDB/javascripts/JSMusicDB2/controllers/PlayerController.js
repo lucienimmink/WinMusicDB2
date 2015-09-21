@@ -428,7 +428,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 			tray.tooltip = "Playing: " + $scope.playing.track.artist.capitalize() + " - " + $scope.playing.track.title.capitalize();
 		}
 		trayTooltip = "Playing: " + $scope.playing.track.artist.capitalize() + " - " + $scope.playing.track.title.capitalize();
-
+		/*
 		RestService.Music.getDominantColor($rootScope, $scope.playing.track.artist + "|" + $scope.playing.track.albumNode.album, function(color) {
 			if (color[0] < 30 && color[1] < 30 && color[2] < 30) {
 				// this is too dark; lighten it up!
@@ -449,6 +449,7 @@ function($scope, $rootScope, $log, RestService, $timeout, $location, $interval) 
 				}, 10);
 			}
 		});
+		*/
 		if ($scope.preferYouTube) {
 			$scope.toggleVideo();
 		}
