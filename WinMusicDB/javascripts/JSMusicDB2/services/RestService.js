@@ -271,7 +271,7 @@ function($http, $log, $location) {
 				});
 			},
 			getLastFMLovedPlaylist : function(username, callback) {
-				$http.get('http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user=' + username + '&api_key=' + lastfm.api_key + '&format=json&limit=-1').success(function(json) {
+				$http.get('http://ws.audioscrobbler.com/2.0/?method=user.getlovedtracks&user=' + username + '&api_key=' + lastfm.api_key + '&format=json&limit=1000').success(function(json) {
 					callback(json);
 				});
 			},
