@@ -15,15 +15,15 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 	};
 
 	$scope.niceScroll = $("html").niceScroll({
-		scrollspeed : 80,
-		mousescrollstep : 60,
+		scrollspeed : 100,
+		mousescrollstep : 80,
 		oneaxismousemode : false,
-		zindex : 100,
-		cursorwidth : 5,
+		zindex : 5,
+		cursorwidth : 3,
 		cursorborderradius : "0px",
 		horizrailenabled : false,
-		cursorcolor : '#8DA7CC',
-		cursorborder : '1px solid #607d8b'
+		cursorcolor : '#76B9ED',
+		cursorborder : '1px solid #76B9ED'
 	});
 
 	var setResponsive = function() {
