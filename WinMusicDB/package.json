@@ -1,71 +1,15 @@
 {
-    "webexe_settings": {
-        "linux-x32": false, 
-        "export_dir": "output", 
-        "windows-x64": true, 
-        "download_dir": "C:\\Users\\lucien.immink\\Downloads", 
-        "nw_compression_level": 4, 
-        "mac-x32": false, 
-        "windows-x32": true, 
-        "mac-x64": false, 
-        "nw_version": "0.12.3", 
-        "force_download": false, 
-        "linux-x64": false
-    }, 
-    "node-main": "", 
-    "js-flags": "", 
-    "name": "winmusicdb", 
-    "nodejs": true, 
-    "user-agent": "", 
-    "description": "", 
-    "additional_trust_anchors": "", 
-    "single-instance": true, 
-    "inject-js-end": "", 
-    "platformOverrides": {
-        "win": {
-            "name": "WinMusicDB"
-        }, 
-        "linux": {
-            "name": "LinMusicDB"
-        }, 
-        "osx": {
-            "name": "MacMusicDB"
-        }
-    }, 
-    "window": {
-        "fullscreen": false, 
-        "kiosk_emulation": false, 
-        "resizable": true, 
-        "show": true, 
-        "always-on-top": false, 
-        "kiosk": false, 
-        "frame": true, 
-        "title": "WinMusicDB2", 
-        "visible": true, 
-        "height": 640, 
-        "min_height": 630, 
-        "width": 1024, 
-        "as_desktop": false, 
-        "position": "", 
-        "min_width": 400, 
-        "exe_icon": "", 
-        "show_in_taskbar": false, 
-        "mac_icon": "", 
-        "transparent": false, 
-        "toolbar": false, 
-        "icon": "images/icon.png"
-    }, 
-    "version": "0.94", 
-    "snapshot": "", 
-    "keywords": [], 
-    "webkit": {
-        "page-cache": true, 
-        "java": false, 
-        "plugin": false
-    }, 
-    "inject-js-start": "", 
-    "node-remote": "", 
-    "main": "index.html", 
-    "app_name": "WinMusicDB", 
-    "chromium-args": "--enable-smooth-scrolling --ignore-gpu-blacklist"
+  "name": "WinMusicDB",
+  "main": "index.html",
+  "window": {
+    "icon": "images/icon.png",
+    "frame": true,
+    "toolbar": false,
+    "width": 1000,
+    "height": 660,
+    "min_width": 380,
+    "min_height": 620
+  },
+  "single-instance": true,
+  "version": "0.9.4"
 }
