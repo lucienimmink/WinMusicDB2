@@ -22,19 +22,20 @@
         </div>
       </div>
       <div class="row icons">
-        <div class="col-xs-5 col-sm-5 pushed-left">
+        <div class="col-xs-7 col-sm-5 pushed-left">
           <a ng-click="back()"><i class="fa fa-step-backward fa-fw"></i></a>
           <a ng-click="toggle('isPlaying')" class="icon-big"><i class="fa fa-{{isPlaying}} fa-fw"></i></a>
           <a ng-click="stop()" class="icon-big"><i class="fa fa-stop fa-fw"></i></a>
           <a ng-click="next()"><i class="fa fa-step-forward fa-fw"></i></a>
         </div>
-        <div class="col-xs-7 col-sm-5">
+        <div class="col-xs-5 col-sm-5">
+          <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="fa fa-fw fa-heart-o" ng-hide="playing.track.isLoved"></i><i class="fa fa-fw fa-heart" ng-show="playing.track.isLoved"></i></a>
+          <a ng-click="showPlaylist()"><i class="fa fa-fw fa-list"></i></a>
+          <a ng-click="minimizePlayer()" class="hidden-xs"><i class="fa fa-fw fa-angle-down"></i></a>
+          <a ng-click="toggle('partyMode')" class="visible-xs"><i class="fa fa-fw fa-arrows-alt"></i></a>
           <span class="volumeControl"> <i class="fa fa-fw fa-volume-{{volumeIcon}}"></i>
             <input id="slider2" type ="range" min="0" max="100" step="1" ng-model="volume"/>
           </span>
-          <a ng-click="toggle('isLoved')" ng-if="hasLastFM"><i class="fa fa-fw fa-heart-o" ng-hide="playing.track.isLoved"></i><i class="fa fa-fw fa-heart" ng-show="playing.track.isLoved"></i></a>
-          <a ng-click="showPlaylist()"><i class="fa fa-fw fa-list"></i></a>
-          <a ng-click="minimizePlayer()"><i class="fa fa-fw fa-angle-down"></i></a>
         </div>
       </div>
       <div class="hidden-xs albumart push-up" bn-lazy-bg="{{playing.track.albumArt}}" ng-click="toggle('partyMode')">

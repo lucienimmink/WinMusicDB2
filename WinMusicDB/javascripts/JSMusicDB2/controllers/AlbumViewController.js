@@ -90,9 +90,6 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout, 
 							album.multiDisc = multiDisc;
 							album.tracks = json;
 							$rootScope.fetchingTracks = false;
-
-
-
 						});
 					} else {
 						var multiDisc = false;
@@ -106,7 +103,6 @@ function($scope, $routeParams, $log, $rootScope, RestService, $modal, $timeout, 
 						});
 						album.multiDisc = multiDisc;
 					}
-
 					$scope.viewAlbum = album;
 					
 					$rootScope.path = $sce.trustAsHtml(

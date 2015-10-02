@@ -207,11 +207,16 @@ nav.navbar {
   }
   .navbar-nav {
     margin: -1px 0 0;
+    display: box;
+    display: -webkit-flex; 
     display: flex;
+    -webkit-flex-direction: row;
     flex-direction: row;
     float: none;
 
     > li {
+      box-flex: 3;
+      -webkit-flex: 3;
       flex: 3;
       > a {
         text-align: center;
@@ -323,7 +328,16 @@ ul.media {
   list-style: none;
   margin: 0;
   overflow: visible;
+  display: box;
+  display: -webkit-flex; 
   display: flex;
+  
+  -webkit-flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -webkit-justify-content: center;
+  -webkit-align-content: flex-start;
+  -webkit-align-items: stretch;
+  
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
@@ -399,7 +413,6 @@ ul.media {
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
-      
     }
     &:hover {
       //-webkit-transform:scale(1.02);
@@ -753,7 +766,7 @@ footer {
         height: 15px;
       }
       .time {
-        top: -5px;
+        top: -3px;
         right: auto;
         margin: 0 0 0 15px;
         &.stop {
@@ -1069,6 +1082,9 @@ ul.media.list {
 
   .cover {
     background: -webkit-linear-gradient(top, rgba(243,246,250,0) 0%,rgba(243,246,250,0.2) 60%,rgba(243,246,250,1) 100%);
+    background: -moz-linear-gradient(top, rgba(243,246,250,0) 0%,rgba(243,246,250,0.2) 60%,rgba(243,246,250,1) 100%);
+    background: -ms-linear-gradient(top, rgba(243,246,250,0) 0%,rgba(243,246,250,0.2) 60%,rgba(243,246,250,1) 100%);
+    background: linear-gradient(to bottom, rgba(243,246,250,0) 0%,rgba(243,246,250,0.2) 60%,rgba(243,246,250,1) 100%);
     height: 100%;
     left: 0;
     position: fixed;
@@ -1314,5 +1330,15 @@ footer.minimized {
 }
 
 .background-image {
-  z-index: 0; position: absolute; left: -20px; right: -20px; top: -20px; bottom: -20px; background-position: center center; background-size: cover; -webkit-filter: blur(20px);
+  z-index: 0; 
+  position: absolute; 
+  left: -20px; 
+  right: -20px; 
+  top: -20px; 
+  bottom: -20px; 
+  background-position: center center; 
+  background-size: cover; 
+  -webkit-filter: blur(20px);
+  filter: blur(20px);
+  opacity: 0.35;
 }
