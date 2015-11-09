@@ -1,3 +1,5 @@
+<strong>0.9.6</strong><br />
+- Changed active letter indicator <br />
 <strong>0.9.5</strong><br />
 - Updated main color <br />
 - Hide controls in fullscreen non-focussed party mode <br />
