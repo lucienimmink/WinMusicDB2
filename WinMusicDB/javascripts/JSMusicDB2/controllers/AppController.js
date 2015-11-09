@@ -1,7 +1,7 @@
 jsmusicdb.controller('AppController', ['$scope', '$http', '$rootScope', '$location', '$routeParams', '$modal', 'RestService', 'ModelService', 'tmhDynamicLocale', '$translate', '$interval', 'PlatformService',
 function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService, ModelService, tmhDynamicLocale, $translate, $interval, PlatformService) {
 
-	$scope.version = 94;
+	$scope.version = 95;
 	$scope.workerInterval = 50 * 60 * 1000;
 
 	// version checker
@@ -20,10 +20,10 @@ function($scope, $http, $rootScope, $location, $routeParams, $modal, RestService
 		oneaxismousemode : false,
 		zindex : 5,
 		cursorwidth : 3,
-		cursorborderradius : "0px",
+		cursorborderradius : "2px",
 		horizrailenabled : false,
-		cursorcolor : '#76B9ED',
-		cursorborder : '1px solid #76B9ED'
+		cursorcolor : '#0063B1',
+		cursorborder : 'none'
 	});
 
 	var setResponsive = function() {

@@ -187,16 +187,21 @@ header {
 nav.navbar {
   position: fixed;
   z-index: 10;
-  width: 100%;
+  width: calc(100% + 1px);
   top: 53px;
   min-height: 0;
   background: #f8f8f8;
-  margin: -1px 0;
+  margin: -1px 0 0 -1px;
   box-shadow: 0px 2px 4px 0 rgba(0,0,0,0.26);
   border-radius: 0;
-  border-bottom: 1px solid $brand-tertiary;
-  body.fancyAlbum & {
-    //background: rgba(248,248,248, 0.9);
+  border-bottom: 1px solid $brand-primary;
+  -webkit-transition: 0.3s ease-out;
+  -moz-transition: 0.3s ease-out;
+  -o-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  
+  &.isInPartyMode {
+    transform: translateY(-52px);
   }
 
   .container {
@@ -293,7 +298,7 @@ nav.navbar {
       tr {
         &:hover {
         td {
-          background-color: rgba(118,185,237,0.4);
+          background-color: rgba(0,99,177,0.25);
           cursor: pointer;
 
           .hovered {
@@ -474,7 +479,7 @@ footer {
   right: 0;
   background: #ffffff;
   color: $font-primary;
-  border-top: 1px solid $brand-tertiary;
+  border-top: 1px solid $brand-primary;
   // text-transform: capitalize;
   z-index: 11;
   box-shadow: 0px -2px 5px rgba(0,0,0,0.26);
@@ -502,6 +507,16 @@ footer {
         margin: 0 auto;
         width: 100%;
         text-align: center;
+        
+        -webkit-transition: transform 0.3s ease-out;
+        -moz-transition: transform 0.3s ease-out;
+        -o-transition: transform 0.3s ease-out;
+        transition: transform 0.3s ease-out;
+        
+        .partyMode.nofocus & {
+          transform: translateY(10%);
+        }
+        
         @include jsmusicdb-respond-min-width(sm) {
           overflow: hidden;
         }
@@ -558,7 +573,7 @@ footer {
        > div {
         background-color: $brand-secondary;
         .partyMode.nofocus & {
-           background-color: darken($brand-secondary, 55%);
+           background-color: darken($brand-secondary, 65%);
         }
       }
     }
@@ -584,25 +599,33 @@ footer {
       bottom: 0;
       width: 100%;
       z-index: 2;
+      -webkit-transition: transform 0.3s ease-out;
+      -moz-transition: transform 0.3s ease-out;
+      -o-transition: transform 0.3s ease-out;
+      transition: transform 0.3s ease-out;
+      .partyMode.nofocus & {
+        -webkit-transform: translateY(165px);
+        transform: translateY(165px);
+      }
 
       .tertiary {
         background: $brand-tertiary;
         .partyMode.nofocus & {
-          background: darken($brand-tertiary, 35%);
+          background: darken($brand-tertiary, 15%);
           color: $font-secondary;
         }
       }
       .secondary {
         background: $brand-secondary;
         .partyMode.nofocus & {
-          background: darken($brand-secondary, 35%);
+          background: darken($brand-secondary, 15%);
           color: $font-secondary;
         }
       }
       .primary {
         background: $brand-primary;
         .partyMode.nofocus & {
-          background: darken($brand-primary, 35%);
+          background: darken($brand-primary, 15%);
           color: $font-secondary;
         }
       }
@@ -841,6 +864,7 @@ footer:hover .progressContainer {
 .well {
   border-radius: 2px;
   background: rgba(243,246,250,0.9);
+  border: 1px solid $brand-secondary;
   &.table-solid {
     background: #ffffff;
   }

@@ -159,28 +159,6 @@ function($scope, RestService, $rootScope, ModelService, $translate, $interval, $
 				return $rootScope.user && $rootScope.user.lastfmuser;
 			}, function(n, o) {
 				if (n) {
-					var tmplist = [];
-					if (!$rootScope.upcommingAlbums) {
-						$scope.loading.upcomming = true;
-					}
-					RestService.Overview.upcomming(n, function(json) {
-						$scope.loading.upcomming = false;
-						if (json.albums) {
-							angular.forEach(json.albums.album, function(album) {
-								if (album.artist) {
-									var upcommingAlbum = {
-										artist : album.artist.name,
-										album : album.name,
-										image : album.image[album.image.length -1]["#text"],
-										releaseDate : album["@attr"].releasedate.substring(0, album["@attr"].releasedate.indexOf(' 00:'))
-									};
-								}
-								tmplist.push(upcommingAlbum);
-							});
-						}
-						$scope.upcommingAlbums = tmplist;
-						$rootScope.upcommingAlbums = $scope.upcommingAlbums;
-					});
 					if (!$rootScope.recentTracks) {
 						$scope.loading.recent = true;
 					}
