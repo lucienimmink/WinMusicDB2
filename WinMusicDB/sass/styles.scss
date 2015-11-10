@@ -44,7 +44,13 @@ body {
   background: $brand-background;
   color: $font-primary;
   font-family: "open_sans", "Segoe UI", "Helvetica Neue",Helvetica,Arial,sans-serif;
-
+	
+	-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
   > canvas {
     display: none;
