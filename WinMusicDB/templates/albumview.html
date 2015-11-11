@@ -56,14 +56,15 @@
 			<table class="table table-hover table-condensed">
 				<tr ng-repeat="track in viewAlbum.tracks" ng-click="playTrack(track)" ng-swipe-left="track.state = 'secondary'" ng-swipe-right="track.state = 'primary'" ng-class="(track.state === 'secondary') ? 'secondary' : 'primary'">
 					<td class="counter" width="50">
-					  <span ng-show="track.isPlaying">
+					  <span ng-show="track.isPlaying" style="margin-left: 10px;">
 					    <i class="fa fa-fw fa-play"></i>
 					  </span>
-					  <span ng-show="track.isPaused">
+					  <span ng-show="track.isPaused" style="margin-left: 10px;">
 					    <i class="fa fa-fw fa-pause"></i>
 					  </span>
 					  <span ng-show="!track.isPlaying && !track.isPaused && track.number">
-					    <span ng-if="viewAlbum.multiDisc">{{::track.disc}}.</span>{{::track.number | PrefixZeroFilter}}</span>
+						<span ng-if="track.disc !== viewAlbum.tracks[$index-1].disc && viewAlbum.multiDisc" style="width:7px; display: inline-block;">{{::track.disc}}.</span>
+						<span ng-if="track.disc === viewAlbum.tracks[$index-1].disc || !viewAlbum.multiDisc" style="width:10px; display: inline-block;">&nbsp;</span>{{::track.number | PrefixZeroFilter}}</span>
 					</td>
 					<td class="primary">{{::track.title}}
 					 <span ng-if="track.collection" class="small">
