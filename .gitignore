@@ -1,2 +1,8 @@
 node_modules
 dist
+css
+fonts
+global
+js
+*index.html
+*manifest*
