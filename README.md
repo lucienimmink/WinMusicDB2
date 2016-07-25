@@ -1,5 +1,6 @@
 #Install
 - Get and build https://github.com/lucienimmink/JSMusicDBNext
+
 Copy output folder to this project's root folder
 Run
     npm install
