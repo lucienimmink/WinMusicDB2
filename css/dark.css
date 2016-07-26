@@ -85,7 +85,7 @@ a {
   height: 48vw;
   margin: 0 2vw 2vw 0;
   cursor: pointer;
-  background-image: url("/global/images/no-cover.png"); }
+  background-image: url("../../global/images/no-cover.png"); }
   .media-panel:nth-child(2n) {
     margin-right: 0; }
   @media only screen and (min-width: 480px) {
@@ -244,7 +244,6 @@ input.form-control:focus, textarea.form-control:focus {
 
 .jumbotron.theme-light {
   margin-top: -5px;
-  padding: 24px 0;
   background-color: #0078d7;
   color: #ffffff;
   z-index: 12;
@@ -252,7 +251,8 @@ input.form-control:focus, textarea.form-control:focus {
   @media only screen and (min-width: 768px) {
     .jumbotron.theme-light {
       background-color: #202020;
-      color: white; } }
+      color: white;
+      padding: 24px 0; } }
   .jumbotron.theme-light h3 {
     padding-top: 0; }
   .jumbotron.theme-light a {
