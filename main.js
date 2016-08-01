@@ -3,14 +3,15 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const globalShortcut = electron.globalShortcut;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 480, height: 740, title: 'MusicDBNext', autoHideMenuBar: true, icon: `global/images/logo-32.png`})
+  mainWindow = new BrowserWindow({ width: 480, height: 740, title: 'MusicDBNext', autoHideMenuBar: true, icon: `global/images/logo-32.png` })
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`)
@@ -24,7 +25,24 @@ function createWindow () {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     mainWindow = null
-  })
+  });
+
+  // register mediakeys
+  var registered = globalShortcut.register('medianexttrack', function () {
+    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbnext'));");
+  });
+
+  var registered = globalShortcut.register('mediaplaypause', function () {
+    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbtoggle'));");
+  });
+
+  var registered = globalShortcut.register('mediaprevioustrack', function () {
+    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbprev'));");
+  });
+
+  var registered = globalShortcut.register('mediastop', function () {
+    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbstop'));");
+  });
 }
 
 // This method will be called when Electron has finished
