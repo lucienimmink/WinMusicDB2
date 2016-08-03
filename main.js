@@ -5,44 +5,54 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const globalShortcut = electron.globalShortcut;
 
+const {Menu, Tray, MenuItem} = require('electron')
+let tray = null;
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
 function createWindow() {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({ width: 480, height: 740, title: 'MusicDBNext', autoHideMenuBar: true, icon: `global/images/logo-32.png` })
+    // Create the browser window.
+    mainWindow = new BrowserWindow({ width: 480, height: 740, title: 'MusicDBNext', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` })
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+    // and load the index.html of the app.
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
 
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+    // Open the DevTools.
+    // mainWindow.webContents.openDevTools()
 
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  });
+    // Emitted when the window is closed.
+    mainWindow.on('closed', function () {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        mainWindow = null
+    });
 
-  // register mediakeys
-  var registered = globalShortcut.register('medianexttrack', function () {
-    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbnext'));");
-  });
+    // register mediakeys
+    var registered = globalShortcut.register('medianexttrack', function () {
+        mainWindow.webContents.send('ipc-next');
+    });
 
-  var registered = globalShortcut.register('mediaplaypause', function () {
-    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbtoggle'));");
-  });
+    var registered = globalShortcut.register('mediaplaypause', function () {
+        mainWindow.webContents.send('ipc-togglePlay');
+    });
 
-  var registered = globalShortcut.register('mediaprevioustrack', function () {
-    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbprev'));");
-  });
+    var registered = globalShortcut.register('mediaprevioustrack', function () {
+        mainWindow.webContents.send('ipc-prev');
+    });
 
-  var registered = globalShortcut.register('mediastop', function () {
-    mainWindow.webContents.executeJavaScript("document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbstop'));");
-  });
+    // inject a new JS file with the electron specific javascript
+    mainWindow.webContents.executeJavaScript(`
+    var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", "../electron-scripts.js");
+    document.getElementsByTagName("head")[0].appendChild(fileref)
+  `);
+
+    // add tray
+    addTray();
 }
 
 // This method will be called when Electron has finished
@@ -52,20 +62,89 @@ app.on('ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
 })
 
 app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
+    // On OS X it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (mainWindow === null) {
+        createWindow()
+    }
+})
+
+app.on('minimize', function () {
+    mainWindow.hide();
 })
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
+const {ipcMain} = require('electron')
+ipcMain.on('mdbplaying-message', (event, arg) => {
+    // now we can use this info for something awesome; let's use the data to set a tray icon
+    tray.setToolTip(`Playing: ${arg.title} by ${arg.artist}`);
+})
+
+
+var addTray = function () {
+    var trayMenu = new Menu();
+    trayMenu.append(new MenuItem({
+        label: 'Show/hide window',
+        click: communicator.sendToggleWindow
+    }));
+    trayMenu.append(new MenuItem({
+        type: 'separator'
+    }));
+    trayMenu.append(new MenuItem({
+        label: 'Play/Pause',
+        click: communicator.sendTogglePlay
+    }));
+    trayMenu.append(new MenuItem({
+        label: 'Next',
+        click: communicator.sendNext
+    }));
+    trayMenu.append(new MenuItem({
+        label: 'Previous',
+        click: communicator.sendPrev
+    }));
+    trayMenu.append(new MenuItem({
+        type: 'separator'
+    }));
+    trayMenu.append(new MenuItem({
+        label: 'Quit',
+        click: communicator.sendQuit
+    }));
+    tray = new Tray(`${__dirname}/images/logo-32.png`);
+    tray.setContextMenu(trayMenu);
+    tray.on('click', communicator.sendToggleWindow);
+}
+
+var communicator = {
+    sendToggleWindow: function () {
+        var isMinimized = mainWindow.isMinimized();
+        if (isMinimized) {
+            mainWindow.restore();
+            mainWindow.focus();
+        } else {
+            mainWindow.minimize();
+        }
+    },
+    sendTogglePlay: function () {
+        mainWindow.webContents.send('ipc-togglePlay');
+    },
+    sendPrev: function () {
+        mainWindow.webContents.send('ipc-prev');
+    },
+    sendNext: function () {
+        mainWindow.webContents.send('ipc-next');
+    },
+    sendQuit: function () {
+        app.quit();
+    }
+}
