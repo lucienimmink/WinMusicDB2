@@ -14,7 +14,7 @@ let mainWindow
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 480, height: 740, title: 'MusicDBNext', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` })
+    mainWindow = new BrowserWindow({ width: 480, height: 740, title: 'JSMusicDB Next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` })
 
     // and load the index.html of the app.
     mainWindow.loadURL(`file://${__dirname}/app/index.html`)
@@ -86,10 +86,18 @@ app.on('minimize', function () {
 
 
 const {ipcMain} = require('electron')
-ipcMain.on('mdbplaying-message', (event, arg) => {
+ipcMain.on('mdbplaying', (event, arg) => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
     tray.setToolTip(`Playing: ${arg.title} by ${arg.artist}`);
-})
+});
+ipcMain.on('mdbpaused', (event, arg) => {
+    // now we can use this info for something awesome; let's use the data to set a tray icon
+    tray.setToolTip(`Paused: ${arg.title} by ${arg.artist}`);
+});
+ipcMain.on('mdbstopped', (event, arg) => {
+    // now we can use this info for something awesome; let's use the data to set a tray icon
+    tray.setToolTip(`JSMusicDB Next`);
+});
 
 
 var addTray = function () {
@@ -122,6 +130,7 @@ var addTray = function () {
     }));
     tray = new Tray(`${__dirname}/images/logo-32.png`);
     tray.setContextMenu(trayMenu);
+    tray.setToolTip(`JSMusicDB Next`);
     tray.on('click', communicator.sendToggleWindow);
 }
 
