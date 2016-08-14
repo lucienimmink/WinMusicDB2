@@ -12,12 +12,27 @@ let tray = null;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+var del = require('delete');
+var symlinkOrCopySync = require('symlink-or-copy').sync;
+var _ = require("lodash");
+
+var filesAndFolders = ['css', 'fonts', 'global', 'js', 'electron.html', 'manifest.json'];
+// remove current build if present; this ensures we have the most up2date prebuilt binaries on all platforms
+_.forEach(filesAndFolders, function (value) {
+    del.sync('app/' + value);
+    symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/' + value, 'app/' + value);
+});
+
+
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 480, height: 740, title: 'JSMusicDB Next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` })
+    mainWindow = new BrowserWindow({ width: 500, height: 780, title: 'JSMusicDB Next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` });
+    mainWindow.webContents.session.clearCache(function(){
+        // clear cache on start-up.
+    });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+    mainWindow.loadURL(`file://${__dirname}/app/electron.html`)
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
