@@ -12,6 +12,8 @@ let tray = null;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+// only run this in development mode; we don't want to remove the app in prod (need to find out how this can be programmed!)
+/*
 var del = require('delete');
 var symlinkOrCopySync = require('symlink-or-copy').sync;
 var _ = require("lodash");
@@ -22,7 +24,8 @@ _.forEach(filesAndFolders, function (value) {
     del.sync('app/' + value);
     symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/' + value, 'app/' + value);
 });
-
+// rename electron.html to index.html
+*/
 
 function createWindow() {
     // Create the browser window.
@@ -32,7 +35,7 @@ function createWindow() {
     });
 
     // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/app/electron.html`)
+    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
