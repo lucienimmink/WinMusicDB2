@@ -24,6 +24,8 @@ _.forEach(filesAndFolders, function (value) {
     del.sync('app/' + value);
     symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/' + value, 'app/' + value);
 });
+del.sync('./sw.js');
+symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/sw.js', 'sw.js'); // service worker must be in root.
 // rename electron.html to index.html
 */
 
