@@ -13,19 +13,18 @@ let tray = null;
 let mainWindow
 
 // only run this in development mode; we don't want to remove the app in prod (need to find out how this can be programmed!)
+
 /*
 var del = require('delete');
 var symlinkOrCopySync = require('symlink-or-copy').sync;
 var _ = require("lodash");
 
-var filesAndFolders = ['css', 'fonts', 'global', 'js', 'electron.html', 'manifest.json'];
+var filesAndFolders = ['css', 'fonts', 'global', 'js', 'electron.html', 'manifest.json', 'sw.js'];
 // remove current build if present; this ensures we have the most up2date prebuilt binaries on all platforms
 _.forEach(filesAndFolders, function (value) {
     del.sync('app/' + value);
     symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/' + value, 'app/' + value);
 });
-del.sync('./sw.js');
-symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/sw.js', 'sw.js'); // service worker must be in root.
 // rename electron.html to index.html
 */
 
