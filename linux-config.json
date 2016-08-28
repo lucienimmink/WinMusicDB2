@@ -5,7 +5,7 @@
     "productName": "LinMusicDB Next",
     "icon": "images/logo-1024.png",
     "categories": [
-        "Multimedia"
+        "Audio"
     ],
     "lintianOverrides": [
         "changelog-file-missing-in-native-package"
