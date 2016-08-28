@@ -8,4 +8,5 @@ js
 *manifest*
 app
 *-win32-x64
+*-linux-x64
 sw.js
