@@ -1,0 +1,13 @@
+{
+    "src": "MusicDBNext-linux-x64",
+    "dest": "dist/",
+    "name": "linmusicdb-next",
+    "productName": "LinMusicDB Next",
+    "icon": "images/logo-32.png",
+    "categories": [
+        "Multimedia"
+    ],
+    "lintianOverrides": [
+        "changelog-file-missing-in-native-package"
+    ]
+}
