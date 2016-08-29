@@ -1,0 +1,7 @@
+{
+    "src": "dist/MusicDBNext-win32-x64",
+    "dest": "dist/installers",
+    "name": "winmusicdbnext",
+    "productName": "WinMusicDB Next",
+    "icon": "images/icon.ico"
+}

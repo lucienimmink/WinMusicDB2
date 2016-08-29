@@ -1,6 +1,6 @@
 {
-    "src": "MusicDBNext-linux-x64",
-    "dest": "dist/",
+    "src": "dist/MusicDBNext-linux-x64",
+    "dest": "dist/installers",
     "name": "linmusicdb-next",
     "productName": "LinMusicDB Next",
     "icon": "images/logo-1024.png",
