@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/electron/electron-quick-start#readme",
   "dependencies": {
+    "JSMusicDBNext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git",
     "delete": "^0.3.2",
     "jsmusicdbnext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git",
     "lodash": "^4.15.0",
