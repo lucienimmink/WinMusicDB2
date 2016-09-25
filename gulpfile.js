@@ -1,7 +1,16 @@
 var gulp = require('gulp');
 var packager = require('electron-packager');
 var inno = require("innosetup-compiler");
-//packager(options, function done_callback (err, appPaths) { /* … */ })
+var runSequence = require('run-sequence');
+var del = require('del');
+
+gulp.task('clean', function (cb) {
+    del([
+        'Output/**/**.*',
+        'WinMusicDBNext-win32--x64/**/**.*'
+    ]);
+    cb();
+});
 
 gulp.task('package', function (cb) {
     packager({
@@ -11,7 +20,7 @@ gulp.task('package', function (cb) {
         'icon': 'images/icon.ico',
         'name': 'WinMusicDBNext',
         'overwrite': true,
-        'platform': 'all',
+        'platform': 'win32',
         'version': '1.4.1',
         'app-category-type': 'public.app-category.music',
         'win32metadata': {
@@ -25,7 +34,7 @@ gulp.task('package', function (cb) {
             console.error('build failed', err);
             return;
         }
-        console.log('Packages build in', appPaths);
+        // console.log('Packages build in', appPaths);
         cb();
     })
 });
@@ -39,6 +48,11 @@ gulp.task('win-setup', function (cb) {
             console.error('packing failed', error);
             return;
         }
-        console.log('windows setup file created');
+        //console.log('windows setup file created');
+        cb();
     });
+});
+
+gulp.task('build', function (cb) {
+    runSequence('clean', 'package', 'win-setup');
 });
