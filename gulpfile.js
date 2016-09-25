@@ -55,7 +55,7 @@ gulp.task('package', function (cb) {
         'dir': '.',
         'app-copyright': 'Copyright (C) ' + new Date().getFullYear() + ' AddaSoft All rights served',
         'arch': 'x64',
-        'icon': 'images/icon.ico',
+        'icon': 'images/icon',
         'name': 'WinMusicDBNext',
         'overwrite': true,
         'platform': 'win32',
