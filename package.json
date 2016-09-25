@@ -26,11 +26,14 @@
     "jsmusicdbnext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git"
   },
   "devDependencies": {
+    "copy": "^0.3.0",
+    "copy-dir": "^0.3.0",
     "del": "^2.2.2",
     "delete": "^0.3.2",
     "electron-packager": "^8.0.0",
     "electron-prebuilt": "^1.4.1",
     "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
     "innosetup-compiler": "^5.5.9",
     "lodash": "^4.16.1",
     "run-sequence": "^1.2.2",
