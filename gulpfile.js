@@ -17,17 +17,19 @@ gulp.task('clean', function (cb) {
 gulp.task('copy', function (cb) {
     // copy files and folders
     return gulp.src([
-        'node_modules/jsmusicdbnext-prebuilt/css/*',
-        'node_modules/jsmusicdbnext-prebuilt/fonts/*',
-        'node_modules/jsmusicdbnext-prebuilt/global/*',
-        'node_modules/jsmusicdbnext-prebuilt/js/*',
+        'node_modules/jsmusicdbnext-prebuilt/css/**/*',
+        'node_modules/jsmusicdbnext-prebuilt/fonts/**/*',
+        'node_modules/jsmusicdbnext-prebuilt/global/**/*',
+        'node_modules/jsmusicdbnext-prebuilt/js/**/*',
         'node_modules/jsmusicdbnext-prebuilt/manifest.json',
         'node_modules/jsmusicdbnext-prebuilt/sw.js'
     ], {base:"."}).pipe(
         rename(function (path) {
             var dirname = path.dirname;
             dirname = dirname.split('\\');
-            if (dirname.length === 3) {
+            if (dirname.length === 4) {
+                dirname = dirname[2] + '\\' + dirname[3]; 
+            } else if (dirname.length === 3) {
                 dirname = dirname[2];
             } else {
                 dirname = '';
