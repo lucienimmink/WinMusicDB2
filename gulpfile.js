@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var packager = require('electron-packager');
+var inno = require("innosetup-compiler");
 //packager(options, function done_callback (err, appPaths) { /* … */ })
 
 gulp.task('package', function (cb) {
@@ -22,7 +23,22 @@ gulp.task('package', function (cb) {
     }, function (err, appPaths) {
         if (err) {
             console.error('build failed', err);
+            return;
         }
         console.log('Packages build in', appPaths);
+        cb();
     })
+});
+
+gulp.task('win-setup', function (cb) {
+    inno("win32-x64-setup.iss", {
+        gui: false,
+        verbose: false
+    }, function (error) {
+        if (error) {
+            console.error('packing failed', error);
+            return;
+        }
+        console.log('windows setup file created');
+    });
 });
