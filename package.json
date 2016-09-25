@@ -1,27 +1,21 @@
 {
-  "name": "MusicDBNext",
+  "name": "WinMusicDB",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "An advanced music player by AddaSoft",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+https://github.com/lucienimmink/WinMusicDB2.git"
   },
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "AddaSoft",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+    "url": "https://github.com/lucienimmink/WinMusicDB2/issues"
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "homepage": "http://www.jsmusicdb.com",
   "dependencies": {
     "JSMusicDBNext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git"
   },

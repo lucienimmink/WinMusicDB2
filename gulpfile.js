@@ -63,9 +63,9 @@ gulp.task('package', function (cb) {
         'app-category-type': 'public.app-category.music',
         'win32metadata': {
             'CompanyName': 'AddaSoft',
-            'FileDescription': 'Advanced music player by AddaSoft',
+            'FileDescription': 'WinMusicDB Next',
             'OriginalFilename': 'WinMusicDB.exe',
-            'ProductName': 'WinMusicDB'
+            'ProductName': 'WinMusicDB Next'
         }
     }, function (err, appPaths) {
         if (err) {
