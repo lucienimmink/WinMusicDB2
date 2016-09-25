@@ -1,83 +1,101 @@
 var gulp = require('gulp');
-/* var	concat = require('gulp-concat'),
-	uglify = require('gulp-uglify'),
-	usemin = require('gulp-usemin'),
-	ngmin = require('gulp-ngmin'),
-	rev = require('gulp-rev'),
-	minifyHtml = require('gulp-minify-html'),
-	minifyCss = require('gulp-minify-css'),
-	ngHtml2Js = require("gulp-ng-html2js"),
-	imagemin = require('gulp-imagemin'),
-	clean = require('gulp-clean'),
-	cssmin = require('gulp-cssmin'),
-	cmq = require('gulp-combine-media-queries'),
-	ngAnnotate = require('gulp-ng-annotate'),
-	jsonminify = require('gulp-jsonminify')
-*/
-var NwBuilder = require('nw-builder');
-var exec = require('child_process').exec;
-var path = require('path');
-// copy files
-gulp.task('cp', function () {
-	return gulp.src('./WinMusicDB/**/*').pipe(gulp.dest('./dist/'));
-});
-// clean folder
-gulp.task('clean', function () {
-	return gulp.src('./dist/**/*', { read: false}).pipe(clean());
+var packager = require('electron-packager');
+var inno = require("innosetup-compiler");
+var runSequence = require('run-sequence');
+var del = require('del');
+var rename = require('gulp-rename');
+
+gulp.task('clean', function (cb) {
+    del([
+        'app/**/*',
+        'Output/**/*',
+        'WinMusicDBNext-win32-x64/**/*'
+    ]);
+    cb();
 });
 
-gulp.task('patch', function (cb) {
-   //win32
-   console.log("copying over meta files");
-   gulp.src('./win32/ffmpegsumo.dll').pipe(gulp.dest('./build/WinMusicDB/win32/'));
-   gulp.src('./win32/python/**/**').pipe(gulp.dest('./build/WinMusicDB/win32/python/'));
-   gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/win32/eyed3/'));
-   gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/win32/'));
-   //win64
-   gulp.src('./win64/ffmpegsumo.dll').pipe(gulp.dest('./build/WinMusicDB/win64/'));
-   gulp.src('./win64/python/**/**').pipe(gulp.dest('./build/WinMusicDB/win64/python/'));
-   gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/win64/eyed3/'));
-   gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/win64/'));
-   
-   //lin32
-   gulp.src('./lin32/libffmpegsumo.so').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   gulp.src('./lin32/.desktop').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/linux32/eyed3/'));
-   gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   gulp.src('./WinMusicDB/icon.png').pipe(gulp.dest('./build/WinMusicDB/linux32/'));
-   //lin64
-   gulp.src('./lin64/libffmpegsumo.so').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
-   gulp.src('./lin64/.desktop').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
-   gulp.src('./eyed3/**/**').pipe(gulp.dest('./build/WinMusicDB/linux64/eyed3/'));
-   gulp.src('./scanner.py').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
-   gulp.src('./WinMusicDB/icon.png').pipe(gulp.dest('./build/WinMusicDB/linux64/'));
+gulp.task('copy', function (cb) {
+    // copy files and folders
+    return gulp.src([
+        'node_modules/jsmusicdbnext-prebuilt/css/*',
+        'node_modules/jsmusicdbnext-prebuilt/fonts/*',
+        'node_modules/jsmusicdbnext-prebuilt/global/*',
+        'node_modules/jsmusicdbnext-prebuilt/js/*',
+        'node_modules/jsmusicdbnext-prebuilt/manifest.json',
+        'node_modules/jsmusicdbnext-prebuilt/sw.js'
+    ], {base:"."}).pipe(
+        rename(function (path) {
+            var dirname = path.dirname;
+            dirname = dirname.split('\\');
+            if (dirname.length === 3) {
+                dirname = dirname[2];
+            } else {
+                dirname = '';
+            }
+            path.dirname = dirname;
+        })
+    ).pipe(
+        gulp.dest('./app')
+    );
 });
 
-gulp.task('nw', function(cb) {
-	setTimeout(function () {
-		var nw = new NwBuilder({
-		files: './dist/**/**', // use the glob format
-		// platforms: ['win', 'linux'], // update libffmpegsumo first!
-		platforms: ['win', 'linux'],
-		winIco: './icon.ico'
-		,version: '0.12.3' // Latest stable
-		// macIcns: './icon.icns'
-		,zip: false
-	});
+gulp.task('copy-and-rename', function (cb) {
+    return gulp.src('node_modules/jsmusicdbnext-prebuilt/electron.html').pipe(
+        rename(function (path) {
+            path.dirname = '';
+            path.basename = 'index';
+        })
+    ).pipe(
+        gulp.dest('./app')
+    );
+})
 
-	// Log stuff you want
-	nw.on('log',  console.log);
-
-	// Build returns a promise
-	nw.build().then(function () {
-		   cb();
-		
-	}).catch(function (error) {
-		console.error(error);
-		cb();
-	});
-	}, 5000);
-	
+gulp.task('package', function (cb) {
+    packager({
+        'dir': '.',
+        'app-copyright': 'Copyright (C) ' + new Date().getFullYear() + ' AddaSoft All rights served',
+        'arch': 'x64',
+        'icon': 'images/icon.ico',
+        'name': 'WinMusicDBNext',
+        'overwrite': true,
+        'platform': 'win32',
+        'version': '1.4.1',
+        'app-category-type': 'public.app-category.music',
+        'win32metadata': {
+            'CompanyName': 'AddaSoft',
+            'FileDescription': 'Advanced music player by AddaSoft',
+            'OriginalFilename': 'WinMusicDB.exe',
+            'ProductName': 'WinMusicDB'
+        }
+    }, function (err, appPaths) {
+        if (err) {
+            console.error('build failed', err);
+            return;
+        }
+        // console.log('Packages build in', appPaths);
+        cb();
+    })
 });
-// Default
-gulp.task('default', ['cp', 'nw']);
+
+gulp.task('win-setup', function (cb) {
+    inno("win32-x64-setup.iss", {
+        gui: false,
+        verbose: false
+    }, function (error) {
+        if (error) {
+            console.error('packing failed', error);
+            return;
+        }
+        //console.log('windows setup file created');
+        cb();
+    });
+});
+
+gulp.task('update', function (cb) {
+    runSequence('clean', 'copy', 'copy-and-rename');
+});
+
+
+gulp.task('build', function (cb) {
+    runSequence('clean', 'copy', 'copy-and-rename', 'package', 'win-setup');
+});
