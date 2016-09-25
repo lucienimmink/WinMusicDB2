@@ -3,14 +3,13 @@ var packager = require('electron-packager');
 var inno = require("innosetup-compiler");
 var runSequence = require('run-sequence');
 var del = require('del');
-var copy = require('copy');
 var rename = require('gulp-rename');
 
 gulp.task('clean', function (cb) {
     del([
         'app/**/*',
         'Output/**/*',
-        'WinMusicDBNext-win32--x64/**/*'
+        'WinMusicDBNext-win32-x64/**/*'
     ]);
     cb();
 });
