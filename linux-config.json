@@ -1,6 +1,6 @@
 {
-    "src": "dist/MusicDBNext-linux-x64",
-    "dest": "dist/installers",
+    "src": "WinMusicDBNext-linux-x64",
+    "dest": "Output",
     "name": "linmusicdb-next",
     "productName": "LinMusicDB Next",
     "icon": "images/logo-1024.png",

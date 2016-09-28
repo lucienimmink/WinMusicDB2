@@ -4,6 +4,7 @@ var inno = require("innosetup-compiler");
 var runSequence = require('run-sequence');
 var del = require('del');
 var rename = require('gulp-rename');
+var installer = require('electron-installer-debian')
 
 gulp.task('clean', function (cb) {
     del([
@@ -23,12 +24,14 @@ gulp.task('copy', function (cb) {
         'node_modules/jsmusicdbnext-prebuilt/js/**/*',
         'node_modules/jsmusicdbnext-prebuilt/manifest.json',
         'node_modules/jsmusicdbnext-prebuilt/sw.js'
-    ], {base:"."}).pipe(
+    ], {
+        base: "."
+    }).pipe(
         rename(function (path) {
             var dirname = path.dirname;
             dirname = dirname.split('\\');
             if (dirname.length === 4) {
-                dirname = dirname[2] + '\\' + dirname[3]; 
+                dirname = dirname[2] + '\\' + dirname[3];
             } else if (dirname.length === 3) {
                 dirname = dirname[2];
             } else {
@@ -60,7 +63,7 @@ gulp.task('package', function (cb) {
         'icon': 'images/icon',
         'name': 'WinMusicDBNext',
         'overwrite': true,
-        'platform': 'win32',
+        'platform': 'linux,win32',
         'version': '1.4.1',
         'app-category-type': 'public.app-category.music',
         'win32metadata': {
@@ -93,11 +96,25 @@ gulp.task('win-setup', function (cb) {
     });
 });
 
+gulp.task('linux-setup', function (cb) {
+    installer({
+        src: 'WinMusicDBNext-linux-x64/',
+        dest: 'Output/',
+        arch: 'amd64'
+    }, function (error) {
+        if (error) {
+            console.error('deb failed', error);
+            return;
+        }
+        cb();
+    })
+});
+
 gulp.task('update', function (cb) {
     runSequence('clean', 'copy', 'copy-and-rename');
 });
 
 
 gulp.task('build', function (cb) {
-    runSequence('clean', 'copy', 'copy-and-rename', 'package', 'win-setup');
+    runSequence('clean', 'copy', 'copy-and-rename', 'package');
 });

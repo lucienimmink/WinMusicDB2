@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "del": "^2.2.2",
+    "electron-installer-debian": "^0.3.1",
     "electron-packager": "^8.0.0",
     "electron-prebuilt": "^1.4.1",
     "gulp": "^3.9.1",
