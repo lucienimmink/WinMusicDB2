@@ -21,13 +21,13 @@
   },
   "devDependencies": {
     "del": "^2.2.2",
+    "electron": "^1.4.3",
     "electron-installer-debian": "^0.3.1",
-    "electron-packager": "^8.0.0",
-    "electron-prebuilt": "^1.4.1",
+    "electron-packager": "^8.1.0",
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.2",
     "innosetup-compiler": "^5.5.9",
-    "lodash": "^4.16.1",
+    "lodash": "^4.16.4",
     "run-sequence": "^1.2.2"
   }
 }

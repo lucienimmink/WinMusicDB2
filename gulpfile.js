@@ -64,7 +64,6 @@ gulp.task('package', function (cb) {
         'name': 'WinMusicDBNext',
         'overwrite': true,
         'platform': 'linux,win32',
-        'version': '1.4.1',
         'app-category-type': 'public.app-category.music',
         'win32metadata': {
             'CompanyName': 'AddaSoft',
