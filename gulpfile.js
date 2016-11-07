@@ -4,7 +4,7 @@ var inno = require("innosetup-compiler");
 var runSequence = require('run-sequence');
 var del = require('del');
 var rename = require('gulp-rename');
-var installer = require('electron-installer-debian')
+// var installer = require('electron-installer-debian')
 
 gulp.task('clean', function (cb) {
     del([
@@ -63,7 +63,7 @@ gulp.task('package', function (cb) {
         'icon': 'images/icon',
         'name': 'WinMusicDBNext',
         'overwrite': true,
-        'platform': 'linux,win32',
+        'platform': 'win32',
         'app-category-type': 'public.app-category.music',
         'win32metadata': {
             'CompanyName': 'AddaSoft',
@@ -115,5 +115,5 @@ gulp.task('update', function (cb) {
 
 
 gulp.task('build', function (cb) {
-    runSequence('clean', 'copy', 'copy-and-rename', 'package');
+    runSequence('clean', 'copy', 'copy-and-rename', 'package', 'win-setup');
 });
