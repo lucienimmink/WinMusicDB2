@@ -19,7 +19,7 @@
   "dependencies": {
     "JSMusicDBNext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git",
     "electron": "^1.4.4",
-    "jsmusicdbnext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git"
+    "electron-config": "^0.2.1"
   },
   "devDependencies": {
     "del": "^2.2.2",

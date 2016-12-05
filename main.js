@@ -5,6 +5,9 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 const globalShortcut = electron.globalShortcut;
 
+const Config = require('electron-config');
+const config = new Config();
+
 const {Menu, Tray, MenuItem} = require('electron')
 let tray = null;
 
@@ -12,26 +15,12 @@ let tray = null;
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
-// only run this in development mode; we don't want to remove the app in prod (need to find out how this can be programmed!)
-
-/*
-var del = require('delete');
-var symlinkOrCopySync = require('symlink-or-copy').sync;
-var _ = require("lodash");
-
-var filesAndFolders = ['css', 'fonts', 'global', 'js', 'electron.html', 'manifest.json', 'sw.js'];
-// remove current build if present; this ensures we have the most up2date prebuilt binaries on all platforms
-_.forEach(filesAndFolders, function (value) {
-    del.sync('app/' + value);
-    symlinkOrCopySync('node_modules/jsmusicdbnext-prebuilt/' + value, 'app/' + value);
-});
-// rename electron.html to index.html
-*/
+let size = JSON.parse(config.get('size') || "[500, 780]");
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: 500, height: 780, title: 'JSMusicDB Next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` });
-    mainWindow.webContents.session.clearCache(function(){
+    mainWindow = new BrowserWindow({ width: size[0], height: size[1], minWidth: 500, minHeight: 780, title: 'JSMusicDB next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` });
+    mainWindow.webContents.session.clearCache(function () {
         // clear cache on start-up.
     });
 
@@ -47,6 +36,10 @@ function createWindow() {
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null
+    });
+
+    mainWindow.on('resize', function () {
+        config.set('size', JSON.stringify(mainWindow.getSize()));
     });
 
     // register mediakeys
