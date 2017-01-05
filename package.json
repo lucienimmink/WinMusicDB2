@@ -23,12 +23,12 @@
   },
   "devDependencies": {
     "del": "^2.2.2",
-    "electron": "^1.4.5",
-    "electron-packager": "^8.2.0",
+    "electron": "^1.4.13",
+    "electron-packager": "^8.4.0",
     "gulp": "^3.9.1",
-    "gulp-rename": "^1.2.2",
+    "gulp-rename": "1.2.2",
     "innosetup-compiler": "^5.5.9",
-    "lodash": "^4.16.6",
+    "lodash": "^4.17.4",
     "run-sequence": "^1.2.2"
   }
 }
