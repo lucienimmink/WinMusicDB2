@@ -1,14 +1,14 @@
 const electron = require('electron')
-// Module to control application life.
+    // Module to control application life.
 const app = electron.app
-// Module to create native browser window.
+    // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 const globalShortcut = electron.globalShortcut;
 
 const Config = require('electron-config');
 const config = new Config();
 
-const {Menu, Tray, MenuItem} = require('electron')
+const { Menu, Tray, MenuItem } = require('electron')
 let tray = null;
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -20,7 +20,7 @@ let size = JSON.parse(config.get('size') || "[500, 780]");
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({ width: size[0], height: size[1], minWidth: 500, minHeight: 780, title: 'JSMusicDB next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` });
-    mainWindow.webContents.session.clearCache(function () {
+    mainWindow.webContents.session.clearCache(function() {
         // clear cache on start-up.
     });
 
@@ -31,28 +31,31 @@ function createWindow() {
     // mainWindow.webContents.openDevTools()
 
     // Emitted when the window is closed.
-    mainWindow.on('closed', function () {
+    mainWindow.on('closed', function() {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
         mainWindow = null
     });
 
-    mainWindow.on('resize', function () {
+    mainWindow.on('resize', function() {
         config.set('size', JSON.stringify(mainWindow.getSize()));
     });
 
     // register mediakeys
-    var registered = globalShortcut.register('medianexttrack', function () {
+    var registered = globalShortcut.register('medianexttrack', function() {
         mainWindow.webContents.send('ipc-next');
     });
 
-    var registered = globalShortcut.register('mediaplaypause', function () {
+    var registered = globalShortcut.register('mediaplaypause', function() {
         mainWindow.webContents.send('ipc-togglePlay');
     });
 
-    var registered = globalShortcut.register('mediaprevioustrack', function () {
+    var registered = globalShortcut.register('mediaprevioustrack', function() {
         mainWindow.webContents.send('ipc-prev');
+    });
+    var registered = globalShortcut.register('mediastop', function() {
+        mainWindow.webContents.send('ipc-stop');
     });
 
     // inject a new JS file with the electron specific javascript
@@ -73,7 +76,7 @@ function createWindow() {
 app.on('ready', createWindow)
 
 // Quit when all windows are closed.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', function() {
     // On OS X it is common for applications and their menu bar
     // to stay active until the user quits explicitly with Cmd + Q
     if (process.platform !== 'darwin') {
@@ -81,7 +84,7 @@ app.on('window-all-closed', function () {
     }
 })
 
-app.on('activate', function () {
+app.on('activate', function() {
     // On OS X it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (mainWindow === null) {
@@ -89,7 +92,7 @@ app.on('activate', function () {
     }
 })
 
-app.on('minimize', function () {
+app.on('minimize', function() {
     mainWindow.hide();
 })
 
@@ -97,7 +100,7 @@ app.on('minimize', function () {
 // code. You can also put them in separate files and require them here.
 
 
-const {ipcMain} = require('electron')
+const { ipcMain } = require('electron')
 ipcMain.on('mdbplaying', (event, arg) => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
     tray.setToolTip(`Playing: ${arg.title} by ${arg.artist}`);
@@ -112,7 +115,7 @@ ipcMain.on('mdbstopped', (event, arg) => {
 });
 
 
-var addTray = function () {
+var addTray = function() {
     var trayMenu = new Menu();
     trayMenu.append(new MenuItem({
         label: 'Show/hide window',
@@ -147,7 +150,7 @@ var addTray = function () {
 }
 
 var communicator = {
-    sendToggleWindow: function () {
+    sendToggleWindow: function() {
         var isMinimized = mainWindow.isMinimized();
         if (isMinimized) {
             mainWindow.restore();
@@ -156,16 +159,16 @@ var communicator = {
             mainWindow.minimize();
         }
     },
-    sendTogglePlay: function () {
+    sendTogglePlay: function() {
         mainWindow.webContents.send('ipc-togglePlay');
     },
-    sendPrev: function () {
+    sendPrev: function() {
         mainWindow.webContents.send('ipc-prev');
     },
-    sendNext: function () {
+    sendNext: function() {
         mainWindow.webContents.send('ipc-next');
     },
-    sendQuit: function () {
+    sendQuit: function() {
         app.quit();
     }
 }
