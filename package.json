@@ -17,7 +17,7 @@
     },
     "homepage": "http://www.jsmusicdb.com",
     "dependencies": {
-        "jsmusicdbnext-prebuilt": "git+https://github.com/lucienimmink/JSMusicDBNext-prebuilt.git",
+        "jsmusicdbnext-prebuilt": "^1.0.1",
         "electron-config": "^0.2.1"
     },
     "devDependencies": {
