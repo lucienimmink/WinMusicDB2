@@ -19,7 +19,7 @@ let size = JSON.parse(config.get('size') || "[500, 780]");
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: size[0], height: size[1], minWidth: 500, minHeight: 780, title: 'JSMusicDB next', autoHideMenuBar: true, icon: `${__dirname}/images/logo-32.png` });
+    mainWindow = new BrowserWindow({ width: size[0], height: size[1], minWidth: 500, minHeight: 780, title: 'JSMusicDB next', autoHideMenuBar: true, icon: `${__dirname}/images/icon-32.png` });
     mainWindow.webContents.session.clearCache(function() {
         // clear cache on start-up.
     });
@@ -143,9 +143,9 @@ var addTray = function() {
         label: 'Quit',
         click: communicator.sendQuit
     }));
-    tray = new Tray(`${__dirname}/images/logo-32.png`);
+    tray = new Tray(`${__dirname}/images/icon-32.png`);
     tray.setContextMenu(trayMenu);
-    tray.setToolTip(`JSMusicDB Next`);
+    tray.setToolTip(`WinMusicDB Next`);
     tray.on('click', communicator.sendToggleWindow);
 }
 
