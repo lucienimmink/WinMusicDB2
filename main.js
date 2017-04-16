@@ -104,10 +104,12 @@ const { ipcMain } = require('electron')
 ipcMain.on('mdbplaying', (event, arg) => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
     tray.setToolTip(`Playing: ${arg.title} by ${arg.artist}`);
+    mainWindow.setOverlayIcon(`${__dirname}/images/play-button.png`, `Playing: ${arg.title} by ${arg.artist}`);
 });
 ipcMain.on('mdbpaused', (event, arg) => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
     tray.setToolTip(`Paused: ${arg.title} by ${arg.artist}`);
+    mainWindow.setOverlayIcon(null, ``);
 });
 ipcMain.on('mdbstopped', (event, arg) => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
@@ -145,7 +147,7 @@ var addTray = function() {
     }));
     tray = new Tray(`${__dirname}/images/icon-32.png`);
     tray.setContextMenu(trayMenu);
-    tray.setToolTip(`WinMusicDB Next`);
+    tray.setToolTip(`JSMusicDB Next`);
     tray.on('click', communicator.sendToggleWindow);
 }
 
