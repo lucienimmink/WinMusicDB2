@@ -1,5 +1,6 @@
 (function() {
     const { ipcRenderer } = require('electron');
+    const remote = require('electron').remote;
 
     document.querySelector('mdb-player').addEventListener('external.mdbplaying', function(e) {
         let details = {
@@ -37,4 +38,32 @@
         document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbstop'));
     });
 
+    const customHeader = document.createElement("div");
+    customHeader.innerHTML = `<div id="title-bar">
+          <div id="title-bar-btns">
+               <button id="min-btn">-</button>
+               <button id="max-btn">+</button>
+               <button id="close-btn">x</button>
+          </div>
+     </div>`;
+    document.querySelector('body').insertBefore(customHeader, document.querySelector('body').firstChild);
+
+    document.getElementById("min-btn").addEventListener("click", function(e) {
+        const window = remote.getCurrentWindow();
+        window.minimize();
+    });
+
+    document.getElementById("max-btn").addEventListener("click", function(e) {
+        const window = remote.getCurrentWindow();
+        if (!window.isMaximized()) {
+            window.maximize();
+        } else {
+            window.unmaximize();
+        }
+    });
+
+    document.getElementById("close-btn").addEventListener("click", function(e) {
+        const window = remote.getCurrentWindow();
+        window.close();
+    });
 })();

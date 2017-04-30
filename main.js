@@ -19,7 +19,7 @@ let size = JSON.parse(config.get('size') || "[500, 780]");
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width: size[0], height: size[1], minWidth: 500, minHeight: 780, title: 'JSMusicDB next', autoHideMenuBar: true, icon: `${__dirname}/images/icon-32.png` });
+    mainWindow = new BrowserWindow({ width: size[0], height: size[1], minWidth: 500, minHeight: 780, title: 'JSMusicDB next', autoHideMenuBar: true, icon: `${__dirname}/images/icon-32.png`, frame: false });
     mainWindow.webContents.session.clearCache(function() {
         // clear cache on start-up.
     });

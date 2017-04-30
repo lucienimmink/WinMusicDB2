@@ -17,12 +17,12 @@
     },
     "homepage": "http://www.jsmusicdb.com",
     "dependencies": {
-        "jsmusicdbnext-prebuilt": "^1.0.1",
+        "jsmusicdbnext-prebuilt": "^1.1.2",
         "electron-config": "^0.2.1"
     },
     "devDependencies": {
         "del": "^2.2.2",
-        "electron": "^1.6.2",
+        "electron": "^1.6.7",
         "electron-packager": "^8.6.0",
         "gulp": "^3.9.1",
         "gulp-rename": "1.2.2",
