@@ -18,7 +18,7 @@
     "homepage": "http://www.jsmusicdb.com",
     "dependencies": {
         "electron-config": "^0.2.1",
-        "jsmusicdbnext-prebuilt": "^1.4.1"
+        "jsmusicdbnext-prebuilt": "^1.5.1"
     },
     "devDependencies": {
         "del": "^2.2.2",
