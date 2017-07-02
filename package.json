@@ -18,12 +18,12 @@
     "homepage": "http://www.jsmusicdb.com",
     "dependencies": {
         "electron-config": "^0.2.1",
-        "jsmusicdbnext-prebuilt": "^1.5.1"
+        "jsmusicdbnext-prebuilt": "^1.5.2"
     },
     "devDependencies": {
         "del": "^2.2.2",
-        "electron": "^1.7.3",
-        "electron-packager": "^8.7.1",
+        "electron": "^1.7.4",
+        "electron-packager": "^8.7.2",
         "gulp": "^3.9.1",
         "gulp-rename": "1.2.2",
         "innosetup-compiler": "^5.5.9",

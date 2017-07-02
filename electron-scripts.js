@@ -41,9 +41,10 @@
     const customHeader = document.createElement("div");
     customHeader.innerHTML = `<div id="title-bar">
           <div id="title-bar-btns">
-               <button id="min-btn">-</button>
-               <button id="max-btn">+</button>
-               <button id="close-btn">x</button>
+               <button id="min-btn" title="Minimize">🗕</button>
+               <button id="max-btn" title="Maximize/unmaximize">🗖</button>
+               <button id="full-btn" title="Toggle fullscreen">🆜</button>
+               <button id="close-btn" title="Close">⨯</button>
           </div>
      </div>`;
     document.querySelector('body').insertBefore(customHeader, document.querySelector('body').firstChild);
@@ -65,5 +66,12 @@
     document.getElementById("close-btn").addEventListener("click", function(e) {
         const window = remote.getCurrentWindow();
         window.close();
+    });
+
+    let isFullScreen = false;
+    document.getElementById("full-btn").addEventListener("click", function(e) {
+        const window = remote.getCurrentWindow();
+        isFullScreen = !isFullScreen;
+        window.setFullScreen(isFullScreen);
     });
 })();
