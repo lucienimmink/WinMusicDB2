@@ -18,12 +18,7 @@ gulp.task('clean', function(cb) {
 gulp.task('copy', function(cb) {
     // copy files and folders
     return gulp.src([
-        'node_modules/jsmusicdbnext-prebuilt/css/**/*',
-        'node_modules/jsmusicdbnext-prebuilt/fonts/**/*',
-        'node_modules/jsmusicdbnext-prebuilt/global/**/*',
-        'node_modules/jsmusicdbnext-prebuilt/js/**/*',
-        'node_modules/jsmusicdbnext-prebuilt/manifest.json',
-        'node_modules/jsmusicdbnext-prebuilt/sw.js'
+        'node_modules/jsmusicdbnext-prebuilt/**/*'
     ], {
         base: "."
     }).pipe(
@@ -110,10 +105,10 @@ gulp.task('linux-setup', function(cb) {
 });
 
 gulp.task('update', function(cb) {
-    runSequence('clean', 'copy', 'copy-and-rename');
+    runSequence('clean', 'copy');
 });
 
 
 gulp.task('build', function(cb) {
-    runSequence('clean', 'copy', 'copy-and-rename', 'package', 'win-setup');
+    runSequence('clean', 'copy', 'package', 'win-setup');
 });
