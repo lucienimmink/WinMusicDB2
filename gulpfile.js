@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var packager = require('electron-packager');
 var inno = require("innosetup-compiler");
-var runSequence = require('run-sequence');
 var del = require('del');
 var rename = require('gulp-rename');
 // var installer = require('electron-installer-debian')
@@ -104,11 +103,10 @@ gulp.task('linux-setup', function(cb) {
     })
 });
 
-gulp.task('update', function(cb) {
-    runSequence('clean', 'copy');
-});
+gulp.task('update', gulp.series('clean', 'copy', function(cb) { 
+    cb();
+}));
 
-
-gulp.task('build', function(cb) {
-    runSequence('clean', 'copy', 'package', 'win-setup');
-});
+gulp.task('build', gulp.series('update', 'package', 'win-setup', function(cb) { 
+    cb();
+}));
