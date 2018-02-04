@@ -1,6 +1,6 @@
 {
     "name": "WinMusicDB",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "description": "An advanced music player by AddaSoft",
     "main": "main.js",
     "scripts": {
@@ -18,7 +18,7 @@
     "homepage": "http://www.jsmusicdb.com",
     "dependencies": {
         "electron-config": "^1.0.0",
-        "jsmusicdbnext-prebuilt": "^2.2.0"
+        "jsmusicdbnext-prebuilt": "^2.2.1"
     },
     "devDependencies": {
         "del": "^2.2.2",
