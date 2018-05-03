@@ -24,6 +24,15 @@
         };
         ipcRenderer.send('mdbpaused', details);
     });
+    document.querySelector('mdb-player').addEventListener('external.mdbscanstart', function(e) {
+        ipcRenderer.send('mdbscanstart');
+    });
+    document.querySelector('mdb-player').addEventListener('external.mdbscanning', function(e) {
+        ipcRenderer.send('mdbscanning', e.detail);
+    });
+    document.querySelector('mdb-player').addEventListener('external.mdbscanstop', function(e) {
+        ipcRenderer.send('mdbscanstop');
+    });
 
     ipcRenderer.on('ipc-togglePlay', (event, arg) => {
         document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbtoggle'));

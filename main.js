@@ -129,6 +129,17 @@ ipcMain.on("mdbstopped", (event, arg) => {
   tray.setToolTip(`JSMusicDB Next`);
 });
 
+// use the scan events to update the progress in the taskbar
+ipcMain.on("mdbscanstart", (event, arg) => {
+  mainWindow.setProgressBar(0);
+});
+ipcMain.on("mdbscanning", (event, arg) => {
+  mainWindow.setProgressBar(arg.percentage / 100);
+});
+ipcMain.on("mdbscanstop", (event, arg) => {
+  mainWindow.setProgressBar(-1); // remove indicator
+});
+
 var addTray = function() {
   var trayMenu = new Menu();
   trayMenu.append(
