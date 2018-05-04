@@ -1,6 +1,6 @@
 {
   "name": "WinMusicDB",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "An advanced music player by AddaSoft",
   "main": "main.js",
   "scripts": {
