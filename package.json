@@ -1,31 +1,33 @@
 {
-  "name": "WinMusicDB",
-  "version": "2.7.6",
-  "description": "An advanced music player by AddaSoft",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lucienimmink/WinMusicDB2.git"
-  },
-  "author": "AddaSoft",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/lucienimmink/WinMusicDB2/issues"
-  },
-  "homepage": "http://www.jsmusicdb.com",
-  "dependencies": {
-    "electron-config": "^1.0.0",
-    "jsmusicdbnext-prebuilt": "^2.7.5"
-  },
-  "devDependencies": {
-    "del": "^3.0.0",
-    "electron": "1.8.7",
-    "electron-packager": "^12.1.0",
-    "gulp": "^4.0.0",
-    "gulp-rename": "^1.2.3",
-    "innosetup-compiler": "^5.5.9"
-  }
+    "name": "WinMusicDB",
+    "version": "2.7.6",
+    "description": "An advanced music player by AddaSoft",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lucienimmink/WinMusicDB2.git"
+    },
+    "author": "AddaSoft",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/lucienimmink/WinMusicDB2/issues"
+    },
+    "homepage": "http://www.jsmusicdb.com",
+    "dependencies": {
+        "electron-config": "^1.0.0",
+        "electron": "1.8.7",
+        "jsmusicdbnext-prebuilt": "^2.7.6"
+    },
+    "devDependencies": {
+        "@isaac.frontend/eslint-config-es6": "^2.1.0",
+        "del": "^3.0.0",
+        "electron-packager": "^12.1.0",
+        "gulp": "^4.0.0",
+        "gulp-rename": "^1.2.3",
+        "innosetup-compiler": "^5.5.9",
+        "prettier-eslint": "^8.8.1"
+    }
 }

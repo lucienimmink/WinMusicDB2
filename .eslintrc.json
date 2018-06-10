@@ -1,0 +1,18 @@
+{
+    "extends": "@isaac.frontend/eslint-config-es6",
+    "rules": {
+        "prefer-destructuring": [
+            "error",
+            {
+                "array": false,
+                "object": true
+            }
+        ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ]
+    }
+}
