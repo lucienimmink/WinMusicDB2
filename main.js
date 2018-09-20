@@ -170,6 +170,7 @@ ipcMain.on('mdbplaying', (event, arg) => {
         `${__dirname}/images/play-button.png`,
         `Playing: ${arg.title} by ${arg.artist}`,
     )
+    mainWindow.setTitle(`${arg.title} by ${arg.artist} - JSMusicDB next`)
 })
 ipcMain.on('mdbpaused', (event, arg) => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
@@ -179,6 +180,7 @@ ipcMain.on('mdbpaused', (event, arg) => {
 ipcMain.on('mdbstopped', () => {
     // now we can use this info for something awesome; let's use the data to set a tray icon
     tray.setToolTip('JSMusicDB Next')
+    mainWindow.setTitle('JSMusicDB next')
 })
 
 // use the scan events to update the progress in the taskbar
