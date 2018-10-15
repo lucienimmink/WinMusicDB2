@@ -32,6 +32,9 @@ const { ipcRenderer, remote } = require('electron');
     document.querySelector('mdb-player').addEventListener('external.mdbscanstop', () => {
         ipcRenderer.send('mdbscanstop')
     })
+    document.querySelector('mdb-player').addEventListener('external.mdbuntaint', (e) => {
+        ipcRenderer.send('mdbuntaint', e.detail)
+    })
 
     ipcRenderer.on('ipc-togglePlay', () => {
         document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbtoggle'))
@@ -44,6 +47,12 @@ const { ipcRenderer, remote } = require('electron');
     })
     ipcRenderer.on('ipc-stop', () => {
         document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbstop'))
+    })
+    ipcRenderer.on('ipc-blobdata', () => {
+        const blob = remote.getGlobal('Uint8Array').root
+        // set it as global const
+        window.externalBlob = blob
+        document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbblob'))
     })
 
     const customHeader = document.createElement('div')

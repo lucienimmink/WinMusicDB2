@@ -6,6 +6,8 @@ const {
     Menu, Tray, MenuItem, BrowserWindow, globalShortcut, app, ipcMain,
 } = require('electron')
 
+const fetch = require('node-fetch')
+
 let tray = null
 
 process.env.GOOGLE_API_KEY = 'AIzaSyDNIncH70uAPgdUK_hZfQ9EQBDPwhuOYmM'
@@ -195,4 +197,17 @@ ipcMain.on('mdbscanning', (event, arg) => {
 })
 ipcMain.on('mdbscanstop', () => {
     mainWindow.setProgressBar(-1) // remove indicator
+})
+
+ipcMain.on('mdbuntaint', (event, arg) => {
+    // fetch the url
+    if (arg.url.indexOf('file://') !== 0 && arg.url.indexOf('blob:') !== 0) {
+        fetch(arg.url)
+            .then(response => response.arrayBuffer())
+            .then((buffer) => {
+                // we now have a blob that we can send back!
+                global.Uint8Array.root = buffer
+                mainWindow.webContents.send('ipc-blobdata')
+            })
+    }
 })

@@ -17,8 +17,11 @@
   },
   "homepage": "http://www.jsmusicdb.com",
   "dependencies": {
+    "blob-util": "^2.0.2",
     "electron-config": "^1.0.0",
-    "jsmusicdbnext-prebuilt": "^2.7.15"
+    "idb-keyval": "^3.1.0",
+    "jsmusicdbnext-prebuilt": "^2.7.15",
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^2.1.0",
