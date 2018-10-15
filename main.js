@@ -86,7 +86,7 @@ function createWindow() {
         title: 'JSMusicDB next',
         autoHideMenuBar: true,
         icon: `${__dirname}/images/icon-32.png`,
-        frame: true,
+        frame: false,
     })
     mainWindow.webContents.session.clearCache(() => {
         // clear cache on start-up.
