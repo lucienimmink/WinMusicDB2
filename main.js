@@ -87,9 +87,6 @@ function createWindow() {
         autoHideMenuBar: true,
         icon: `${__dirname}/images/icon-32.png`,
         frame: true,
-        webPreferences: {
-            webSecurity: false,
-        },
     })
     mainWindow.webContents.session.clearCache(() => {
         // clear cache on start-up.
