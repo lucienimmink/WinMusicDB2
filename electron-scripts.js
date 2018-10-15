@@ -84,4 +84,5 @@ const { ipcRenderer, remote } = require('electron');
         isFullScreen = !isFullScreen
         window.setFullScreen(isFullScreen)
     })
+    window.runnigInElectron = true
 }())
