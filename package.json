@@ -19,7 +19,7 @@
   },
   "homepage": "http://www.jsmusicdb.com",
   "dependencies": {
-    "carlo": "^0.9.11",
+    "carlo": "^0.9.20",
     "jsmusicdbnext-prebuilt": "^2.9.3"
   },
   "devDependencies": {
