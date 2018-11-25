@@ -35,6 +35,9 @@ const { ipcRenderer, remote } = require('electron');
     document.querySelector('mdb-player').addEventListener('external.mdbuntaint', (e) => {
         ipcRenderer.send('mdbuntaint', e.detail)
     })
+    document.querySelector('mdb-player').addEventListener('external.mdbtheme', (e) => {
+        ipcRenderer.send('mdbtheme', e.detail)
+    })
 
     ipcRenderer.on('ipc-togglePlay', () => {
         document.querySelector('mdb-player').dispatchEvent(new Event('external.mdbtoggle'))

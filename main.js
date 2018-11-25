@@ -200,6 +200,11 @@ ipcMain.on('mdbscanstop', () => {
     mainWindow.setProgressBar(-1) // remove indicator
 })
 
+ipcMain.on('mdbtheme', (event, arg) => {
+    // acrylic background change
+    electronAcrylic.setAcrylic(mainWindow, arg === 'light' ? 0xffffff : 0x000000)
+})
+
 ipcMain.on('mdbuntaint', (event, arg) => {
     // fetch the url
     if (arg.url.indexOf('file://') !== 0 && arg.url.indexOf('blob:') !== 0) {
