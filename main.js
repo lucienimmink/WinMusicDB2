@@ -8,6 +8,8 @@ const {
 
 const fetch = require('node-fetch')
 
+const electronAcrylic = require('electron-acrylic')
+
 let tray = null
 
 process.env.GOOGLE_API_KEY = 'AIzaSyDNIncH70uAPgdUK_hZfQ9EQBDPwhuOYmM'
@@ -87,13 +89,15 @@ function createWindow() {
         autoHideMenuBar: true,
         icon: `${__dirname}/images/icon-32.png`,
         frame: false,
+        transparent: true,
     })
+    electronAcrylic.setAcrylic(mainWindow, 0xffffff)
     mainWindow.webContents.session.clearCache(() => {
         // clear cache on start-up.
     })
 
     // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
+    mainWindow.loadURL(`file://${__dirname}/app/index.html?win=true`)
 
     // Open the DevTools.
     // mainWindow.webContents.openDevTools()
