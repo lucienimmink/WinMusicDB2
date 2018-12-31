@@ -1,6 +1,6 @@
 {
   "name": "winmusicdb",
-  "version": "2.9.9",
+  "version": "2.10.0",
   "description": "An advanced music player by AddaSoft",
   "main": "main.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "blob-util": "^2.0.2",
     "electron-store": "^2.0.0",
     "idb-keyval": "^3.1.0",
-    "jsmusicdbnext-prebuilt": "^2.9.9",
+    "jsmusicdbnext-prebuilt": "^2.10.0",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
