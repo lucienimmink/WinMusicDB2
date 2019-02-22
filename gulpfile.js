@@ -3,10 +3,18 @@ const packager = require('electron-packager')
 const inno = require('innosetup-compiler')
 const del = require('del')
 const rename = require('gulp-rename')
+const replace = require('gulp-replace')
 // var installer = require('electron-installer-debian')
 
 gulp.task('clean', (cb) => {
     del(['app/**/*', 'Output/**/*', 'WinMusicDBNext-win32-x64/**/*'])
+    cb()
+})
+
+gulp.task('update-base', (cb) => {
+    gulp.src(['./app/index.html'])
+        .pipe(replace('<base href="/" />', '<base href="." />'))
+        .pipe(gulp.dest('app/'))
     cb()
 })
 
@@ -95,7 +103,7 @@ gulp.task('linux-setup', (cb) => {
 */
 gulp.task(
     'update',
-    gulp.series('clean', 'copy', (cb) => {
+    gulp.series('clean', 'copy', 'update-base', (cb) => {
         cb()
     }),
 )
