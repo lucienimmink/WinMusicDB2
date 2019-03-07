@@ -28,7 +28,7 @@
     "@isaac.frontend/eslint-config-es6": "^2.1.0",
     "del": "^3.0.0",
     "electron": "^4.0.6",
-    "electron-packager": "^13.1.0",
+    "electron-packager": "^13.1.1",
     "gulp": "^4.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
