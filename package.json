@@ -21,7 +21,7 @@
     "blob-util": "^2.0.2",
     "electron-store": "^2.0.0",
     "idb-keyval": "^3.1.0",
-    "jsmusicdbnext-prebuilt": "^2.11.2",
+    "jsmusicdbnext-prebuilt": "^2.11.4",
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
