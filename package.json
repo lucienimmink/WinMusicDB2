@@ -19,7 +19,7 @@
   "homepage": "http://www.jsmusicdb.com",
   "dependencies": {
     "blob-util": "^2.0.2",
-    "electron-store": "^2.0.0",
+    "electron-store": "^3.0.0",
     "idb-keyval": "^3.1.0",
     "jsmusicdbnext-prebuilt": "^2.11.5",
     "node-fetch": "^2.3.0"
