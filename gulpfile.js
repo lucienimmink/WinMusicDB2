@@ -38,15 +38,6 @@ gulp.task('copy', () =>
         }))
         .pipe(gulp.dest('./app')))
 
-gulp.task('copy-and-rename', () =>
-    gulp
-        .src('node_modules/jsmusicdbnext-prebuilt/electron.html')
-        .pipe(rename((path) => {
-            path.dirname = ''
-            path.basename = 'index'
-        }))
-        .pipe(gulp.dest('./app')))
-
 gulp.task('package', () =>
     packager({
         dir: '.',
