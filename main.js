@@ -44,32 +44,46 @@ const communicator = {
 
 const addTray = function addTray() {
     const trayMenu = new Menu()
-    trayMenu.append(new MenuItem({
-        label: 'Show/hide window',
-        click: communicator.sendToggleWindow,
-    }))
-    trayMenu.append(new MenuItem({
-        type: 'separator',
-    }))
-    trayMenu.append(new MenuItem({
-        label: 'Play/Pause',
-        click: communicator.sendTogglePlay,
-    }))
-    trayMenu.append(new MenuItem({
-        label: 'Next',
-        click: communicator.sendNext,
-    }))
-    trayMenu.append(new MenuItem({
-        label: 'Previous',
-        click: communicator.sendPrev,
-    }))
-    trayMenu.append(new MenuItem({
-        type: 'separator',
-    }))
-    trayMenu.append(new MenuItem({
-        label: 'Quit',
-        click: communicator.sendQuit,
-    }))
+    trayMenu.append(
+        new MenuItem({
+            label: 'Show/hide window',
+            click: communicator.sendToggleWindow,
+        }),
+    )
+    trayMenu.append(
+        new MenuItem({
+            type: 'separator',
+        }),
+    )
+    trayMenu.append(
+        new MenuItem({
+            label: 'Play/Pause',
+            click: communicator.sendTogglePlay,
+        }),
+    )
+    trayMenu.append(
+        new MenuItem({
+            label: 'Next',
+            click: communicator.sendNext,
+        }),
+    )
+    trayMenu.append(
+        new MenuItem({
+            label: 'Previous',
+            click: communicator.sendPrev,
+        }),
+    )
+    trayMenu.append(
+        new MenuItem({
+            type: 'separator',
+        }),
+    )
+    trayMenu.append(
+        new MenuItem({
+            label: 'Quit',
+            click: communicator.sendQuit,
+        }),
+    )
     tray = new Tray(`${__dirname}/images/icon-32.png`)
     tray.setContextMenu(trayMenu)
     tray.setToolTip('JSMusicDB Next')
@@ -87,9 +101,9 @@ function createWindow() {
         autoHideMenuBar: true,
         icon: `${__dirname}/images/icon-32.png`,
         frame: false,
-    })
-    mainWindow.webContents.session.clearCache(() => {
-        // clear cache on start-up.
+        webPreferences: {
+            nodeIntegration: true,
+        },
     })
 
     // and load the index.html of the app.

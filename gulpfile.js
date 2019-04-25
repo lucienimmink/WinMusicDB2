@@ -18,13 +18,12 @@ gulp.task('update-base', (cb) => {
     cb()
 })
 
-gulp.task('copy', () =>
-    // copy files and folders
-    gulp
-        .src(['node_modules/jsmusicdbnext-prebuilt/**/*'], {
-            base: '.',
-        })
-        .pipe(rename((path) => {
+gulp.task('copy', () => gulp
+    .src(['node_modules/jsmusicdbnext-prebuilt/**/*'], {
+        base: '.',
+    })
+    .pipe(
+        rename((path) => {
             let { dirname } = path
             dirname = dirname.split('\\')
             if (dirname.length === 4) {
@@ -35,26 +34,26 @@ gulp.task('copy', () =>
                 dirname = ''
             }
             path.dirname = dirname
-        }))
-        .pipe(gulp.dest('./app')))
+        }),
+    )
+    .pipe(gulp.dest('./app')))
 
-gulp.task('package', () =>
-    packager({
-        dir: '.',
-        appCopyright: `Copyright (C) ${new Date().getFullYear()} AddaSoft All rights served`,
-        arch: 'x64',
-        icon: 'images/icon',
-        name: 'WinMusicDBNext',
-        overwrite: true,
-        platform: 'win32',
-        appCategoryType: 'public.app-category.music',
-        win32metadata: {
-            CompanyName: 'AddaSoft',
-            FileDescription: 'WinMusicDB Next',
-            OriginalFilename: 'WinMusicDB.exe',
-            ProductName: 'WinMusicDB Next',
-        },
-    }))
+gulp.task('package', () => packager({
+    dir: '.',
+    appCopyright: `Copyright (C) ${new Date().getFullYear()} AddaSoft All rights served`,
+    arch: 'x64',
+    icon: 'images/icon',
+    name: 'WinMusicDBNext',
+    overwrite: true,
+    platform: 'win32',
+    appCategoryType: 'public.app-category.music',
+    win32metadata: {
+        CompanyName: 'AddaSoft',
+        FileDescription: 'WinMusicDB Next',
+        OriginalFilename: 'WinMusicDB.exe',
+        ProductName: 'WinMusicDB Next',
+    },
+}))
 
 gulp.task('win-setup', (cb) => {
     inno(
