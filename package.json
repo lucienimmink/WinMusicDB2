@@ -25,7 +25,7 @@
     "node-fetch": "^2.3.0"
   },
   "devDependencies": {
-    "@isaac.frontend/eslint-config-es6": "^2.1.0",
+    "@isaac.frontend/eslint-config-es6": "^3.0.0",
     "del": "^4.1.0",
     "electron": "^4.1.4",
     "electron-packager": "^13.1.1",
