@@ -22,7 +22,7 @@
     "electron-store": "^3.2.0",
     "idb-keyval": "^3.2.0",
     "jsmusicdbnext-prebuilt": "^2.15.2",
-    "node-fetch": "^2.5.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
