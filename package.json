@@ -23,19 +23,19 @@
     "blob-util": "^2.0.2",
     "electron-store": "^3.3.0",
     "idb-keyval": "^3.2.0",
-    "jsmusicdbnext-prebuilt": "^2.16.0",
+    "jsmusicdbnext-prebuilt": "^2.17.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
     "del": "^4.1.1",
-    "electron": "^5.0.4",
+    "electron": "^5.0.7",
     "electron-packager": "^13.1.1",
     "gulp": "^4.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "innosetup-compiler": "^5.5.9",
-    "node": "^12.4.0",
+    "node": "^12.6.0",
     "prettier-eslint": "^9.0.0"
   },
   "engines": {
