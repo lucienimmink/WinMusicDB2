@@ -14,14 +14,24 @@ gulp.task('clean', (cb) => {
 gulp.task('update-base', (cb) => {
     gulp.src(['./app/index.html'])
         .pipe(replace('<base href="/" />', '<base href="." />'))
+        // remove modules
+        .pipe(replace(new RegExp('<script (src="[^"]+?")[ ]type="module"></script>', 'g'), ''))
+        // and use old es5 style scripts
+        .pipe(replace(new RegExp(' nomodule>', 'g'), '>'))
         .pipe(gulp.dest('app/'))
     cb()
 })
 
 gulp.task('copy', () => gulp
-    .src(['node_modules/jsmusicdbnext-prebuilt/**/*'], {
-        base: '.',
-    })
+    .src(
+        [
+            'node_modules/jsmusicdbnext-prebuilt/**/*',
+            '!node_modules/jsmusicdbnext-prebuilt/*-es2015*',
+        ],
+        {
+            base: '.',
+        },
+    )
     .pipe(
         rename((path) => {
             let { dirname } = path
@@ -64,6 +74,7 @@ gulp.task('win-setup', (cb) => {
         },
         (error) => {
             if (error) {
+                // eslint-disable-next-line no-console
                 console.error('packing failed', error)
                 return
             }
