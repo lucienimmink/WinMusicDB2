@@ -30,6 +30,7 @@
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
     "del": "^5.0.0",
     "electron": "^6.0.0",
+    "electron-installer-dmg": "^3.0.0",
     "electron-packager": "^14.0.4",
     "gulp": "^4.0.2",
     "gulp-rename": "^1.4.0",

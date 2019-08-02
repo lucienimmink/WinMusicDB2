@@ -5,6 +5,7 @@ const del = require('del')
 const rename = require('gulp-rename')
 const replace = require('gulp-replace')
 // var installer = require('electron-installer-debian')
+var createDMG = require('electron-installer-dmg')
 
 gulp.task('clean', (cb) => {
     del(['app/**/*', 'Output/**/*', 'WinMusicDBNext-win32-x64/**/*'])
@@ -64,6 +65,16 @@ gulp.task('package', () => packager({
         ProductName: 'WinMusicDB Next',
     },
 }))
+gulp.task('package-mac', () => packager({
+    dir: '.',
+    appCopyright: `Copyright (C) ${new Date().getFullYear()} AddaSoft All rights served`,
+    arch: 'x64',
+    icon: 'images/icon.icns',
+    name: 'MacMusicDB Next',
+    overwrite: true,
+    platform: 'darwin',
+    appCategoryType: 'public.app-category.music',
+}))
 
 gulp.task('win-setup', (cb) => {
     inno(
@@ -84,24 +95,17 @@ gulp.task('win-setup', (cb) => {
     )
 })
 
-/*
-gulp.task('linux-setup', (cb) => {
-    installer(
-        {
-            src: 'WinMusicDBNext-linux-x64/',
-            dest: 'Output/',
-            arch: 'amd64',
-        },
-        (error) => {
-            if (error) {
-                console.error('deb failed', error)
-                return
-            }
-            cb()
-        },
-    )
-})
-*/
+gulp.task('mac-setup', async cb => {
+    const created = await createDMG({
+        appPath: 'MacMusicDB Next-darwin-x64/MacMusicDB Next.app',
+        name: 'MacMusicDB Next',
+        title: 'MacMusicDB Next',
+        icon: 'images/icon.icns',
+        out: 'output'
+    });
+    cb();
+});
+
 gulp.task(
     'update',
     gulp.series('clean', 'copy', 'update-base', (cb) => {
@@ -112,6 +116,13 @@ gulp.task(
 gulp.task(
     'build',
     gulp.series('update', 'package', 'win-setup', (cb) => {
+        cb()
+    }),
+)
+
+gulp.task(
+    'build-mac',
+    gulp.series('update', 'package-mac', 'mac-setup', (cb) => {
         cb()
     }),
 )
