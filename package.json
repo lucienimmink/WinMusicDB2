@@ -1,6 +1,6 @@
 {
   "name": "winmusicdb",
-  "version": "2.20.7",
+  "version": "2.20.8",
   "description": "An advanced music player by AddaSoft",
   "main": "main.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "innosetup-compiler": "^5.6.1",
-    "node": "^12.7.0",
+    "node": "^12.8.0",
     "prettier-eslint": "^9.0.0"
   },
   "engines": {
