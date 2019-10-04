@@ -1,6 +1,6 @@
 {
   "name": "winmusicdb",
-  "version": "2.21.2",
+  "version": "2.21.3",
   "description": "An advanced music player by AddaSoft",
   "main": "main.js",
   "scripts": {
@@ -23,20 +23,20 @@
     "blob-util": "^2.0.2",
     "electron-store": "^4.0.0",
     "idb-keyval": "^3.2.0",
-    "jsmusicdbnext-prebuilt": "^2.21.1",
+    "jsmusicdbnext-prebuilt": "^2.21.3",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
     "del": "^5.1.0",
-    "electron": "^6.0.9",
+    "electron": "^6.0.11",
     "electron-installer-dmg": "^3.0.0",
     "electron-packager": "^14.0.6",
     "gulp": "^4.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "innosetup-compiler": "^5.6.1",
-    "node": "^12.10.0",
+    "node": "^12.11.0",
     "prettier-eslint": "^9.0.0"
   },
   "engines": {
