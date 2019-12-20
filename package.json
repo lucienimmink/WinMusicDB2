@@ -29,7 +29,7 @@
   "devDependencies": {
     "@isaac.frontend/eslint-config-es6": "^3.0.0",
     "del": "^5.1.0",
-    "electron": "^7.1.2",
+    "electron": "^7.1.7",
     "electron-installer-dmg": "^3.0.0",
     "electron-packager": "^14.1.1",
     "gulp": "^4.0.2",
