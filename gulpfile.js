@@ -5,7 +5,7 @@ const del = require('del')
 const rename = require('gulp-rename')
 const replace = require('gulp-replace')
 // var installer = require('electron-installer-debian')
-var createDMG = require('electron-installer-dmg')
+const createDMG = require('electron-installer-dmg')
 
 gulp.task('clean', (cb) => {
     del(['app/**/*', 'Output/**/*', 'WinMusicDBNext-win32-x64/**/*'])
@@ -18,7 +18,7 @@ gulp.task('update-base', (cb) => {
         // remove modules
         .pipe(replace(new RegExp('<script (src="[^"]+?")[ ]type="module"></script>', 'g'), ''))
         // and use old es5 style scripts
-        .pipe(replace(new RegExp(' nomodule>', 'g'), '>'))
+        .pipe(replace(new RegExp(' nomodule defer>', 'g'), '>'))
         .pipe(gulp.dest('app/'))
     cb()
 })
@@ -95,16 +95,16 @@ gulp.task('win-setup', (cb) => {
     )
 })
 
-gulp.task('mac-setup', async cb => {
+gulp.task('mac-setup', async (cb) => {
     const created = await createDMG({
         appPath: 'MacMusicDB Next-darwin-x64/MacMusicDB Next.app',
         name: 'MacMusicDB Next',
         title: 'MacMusicDB Next',
         icon: 'images/icon.icns',
-        out: 'output'
-    });
-    cb();
-});
+        out: 'output',
+    })
+    cb()
+})
 
 gulp.task(
     'update',
