@@ -27,7 +27,7 @@ gulp.task('copy', () => gulp
     .src(
         [
             'node_modules/jsmusicdbnext-prebuilt/**/*',
-            '!node_modules/jsmusicdbnext-prebuilt/*-latest*',
+            '!node_modules/jsmusicdbnext-prebuilt/*-es2015*',
         ],
         {
             base: '.',
