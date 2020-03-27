@@ -14,9 +14,10 @@ process.env.GOOGLE_API_KEY = 'AIzaSyDNIncH70uAPgdUK_hZfQ9EQBDPwhuOYmM'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
-
 const size = JSON.parse(config.get('size') || '[500, 780]')
+
+const gotTheLock = app.requestSingleInstanceLock()
+let mainWindow = null
 
 const communicator = {
     sendToggleWindow() {
@@ -150,11 +151,21 @@ function createWindow() {
     addTray()
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
-
+if (!gotTheLock) {
+    app.quit()
+} else {
+    app.on('second-instance', () => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore()
+            mainWindow.focus()
+        }
+    })
+    // Create myWindow, load the rest of the app, etc...
+    app.whenReady().then(() => {
+        createWindow()
+    })
+}
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
     // On OS X it is common for applications and their menu bar
