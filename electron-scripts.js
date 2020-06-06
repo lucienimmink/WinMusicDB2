@@ -58,9 +58,8 @@ const { ipcRenderer, remote } = require('electron');
     const customHeader = document.createElement('div')
     customHeader.innerHTML = `<div class="title-bar">
           <div class="title-bar-btns">
-               <button id="min-btn" title="Minimize">🗕</button>
+               <button id="min-btn" title="Minimize">_</button>
                <button id="max-btn" title="Maximize/unmaximize">🗖</button>
-               <button id="full-btn" title="Toggle fullscreen">🆜</button>
                <button id="close-btn" title="Close">⨯</button>
           </div>
      </div>`

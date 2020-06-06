@@ -4,7 +4,7 @@ const inno = require('innosetup-compiler')
 const del = require('del')
 const rename = require('gulp-rename')
 const replace = require('gulp-replace')
-// var installer = require('electron-installer-debian')
+const createDeb = require('electron-installer-debian')
 const createDMG = require('electron-installer-dmg')
 
 gulp.task('clean', (cb) => {
@@ -65,7 +65,7 @@ gulp.task('package', () => packager({
         ProductName: 'WinMusicDB Next',
     },
 }))
-gulp.task('package-mac', () => packager({
+gulp.task('mac-package', () => packager({
     dir: '.',
     appCopyright: `Copyright (C) ${new Date().getFullYear()} AddaSoft All rights served`,
     arch: 'x64',
@@ -74,6 +74,17 @@ gulp.task('package-mac', () => packager({
     overwrite: true,
     platform: 'darwin',
     appCategoryType: 'public.app-category.music',
+}))
+gulp.task('linux-package', () => packager({
+    dir: '.',
+    appCopyright: `Copyright (C) ${new Date().getFullYear()} AddaSoft All rights served`,
+    arch: 'x64',
+    icon: 'images/icon-32.png',
+    name: 'LinMusicDB Next',
+    overwrite: true,
+    platform: 'linux',
+    appCategoryType: 'public.app-category.music',
+    executableName: 'winmusicdb'
 }))
 
 gulp.task('win-setup', (cb) => {
@@ -106,6 +117,19 @@ gulp.task('mac-setup', async (cb) => {
     cb()
 })
 
+gulp.task('linux-setup', async (cb) => {
+    const created = await createDeb({
+        src: 'LinMusicDB Next-linux-x64',
+        dest: 'output',
+        arch: 'amd64',
+        icon: 'images/icon-512-white.png',
+        categories: [
+            "Utilities"
+        ]
+    })
+    cb()
+})
+
 gulp.task(
     'update',
     gulp.series('clean', 'copy', 'update-base', (cb) => {
@@ -121,8 +145,14 @@ gulp.task(
 )
 
 gulp.task(
+    'build-linux',
+    gulp.series('update', 'linux-package', 'linux-setup', (cb) => {
+        cb()
+    }),
+)
+gulp.task(
     'build-mac',
-    gulp.series('update', 'package-mac', 'mac-setup', (cb) => {
+    gulp.series('update', 'mac-package', 'mac-setup', (cb) => {
         cb()
     }),
 )
