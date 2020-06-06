@@ -8,7 +8,7 @@ const createDeb = require('electron-installer-debian')
 const createDMG = require('electron-installer-dmg')
 
 gulp.task('clean', (cb) => {
-    del(['app/**/*', 'Output/**/*', 'WinMusicDBNext-win32-x64/**/*'])
+    del(['app/**/*', 'Output/**/*', 'WinMusicDBNext-win32-x64/**/*', 'LinMusicDB Next-linux-x64/**/*'])
     cb()
 })
 
@@ -36,15 +36,27 @@ gulp.task('copy', () => gulp
     .pipe(
         rename((path) => {
             let { dirname } = path
-            dirname = dirname.split('\\')
-            if (dirname.length === 4) {
-                dirname = `${dirname[2]}\\${dirname[3]}`
-            } else if (dirname.length === 3) {
-                dirname = dirname[2]
+            if (process.platform === "win32") {
+                dirname = dirname.split('\\')
+                if (dirname.length === 4) {
+                    dirname = `${dirname[2]}\\${dirname[3]}`
+                } else if (dirname.length === 3) {
+                    dirname = dirname[2]
+                } else {
+                    dirname = ''
+                }
+                path.dirname = dirname
             } else {
-                dirname = ''
+                dirname = dirname.split('/')
+                if (dirname.length === 4) {
+                    dirname = `${dirname[2]}/${dirname[3]}`
+                } else if (dirname.length === 3) {
+                    dirname = dirname[2]
+                } else {
+                    dirname = ''
+                }
+                path.dirname = dirname
             }
-            path.dirname = dirname
         }),
     )
     .pipe(gulp.dest('./app')))
@@ -112,7 +124,7 @@ gulp.task('mac-setup', async (cb) => {
         name: 'MacMusicDB Next',
         title: 'MacMusicDB Next',
         icon: 'images/icon.icns',
-        out: 'output',
+        out: 'Output',
     })
     cb()
 })
@@ -120,7 +132,7 @@ gulp.task('mac-setup', async (cb) => {
 gulp.task('linux-setup', async (cb) => {
     const created = await createDeb({
         src: 'LinMusicDB Next-linux-x64',
-        dest: 'output',
+        dest: 'Output',
         arch: 'amd64',
         icon: 'images/icon-512-white.png',
         categories: [
@@ -145,13 +157,13 @@ gulp.task(
 )
 
 gulp.task(
-    'build-linux',
+    'linux-build',
     gulp.series('update', 'linux-package', 'linux-setup', (cb) => {
         cb()
     }),
 )
 gulp.task(
-    'build-mac',
+    'mac-build',
     gulp.series('update', 'mac-package', 'mac-setup', (cb) => {
         cb()
     }),
