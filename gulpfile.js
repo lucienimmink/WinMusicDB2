@@ -8,7 +8,7 @@ const createDeb = require('electron-installer-debian')
 const createDMG = require('electron-installer-dmg')
 
 gulp.task('clean', (cb) => {
-    del(['app/**/*', 'Output/**/*', 'WinMusicDBNext-win32-x64/**/*', 'LinMusicDB Next-linux-x64/**/*'])
+    del(['app/**/*', 'WinMusicDBNext-win32-x64/**/*', 'LinMusicDB Next-linux-x64/**/*'])
     cb()
 })
 
@@ -36,7 +36,7 @@ gulp.task('copy', () => gulp
     .pipe(
         rename((path) => {
             let { dirname } = path
-            if (process.platform === "win32") {
+            if (process.platform === 'win32') {
                 dirname = dirname.split('\\')
                 if (dirname.length === 4) {
                     dirname = `${dirname[2]}\\${dirname[3]}`
@@ -96,7 +96,7 @@ gulp.task('linux-package', () => packager({
     overwrite: true,
     platform: 'linux',
     appCategoryType: 'public.app-category.music',
-    executableName: 'winmusicdb'
+    executableName: 'winmusicdb',
 }))
 
 gulp.task('win-setup', (cb) => {
@@ -119,7 +119,7 @@ gulp.task('win-setup', (cb) => {
 })
 
 gulp.task('mac-setup', async (cb) => {
-    const created = await createDMG({
+    await createDMG({
         appPath: 'MacMusicDB Next-darwin-x64/MacMusicDB Next.app',
         name: 'MacMusicDB Next',
         title: 'MacMusicDB Next',
@@ -130,14 +130,14 @@ gulp.task('mac-setup', async (cb) => {
 })
 
 gulp.task('linux-setup', async (cb) => {
-    const created = await createDeb({
+    await createDeb({
         src: 'LinMusicDB Next-linux-x64',
         dest: 'Output',
         arch: 'amd64',
         icon: 'images/icon-512-white.png',
         categories: [
-            "Utilities"
-        ]
+            'Utilities',
+        ],
     })
     cb()
 })
@@ -150,7 +150,7 @@ gulp.task(
 )
 
 gulp.task(
-    'build',
+    'win-build',
     gulp.series('update', 'package', 'win-setup', (cb) => {
         cb()
     }),
