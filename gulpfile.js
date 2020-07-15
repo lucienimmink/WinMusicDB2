@@ -8,7 +8,7 @@ const createDeb = require('electron-installer-debian')
 const createDMG = require('electron-installer-dmg')
 
 gulp.task('clean', (cb) => {
-    del(['app/**/*', 'WinMusicDBNext-win32-x64/**/*', 'LinMusicDB Next-linux-x64/**/*'])
+    del(['app/**/*', 'WinMusicDBNext-win32-x64/**/*', 'LinMusicDB Next-linux-x64/**/*', 'Output/**/*'])
     cb()
 })
 
