@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "WinMusicDB Next"
-#define MyAppVersion "2.29.3"
+#define MyAppVersion "2.29.4"
 #define MyAppPublisher "AddaSoft"
 #define MyAppURL "http://www.jsmusicdb.com"
 #define MyAppExeName "WinMusicDBNext.exe"
