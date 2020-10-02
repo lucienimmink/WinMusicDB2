@@ -1,6 +1,6 @@
 {
   "name": "winmusicdb",
-  "version": "2.29.6",
+  "version": "2.29.7",
   "description": "An advanced music player by AddaSoft",
   "main": "main.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "electron-installer-debian": "^3.1.0",
     "electron-store": "^5.2.0",
     "idb-keyval": "^3.2.0",
-    "jsmusicdbnext-prebuilt": "^2.29.5",
+    "jsmusicdbnext-prebuilt": "^2.29.7",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
